@@ -8,6 +8,8 @@ import {
   crearVacanteAdmin,
   actualizarVacanteAdmin,
   cambiarEstadoVacanteAdmin,
+  cambiarEstadoUsuarioAdmin,
+  cambiarEstadoEmpresaAdmin,
   eliminarUsuarioAdmin,
   eliminarEmpresaAdmin,
   eliminarVacanteAdmin
@@ -23,6 +25,8 @@ router.get("/vacantes", verificarToken, autorizarRoles("admin"), obtenerVacantes
 router.post("/vacantes", verificarToken, autorizarRoles("admin"), crearVacanteAdmin);
 router.put("/vacantes/:id", verificarToken, autorizarRoles("admin"), actualizarVacanteAdmin);
 router.patch("/vacantes/:id/estado", verificarToken, autorizarRoles("admin"), cambiarEstadoVacanteAdmin);
+router.patch("/usuarios/:id/estado", verificarToken, autorizarRoles("admin"), cambiarEstadoUsuarioAdmin);
+router.patch("/empresas/:id/estado", verificarToken, autorizarRoles("admin"), cambiarEstadoEmpresaAdmin);
 
 router.delete("/usuarios/:id", verificarToken, autorizarRoles("admin"), eliminarUsuarioAdmin);
 router.delete("/empresas/:id", verificarToken, autorizarRoles("admin"), eliminarEmpresaAdmin);

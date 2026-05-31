@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { obtenerEstadoVerificacionCuenta } from "../models/usuarioModel.js";
+import { getJwtSecret } from "../utils/jwt.js";
 
 dotenv.config();
 
@@ -27,7 +28,7 @@ export const verificarToken = async (req, res, next) => {
       });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, getJwtSecret());
     req.user = decoded;
 
     if (decoded.tipo !== "admin") {
@@ -82,7 +83,7 @@ export const verificarTokenOpcional = (req, res, next) => {
       return next();
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, getJwtSecret());
     req.user = decoded;
 
     next();

@@ -196,7 +196,7 @@ const redirigir = () => {
   const destinos = {
     usuario: "/dashboard",
     empresa: "/dashboard",
-    admin: "/dashboard"
+    admin: "/admin/principal"
   };
 
   window.location.href = destinos[tipo] || "/login";

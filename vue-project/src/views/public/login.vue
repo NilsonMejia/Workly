@@ -232,7 +232,7 @@ const handleLogin = async () => {
     const destinos = {
       usuario: "/dashboard",
       empresa: "/dashboard",
-      admin: "/dashboard"
+      admin: "/admin/principal"
     };
 
     window.location.href = destinos[data.tipo] || "/";

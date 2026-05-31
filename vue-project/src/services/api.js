@@ -24,6 +24,30 @@ export const getUsuario = () => {
   }
 };
 
+export const requireAuth = (roles = []) => {
+  const token = getToken();
+  const tipo = getTipo();
+
+  if (!token || !tipo) {
+    throw new Error('Sesion no iniciada');
+  }
+
+  if (roles.length && !roles.includes(tipo)) {
+    throw new Error('Rol no autorizado');
+  }
+
+  return {
+    token,
+    tipo,
+    usuario: getUsuario()
+  };
+};
+
+export const logout = (redirect = '/login') => {
+  clearSession();
+  window.location.href = redirect;
+};
+
 export const buildPendingVerificationPath = ({ email = '', tipo = '' } = {}) => {
   const params = new URLSearchParams();
   if (email) params.set('email', email);
@@ -53,7 +77,13 @@ export const normalizeAppRedirect = (redirect, fallback = '/') => {
     'public/registro/index.html': '/registro',
     '../registro/index.html': '/registro',
     '/views/public/verificacion-pendiente/index.html': '/verificacion-pendiente',
-    'public/verificacion-pendiente/index.html': '/verificacion-pendiente'
+    'public/verificacion-pendiente/index.html': '/verificacion-pendiente',
+    '/views/admin/principal/index.html': '/admin/principal',
+    '/views/admin/gestionusuarios/index.html': '/admin/usuarios',
+    '/views/admin/gestionempresas/index.html': '/admin/empresas',
+    '/views/admin/gestionvacantes/index.html': '/admin/vacantes',
+    '/views/admin/estadisticas/index.html': '/admin/estadisticas',
+    '/views/admin/moderacion/index.html': '/admin/moderacion'
   };
 
   return `${routes[pathname] || pathname || fallback}${query}`;

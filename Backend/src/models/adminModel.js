@@ -1,10 +1,22 @@
 import { pool } from "../config/db.js";
 
 const vacanteEstados = new Map();
+const usuarioEstados = new Map();
+const empresaEstados = new Map();
 
 const withVacanteEstado = (vacante) => ({
   ...vacante,
   estado: vacanteEstados.get(Number(vacante.id_vacante)) || vacante.estado || "Activo"
+});
+
+const withUsuarioEstado = (usuario) => ({
+  ...usuario,
+  estado: usuarioEstados.get(Number(usuario.id_usuario)) || usuario.estado || "Activo"
+});
+
+const withEmpresaEstado = (empresa) => ({
+  ...empresa,
+  estado: empresaEstados.get(Number(empresa.id_empresa)) || empresa.estado || "Activo"
 });
 
 const getAdminVacanteBaseQuery = () => `
@@ -74,7 +86,7 @@ export const getAdminUsuarios = async () => {
     ORDER BY id_usuario DESC
   `);
 
-  return rows;
+  return rows.map(withUsuarioEstado);
 };
 
 export const getAdminEmpresas = async () => {
@@ -93,7 +105,7 @@ export const getAdminEmpresas = async () => {
     ORDER BY e.id_empresa DESC
   `);
 
-  return rows;
+  return rows.map(withEmpresaEstado);
 };
 
 export const createAdminEmpresa = async (empresa) => {
@@ -241,6 +253,42 @@ export const updateAdminVacanteEstado = async (id, estado) => {
 
   vacanteEstados.set(Number(id), estado);
   return getAdminVacanteById(id);
+};
+
+export const updateAdminUsuarioEstado = async (id, estado) => {
+  const [rows] = await pool.query(
+    `
+    SELECT
+      id_usuario,
+      nombres,
+      apellidos,
+      correo_electronico,
+      telefono,
+      id_municipio_fk,
+      resumen_profesional
+    FROM Usuarios
+    WHERE id_usuario = ?
+    `,
+    [id]
+  );
+
+  if (!rows[0]) {
+    return null;
+  }
+
+  usuarioEstados.set(Number(id), estado);
+  return withUsuarioEstado(rows[0]);
+};
+
+export const updateAdminEmpresaEstado = async (id, estado) => {
+  const empresa = await getAdminEmpresaById(id);
+
+  if (!empresa) {
+    return null;
+  }
+
+  empresaEstados.set(Number(id), estado);
+  return withEmpresaEstado(empresa);
 };
 
 export const deleteAdminUsuario = async (id) => {

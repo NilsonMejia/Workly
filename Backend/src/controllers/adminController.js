@@ -8,6 +8,8 @@ import {
   createAdminVacante,
   updateAdminVacante,
   updateAdminVacanteEstado,
+  updateAdminUsuarioEstado,
+  updateAdminEmpresaEstado,
   deleteAdminUsuario,
   deleteAdminEmpresa,
   deleteAdminVacante
@@ -227,6 +229,62 @@ export const cambiarEstadoVacanteAdmin = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       mensaje: "Error al cambiar el estado de la vacante",
+      error: error.message
+    });
+  }
+};
+
+export const cambiarEstadoUsuarioAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { estado } = req.body;
+
+    if (!estado) {
+      return res.status(400).json({
+        mensaje: "El estado es obligatorio"
+      });
+    }
+
+    const usuario = await updateAdminUsuarioEstado(id, estado);
+
+    if (!usuario) {
+      return res.status(404).json({
+        mensaje: "Usuario no encontrado"
+      });
+    }
+
+    res.json(usuario);
+  } catch (error) {
+    res.status(500).json({
+      mensaje: "Error al cambiar el estado del usuario",
+      error: error.message
+    });
+  }
+};
+
+export const cambiarEstadoEmpresaAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { estado } = req.body;
+
+    if (!estado) {
+      return res.status(400).json({
+        mensaje: "El estado es obligatorio"
+      });
+    }
+
+    const empresa = await updateAdminEmpresaEstado(id, estado);
+
+    if (!empresa) {
+      return res.status(404).json({
+        mensaje: "Empresa no encontrada"
+      });
+    }
+
+    res.json(empresa);
+  } catch (error) {
+    res.status(500).json({
+      mensaje: "Error al cambiar el estado de la empresa",
       error: error.message
     });
   }
