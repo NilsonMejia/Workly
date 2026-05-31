@@ -21,7 +21,10 @@ const ensureVacanteEstadoSchema = async () => {
           ON DELETE CASCADE
       ) ENGINE=InnoDB;
     `);
-  })();
+  })().catch((error) => {
+    vacantesEstadoSchemaReadyPromise = null;
+    throw error;
+  });
 
   return vacantesEstadoSchemaReadyPromise;
 };

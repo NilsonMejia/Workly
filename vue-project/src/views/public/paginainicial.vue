@@ -18,11 +18,11 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
           <div class="d-flex gap-2 mt-3 mt-lg-0">
             <button class="btn px-4 fw-semibold border-0 text-white btn-primary-deep"
-                    @click="goTo('../login/index.html')">
+                    @click="goTo('/login')">
               Iniciar sesión
             </button>
             <button class="btn px-4 fw-semibold border-0 text-white btn-primary-deep"
-                    @click="goTo('../registro/index.html')">
+                    @click="goTo('/registro')">
               Registrarse
             </button>
             <button class="btn border-0 text-white fs-3 d-none d-lg-block ms-3">
@@ -55,11 +55,11 @@
 
                 <div class="d-flex flex-wrap gap-3 mt-4">
                   <button class="btn btn-primary-deep px-4 py-3 fw-semibold d-flex align-items-center gap-2 shadow-sm action-btn"
-                          @click="goTo('../registro/index.html')">
+                          @click="goTo('/registro')">
                     Quiero trabajar <i class="bi bi-arrow-right"></i>
                   </button>
                   <button class="btn btn-soft px-4 py-3 fw-semibold d-flex align-items-center gap-2 border-0 shadow-sm action-btn"
-                          @click="goTo('../registro/index.html')">
+                          @click="goTo('/registro')">
                     ¿Quieres contratar? <i class="bi bi-arrow-right"></i>
                   </button>
                 </div>
@@ -145,7 +145,7 @@
                   <p class="card-text text-secondary mb-4 flex-grow-1">{{ (item.descripcion_puesto ?? "").slice(0, 120) }}...</p>
 
                   <div class="vacante-footer mt-auto">
-                    <button class="btn btn-outline-primary w-100" @click="goTo('../../public/login/index.html')">
+                    <button class="btn btn-outline-primary w-100" @click="goTo('/login')">
                       Inicia sesión para aplicar
                     </button>
                   </div>
@@ -195,7 +195,7 @@
 <script setup>
 import { ref, computed, onMounted, nextTick } from 'vue';
 // IMPORTANTE: Ajusta esta ruta de acuerdo a la estructura de tu proyecto Vue
-import { API_URL } from "../../../assets/js/shared/config.js"; 
+import { API_URL } from "../../services/api.js"; 
 
 // --- Estados Reactivos ---
 const vacantes = ref([]);

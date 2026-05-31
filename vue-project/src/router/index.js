@@ -1,36 +1,60 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import PaisesView from '../views/PaisesView.vue'
-import LoginView from '../views/LoginView.vue'
+
+import PaginaInicial from '../views/public/paginainicial.vue'
+import Login from '../views/public/login.vue'
+import Registro from '../views/public/registro.vue'
+import SesionDashboard from '../views/public/sesiondashboard.vue'
+import VerificacionPendiente from '../views/public/verficacion-pendiente.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/login',
-      name: 'login',
-      component: LoginView
+      path: '/',
+      name: 'inicio',
+      component: PaginaInicial
     },
     {
-      path: '/paises',
-      name: 'paises',
-      component: PaisesView,
-      meta: { requiresAuth: true } 
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/registro',
+      name: 'registro',
+      component: Registro
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: SesionDashboard
+    },
+    {
+      path: '/verificacion-pendiente',
+      name: 'verificacion',
+      component: VerificacionPendiente
+    },
+    {
+      path: '/views/public/paginainicial/index.html',
+      redirect: '/'
+    },
+    {
+      path: '/views/public/login/index.html',
+      redirect: to => ({ path: '/login', query: to.query })
+    },
+    {
+      path: '/views/public/registro/index.html',
+      redirect: '/registro'
+    },
+    {
+      path: '/views/public/verificacion-pendiente/index.html',
+      redirect: to => ({ path: '/verificacion-pendiente', query: to.query })
     },
     {
       path: '/:pathMatch(.*)*',
-      redirect: '/login'
+      redirect: '/'
     }
   ]
-})
-
-// Guardián de Navegación (Autorización)
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem('token')
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next('/login')
-  } else {
-    next()
-  }
 })
 
 export default router
