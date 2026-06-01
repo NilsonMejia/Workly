@@ -1,6 +1,5 @@
 <template>
   <div class="d-flex flex-column min-vh-100">
-    <!-- ========== NAVBAR MEJORADO ========== -->
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
         <div class="container-fluid px-4 px-lg-5">
             <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal">
@@ -47,11 +46,9 @@
         </div>
     </nav>
 
-    <!-- ========== MAIN ========== -->
     <main class="flex-grow-1 py-4">
         <div class="container-fluid px-4 px-lg-5">
 
-            <!-- Barra de búsqueda y acción rápida -->
             <div class="filter-bar mb-5 d-flex align-items-center flex-wrap">
                 <div class="d-flex align-items-center me-auto">
                     <i class="bi bi-speedometer2 fs-3 me-3" style="color: var(--primary-deep);"></i>
@@ -75,7 +72,6 @@
             </div>
             <div id="alertContainer"></div>
 
-            <!-- Métricas rápidas (nuevas tarjetas creativas) -->
             <div class="row g-4 mb-5">
                 <div class="col-6 col-md-3">
                     <div class="metric-card text-center">
@@ -112,19 +108,17 @@
                         <div class="bg-light rounded-4 p-3 d-inline-flex mb-3">
                             <i class="bi bi-star-fill fs-1" style="color: #ffb347;"></i>
                         </div>
-                        <h2 class="fw-bold mb-1">4.8</h2>
+                        <h2 class="fw-bold mb-1" id="calificacionPromedio">0.0</h2>
                         <p class="text-secondary small fw-medium mb-0">Calificación</p>
-                        <small><i class="bi bi-star-fill text-warning"></i> +45 reseñas</small>
+                        <small><i class="bi bi-star-fill text-warning"></i> <span id="totalResenas">+0 reseñas</span></small>
                     </div>
                 </div>
             </div>
 
             <div class="row g-4">
 
-                <!-- Columna principal -->
                 <section class="col-12 col-lg-8">
 
-                    <!-- Caja de publicación rápida (mejorada) -->
                     <div class="main-card">
                         <div class="d-flex align-items-center gap-3 mb-4">
                             <div class="bg-light p-3 rounded-4">
@@ -158,95 +152,40 @@
                         </div>
                     </div>
 
-                    <!-- Publicación 1 (con vacante) - más creativa -->
-                    <div class="post-card">
-                        <div class="d-flex gap-3 mb-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4 mt-2">
+                        <h5 class="fw-bold mb-0" style="color: #121826;"><i class="bi bi-star-fill text-warning me-2"></i>Reseñas recientes de candidatos</h5>
+                        <a href="../resenaempresa" class="text-decoration-none fw-semibold" style="color: var(--primary-deep);">
+                            Ver todas <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <div v-if="resenas.length === 0" class="text-center p-5 bg-white rounded-4 border mb-4 shadow-sm">
+                        <i class="bi bi-star text-muted fs-1 mb-3 d-block"></i>
+                        <h6 class="fw-bold text-secondary">Aún no hay reseñas</h6>
+                        <p class="small text-muted mb-0">Cuando los candidatos evalúen tu empresa, aparecerán aquí.</p>
+                    </div>
+
+                    <article v-else v-for="resena in resenas.slice(0, 3)" :key="resena.id_valoracion" class="review-card mb-4">
+                        <div class="d-flex gap-3 mb-3">
                             <div class="flex-shrink-0">
-                                <div class="bg-light p-3 rounded-4 shadow-sm">
-                                    <i class="bi bi-building fs-2" style="color: var(--primary-deep);"></i>
+                                <div class="bg-light p-3 rounded-4 shadow-sm d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
+                                    <i class="bi bi-person-fill fs-3" style="color: var(--primary-deep);"></i>
                                 </div>
                             </div>
                             <div class="flex-grow-1">
                                 <div class="d-flex justify-content-between align-items-start">
                                     <div>
-                                        <h6 class="fw-bold mb-0" style="color: #121826;">TechSolutions 
-                                            <span class="badge bg-info bg-opacity-10 text-info ms-2 px-3 py-1 rounded-pill">Verificada</span>
-                                        </h6>
-                                        <span class="text-secondary small"><i class="bi bi-clock me-1"></i>Hace 2 horas · 🌎 San Salvador</span>
+                                        <h6 class="fw-bold mb-1" style="color: #121826;">{{ resena.nombre_usuario || resena.Candidato || 'Candidato' }}</h6>
+                                        <span class="text-secondary small"><i class="bi bi-clock me-1"></i>{{ formatDateTimeVue(resena.fecha_valoracion) }}</span>
                                     </div>
-                                    <i class="bi bi-three-dots-vertical text-secondary"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <p class="text-secondary mb-4" style="font-size: 1rem;">🚀 Estamos buscando talento para nuestro equipo de desarrollo. Buscamos un <strong>Backend Developer</strong> con experiencia en APIs, bases de datos, .NET y trabajo en equipo. ¡Únete a nosotros!</p>
-
-                        <div class="bg-light p-4 rounded-4 mb-4 border-start border-4" style="border-color: var(--primary-deep) !important;">
-                            <div class="d-flex align-items-center gap-2 mb-3">
-                                <i class="bi bi-briefcase-fill fs-5" style="color: var(--primary-deep);"></i>
-                                <span class="fw-bold fs-5">Backend Developer</span>
-                                <span class="badge bg-warning bg-opacity-15 text-warning px-3 py-1 rounded-pill ms-2">NUEVO</span>
-                            </div>
-                            <div class="row g-2 text-secondary small">
-                                <div class="col-md-4"><i class="bi bi-clock me-1"></i>Tiempo completo</div>
-                                <div class="col-md-4"><i class="bi bi-laptop me-1"></i>Híbrido</div>
-                                <div class="col-md-4"><i class="bi bi-geo-alt me-1"></i>San Salvador</div>
-                            </div>
-                            <div class="mt-3 fw-bold" style="color: var(--primary-deep);">💰 Salario: $1,200 - $1,800</div>
-                        </div>
-
-                        <div class="d-flex flex-wrap align-items-center justify-content-between">
-                            <div class="d-flex gap-3">
-                                <span class="stat-badge"><i class="bi bi-people me-1"></i>24 postulantes</span>
-                                <span class="stat-badge"><i class="bi bi-eye me-1"></i>85 vistas</span>
-                                <span class="stat-badge"><i class="bi bi-bookmark me-1"></i>12 guardados</span>
-                            </div>
-                            <div class="d-flex gap-2 mt-3 mt-sm-0">
-                                <button class="btn btn-sm btn-light rounded-pill px-4"><i class="bi bi-hand-thumbs-up"></i> 18</button>
-                                <button class="btn btn-sm btn-light rounded-pill px-4"><i class="bi bi-chat"></i> 6</button>
-                                <button class="btn btn-sm btn-light rounded-pill px-4"><i class="bi bi-share"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Publicación 2 (cultura) -->
-                    <div class="post-card">
-                        <div class="d-flex gap-3 mb-4">
-                            <div class="flex-shrink-0">
-                                <div class="bg-light p-3 rounded-4 shadow-sm">
-                                    <i class="bi bi-building fs-2" style="color: var(--primary-deep);"></i>
-                                </div>
-                            </div>
-                            <div class="flex-grow-1">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <h6 class="fw-bold mb-0">TechSolutions</h6>
-                                        <span class="text-secondary small"><i class="bi bi-clock me-1"></i>Hace 5 horas</span>
+                                    <div class="text-warning">
+                                        <i v-for="n in 5" :key="n" class="bi" :class="n <= resena.puntuacion ? 'bi-star-fill' : 'bi-star'"></i>
                                     </div>
-                                    <i class="bi bi-three-dots-vertical text-secondary"></i>
                                 </div>
                             </div>
                         </div>
-
-                        <p class="text-secondary mb-4">🎉 ¡Nuestra cultura de trabajo híbrido sigue creciendo! Hoy integramos nuevas herramientas para facilitar la comunicación entre equipos presenciales y remotos. 🚀💻</p>
-
-                        <div class="bg-gradient p-3 rounded-4 mb-4" style="background: linear-gradient(145deg, #f8faff, #eef2fe);">
-                            <div class="d-flex align-items-center gap-3">
-                                <i class="bi bi-emoji-smile fs-1" style="color: var(--primary-deep);"></i>
-                                <div>
-                                    <span class="fw-bold">#CulturaWorkly</span>
-                                    <p class="small mb-0">Promovemos el bienestar y la innovación.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="d-flex gap-3">
-                            <span class="stat-badge"><i class="bi bi-heart me-1"></i>32 reacciones</span>
-                            <span class="stat-badge"><i class="bi bi-chat me-1"></i>9 comentarios</span>
-                        </div>
-                    </div>
-
-                    <!-- Gráfico de actividad semanal (creativo) -->
+                        <p class="text-secondary mb-0" style="font-size: 1rem;">"{{ resena.comentario }}"</p>
+                    </article>
                     <div class="main-card">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h6 class="fw-bold mb-0"><i class="bi bi-bar-chart-line me-2" style="color: var(--primary-deep);"></i>Actividad semanal</h6>
@@ -300,10 +239,8 @@
 
                 </section>
 
-                <!-- Sidebar creativo -->
                 <aside class="col-12 col-lg-4">
 
-                    <!-- Vacantes activas + progreso -->
                     <div class="sidebar-card">
                         <h6 class="fw-bold mb-3 d-flex align-items-center">
                             <i class="bi bi-briefcase-fill me-2" style="color: var(--primary-deep);"></i>Vacantes activas
@@ -321,7 +258,6 @@
                         </button>
                     </div>
 
-                    <!-- Postulantes recientes con avatares -->
                     <div class="sidebar-card">
                         <h6 class="fw-bold mb-3 d-flex align-items-center">
                             <i class="bi bi-person-plus me-2" style="color: var(--primary-deep);"></i>Postulantes recientes
@@ -358,7 +294,6 @@
                         </button>
                     </div>
 
-                    <!-- Recursos destacados con iconos -->
                     <div class="sidebar-card">
                         <h6 class="fw-bold mb-3 d-flex align-items-center">
                             <i class="bi bi-journal-text me-2" style="color: var(--primary-deep);"></i>Recursos destacados
@@ -378,7 +313,6 @@
                         </button>
                     </div>
 
-                    <!-- Accesos rápidos mejorados -->
                     <div class="sidebar-card">
                         <h6 class="fw-bold mb-3 d-flex align-items-center">
                             <i class="bi bi-lightning-charge me-2" style="color: var(--primary-deep);"></i>Accesos rápidos
@@ -402,7 +336,6 @@
         </div>
     </main>
 
-    <!-- ========== TOASTS (conservados) ========== -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div id="toastGuardado" class="toast align-items-center text-white border-0 rounded-4 shadow mb-2" role="alert" style="background-color: #2ecc71;">
             <div class="d-flex">
@@ -422,7 +355,6 @@
         </div>
     </div>
 
-    <!-- ========== FOOTER ========== -->
     <footer class="py-4 mt-auto footer-custom">
         <div class="container text-center">
             <div class="d-flex flex-wrap justify-content-center gap-4 gap-md-5">
@@ -434,15 +366,11 @@
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
-
-
-    <!-- SCRIPT ORIGINAL (conservado íntegramente) -->
   </div>
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { API_URL, getToken, getUsuario, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
 import {
@@ -453,6 +381,9 @@ import {
   toggleCompanyForumSave
 } from "../../../assets/js/shared/empresaForum.js";
 
+// VARIABLES REACTIVAS PARA LAS RESEÑAS
+const resenas = ref([]);
+
 onMounted(async () => {
   requireAuth(["empresa"]);
 
@@ -461,6 +392,10 @@ onMounted(async () => {
   const totalPostulaciones = document.getElementById("totalPostulaciones");
   const textoVacantesResumen = document.getElementById("textoVacantesResumen");
   const textoPostulacionesResumen = document.getElementById("textoPostulacionesResumen");
+  
+  const calificacionPromedio = document.getElementById("calificacionPromedio");
+  const totalResenas = document.getElementById("totalResenas");
+  
   const inputBusquedaDashboard = document.getElementById("inputBusquedaDashboard");
   const btnBuscarDashboard = document.getElementById("btnBuscarDashboard");
   const btnIrPublicarVacante = document.getElementById("btnIrPublicarVacante");
@@ -471,6 +406,14 @@ onMounted(async () => {
   let dashboardData = {
     ultimasVacantes: [],
     ultimasPostulaciones: []
+  };
+
+  // FUNCIONES DE FECHAS (VUE VS VANILLA)
+  const formatDateTimeVue = (value) => {
+    if (!value) return "Reciente";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "Reciente";
+    return date.toLocaleDateString("es-SV", { year: 'numeric', month: 'short', day: 'numeric' });
   };
 
   const getSidebarCardByTitle = (title) =>
@@ -485,6 +428,7 @@ onMounted(async () => {
     const publicationCard = btnPublicarPub?.closest(".main-card");
     if (!publicationCard) return null;
 
+    // Aquí evitamos borrar las reseñas porque les cambiamos la clase a .review-card
     [...document.querySelectorAll("section.col-12.col-lg-8 > .post-card")].forEach((card) => card.remove());
 
     publicationCard.insertAdjacentHTML(
@@ -519,7 +463,6 @@ onMounted(async () => {
       new window.bootstrap.Toast(element).show();
       return;
     }
-
     showAlert(fallbackMessage, "success");
   };
 
@@ -717,6 +660,9 @@ onMounted(async () => {
   const updateMetrics = () => {
     const totalVacantesValue = dashboardData.metricas?.total_vacantes ?? 0;
     const totalPostulacionesValue = dashboardData.metricas?.total_postulaciones ?? 0;
+    
+    const promedio = Number(dashboardData.metricas?.promedio_valoracion || 0).toFixed(1);
+    const numResenas = dashboardData.metricas?.total_valoraciones || 0;
 
     if (totalVacantes) totalVacantes.textContent = String(totalVacantesValue);
     if (totalPostulaciones) totalPostulaciones.textContent = String(totalPostulacionesValue);
@@ -726,6 +672,9 @@ onMounted(async () => {
     if (textoPostulacionesResumen) {
       textoPostulacionesResumen.innerHTML = `<i class="bi bi-arrow-up-short"></i> ${totalPostulacionesValue > 0 ? "Actualizado desde la API" : "Sin postulaciones"}`;
     }
+    
+    if (calificacionPromedio) calificacionPromedio.textContent = promedio;
+    if (totalResenas) totalResenas.textContent = `+${numResenas} reseñas`;
   };
 
   const searchDashboard = () => {
@@ -819,6 +768,7 @@ onMounted(async () => {
     bindCategoryBadges();
   };
 
+  // CONSUMO DE API PARA EL DASHBOARD
   const fetchDashboard = async () => {
     const response = await fetch(`${API_URL}/dashboard/empresa`, {
       headers: {
@@ -838,10 +788,27 @@ onMounted(async () => {
     };
   };
 
+  // NUEVO: CONSUMO DE API PARA LAS RESEÑAS
+  const cargarResenas = async () => {
+    try {
+        const response = await fetch(`${API_URL}/valoraciones/empresa`, {
+            headers: { Authorization: `Bearer ${getToken()}` }
+        });
+        if (response.ok) {
+            const data = await response.json();
+            // Aseguramos que sea un arreglo sin importar cómo lo envíe el backend
+            resenas.value = Array.isArray(data) ? data : (data.valoraciones || []);
+        }
+    } catch (error) {
+        console.error("Error al cargar las reseñas dinámicas:", error);
+    }
+  };
+
   const init = async () => {
     bindEvents();
     renderForumFeed();
     await fetchDashboard();
+    await cargarResenas(); // Llamamos a las reseñas reales
     updateMetrics();
     renderSidebarVacantes();
     renderSidebarPostulaciones();
@@ -855,7 +822,6 @@ onMounted(async () => {
 </script>
 
 <style>
-
 * { font-family: 'Inter', sans-serif; }
         :root {
             --primary-deep: #3f51b5;
@@ -1025,6 +991,19 @@ onMounted(async () => {
             transition: all 0.3s;
         }
         .post-card:hover {
+            box-shadow: 0 22px 35px -12px rgba(63, 81, 181, 0.12);
+            border-color: rgba(63, 81, 181, 0.2);
+        }
+        /* ESTILO PARA LA NUEVA TARJETA DE RESEÑAS (NATIVO EN VUE) */
+        .review-card {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem;
+            box-shadow: 0 15px 25px -8px rgba(0,0,0,0.03);
+            border: 1px solid #edf2f9;
+            transition: all 0.3s;
+        }
+        .review-card:hover {
             box-shadow: 0 22px 35px -12px rgba(63, 81, 181, 0.12);
             border-color: rgba(63, 81, 181, 0.2);
         }

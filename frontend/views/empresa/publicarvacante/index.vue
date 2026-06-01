@@ -129,9 +129,14 @@
 
                     <hr class="my-4">
                     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
-                        <button type="button" id="btnGuardarBorrador" class="btn btn-outline-primary-deep px-5 py-2 fw-semibold">
-                            <i class="bi bi-bookmark me-2"></i>Guardar Borrador
-                        </button>
+                        <div class="d-flex gap-2">
+                            <button type="button" id="btnGuardarBorrador" class="btn btn-outline-primary-deep px-5 py-2 fw-semibold">
+                                <i class="bi bi-bookmark me-2"></i>Guardar Borrador
+                            </button>
+                            <button type="button" id="btnLimpiarCampos" class="btn btn-light text-danger border px-3 py-2 fw-semibold" title="Limpiar formulario">
+                                <i class="bi bi-trash3"></i> Limpiar
+                            </button>
+                        </div>
                         <button type="button" class="btn btn-primary-deep px-5 py-2 fw-semibold" data-bs-toggle="modal" data-bs-target="#modalPaso2">
                             Continuar a Publicar <i class="bi bi-arrow-right ms-2"></i>
                         </button>
@@ -170,6 +175,17 @@
         </div>
     </main>
 
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="toastGuardado" class="toast align-items-center text-white border-0 rounded-4 shadow mb-2" role="alert" style="background-color: #2ecc71;">
+            <div class="d-flex">
+                <div class="toast-body fs-6 py-3 fw-semibold">
+                    <i class="bi bi-floppy-fill me-2 fs-5"></i> Borrador guardado localmente en tu perfil.
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
     <footer class="py-4 mt-auto footer-custom">
         <div class="container text-center">
             <div class="d-flex flex-wrap justify-content-center gap-4 gap-md-5">
@@ -193,6 +209,8 @@ onMounted(async () => {
 
   const formVacante = document.getElementById("formVacante");
   const btnConfirmarFinal = document.getElementById("btnConfirmarFinal");
+  const btnGuardarBorrador = document.getElementById("btnGuardarBorrador");
+  const btnLimpiarCampos = document.getElementById("btnLimpiarCampos"); // <-- NUEVO BOTON
   const modalPaso2 = document.getElementById("modalPaso2");
 
   const fieldIds = [
@@ -252,44 +270,79 @@ onMounted(async () => {
     ]);
   };
 
+  const guardarBorradorLocal = () => {
+    const borrador = {};
+    fieldIds.forEach((id) => {
+      const campo = getField(id);
+      if (campo) borrador[id] = campo.value;
+    });
+
+    localStorage.setItem("workly_borrador_vacante", JSON.stringify(borrador));
+    
+    const toastEl = document.getElementById("toastGuardado");
+    if (toastEl && window.bootstrap?.Toast) {
+      new window.bootstrap.Toast(toastEl).show();
+    }
+  };
+
+  const cargarBorradorLocal = () => {
+    const guardadoStr = localStorage.getItem("workly_borrador_vacante");
+    if (guardadoStr) {
+      try {
+        const borrador = JSON.parse(guardadoStr);
+        fieldIds.forEach((id) => {
+          const campo = getField(id);
+          if (campo && borrador[id]) {
+            campo.value = borrador[id];
+          }
+        });
+      } catch (error) {
+        console.error("No se pudo cargar el borrador anterior", error);
+      }
+    }
+  };
+
+  // NUEVO: Función para Limpiar Campos
+  const limpiarCamposFormulario = () => {
+    if(confirm("¿Estás seguro de que deseas limpiar el formulario? Se borrarán los datos actuales y el borrador guardado.")){
+        fieldIds.forEach((id) => {
+            const campo = getField(id);
+            if (campo) {
+                campo.value = ""; // Limpia inputs, textareas y regresa selects a vacío
+            }
+        });
+        
+        // Eliminamos también el borrador local para empezar 100% limpios
+        localStorage.removeItem("workly_borrador_vacante");
+    }
+  };
+
   const obtenerPayload = () => {
     const missing = fieldIds.filter((id) => !getField(id));
     if (missing.length) {
       throw new Error(`Faltan campos en la vista: ${missing.join(", ")}`);
     }
 
-
-    const valCategoria = getField("id_categoria_fk").value;
-    const valMunicipio = getField("id_municipio_fk").value;
-    const valSalario = getField("salario_offrecido").value;
-
-
-    if (!valCategoria) throw new Error("Por favor, selecciona una categoría válida de la lista.");
-    if (!valMunicipio) throw new Error("Por favor, selecciona un municipio válido de la lista.");
-    if (!valSalario) throw new Error("Por favor, ingresa un salario ofrecido.");
-
-
     const payload = {
-      id_categoria_fk: Number(valCategoria),
-      id_municipio_fk: Number(valMunicipio),
+      id_categoria_fk: Number(getField("id_categoria_fk").value),
+      id_municipio_fk: Number(getField("id_municipio_fk").value),
       titulo_puesto: getField("titulo_puesto").value.trim(),
       descripcion_puesto: getField("descripcion_puesto").value.trim(),
       responsabilidades: getField("responsabilidades").value.trim(),
       requisitos: getField("requisitos").value.trim(),
-      salario_offrecido: Number(valSalario),
+      salario_offrecido: Number(getField("salario_offrecido").value),
       modalidad: getField("modalidad").value.trim(),
       tipo_contrato: getField("tipo_contrato").value.trim(),
       educacion: getField("educacion").value.trim(),
       idiomas: getField("idiomas").value.trim()
     };
 
-
     const vacios = Object.entries(payload)
-      .filter(([_, value]) => value === "")
+      .filter(([_, value]) => value === "" || Number.isNaN(value))
       .map(([key]) => key);
 
     if (vacios.length) {
-      throw new Error(`Completa todos los campos obligatorios: ${vacios.join(", ")}`);
+      throw new Error(`Completa todos los campos obligatorios antes de publicar.`);
     }
 
     return payload;
@@ -297,10 +350,12 @@ onMounted(async () => {
 
   const enviarVacante = async () => {
     try {
+      const payload = obtenerPayload();
+      
       const response = await fetch(`${API_URL}/vacantes`, {
         method: "POST",
         headers: authHeaders(),
-        body: JSON.stringify(obtenerPayload())
+        body: JSON.stringify(payload)
       });
 
       const data = await response.json();
@@ -316,18 +371,27 @@ onMounted(async () => {
         : null;
       modal?.hide();
 
+      localStorage.removeItem("workly_borrador_vacante");
+
       alert("Vacante publicada con exito en Workly.");
-      navigateTo("../misvacantes");
+      window.location.href = "../misvacantes/index.html";
     } catch (error) {
       console.error(error);
       alert(`Ocurrio un error: ${error.message}`);
     }
   };
 
+  // Asignación de Event Listeners
   if (formVacante) {
-    formVacante.addEventListener("submit", (event) => {
-      event.preventDefault();
-    });
+    formVacante.addEventListener("submit", (event) => event.preventDefault());
+  }
+
+  if (btnGuardarBorrador) {
+    btnGuardarBorrador.addEventListener("click", guardarBorradorLocal);
+  }
+
+  if (btnLimpiarCampos) {
+    btnLimpiarCampos.addEventListener("click", limpiarCamposFormulario);
   }
 
   if (btnConfirmarFinal) {
@@ -337,7 +401,9 @@ onMounted(async () => {
     });
   }
 
-  cargarCatalogos().catch((error) => {
+  cargarCatalogos().then(() => {
+    cargarBorradorLocal();
+  }).catch((error) => {
     console.error(error);
     alert(error.message || "No se pudieron cargar las categorias y municipios.");
   });
@@ -345,7 +411,6 @@ onMounted(async () => {
 </script>
 
 <style>
-
 * { font-family: 'Inter', sans-serif; }
         :root {
             --primary-deep: #3f51b5;
