@@ -194,13 +194,19 @@ export const registrarUsuario = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const passwordEncriptada = await bcrypt.hash(String(req.body.contrasena || "").trim(), salt);
 
+    // 💡 EL FILTRO MÁGICO: Convertimos el municipio a número. Si Vue manda texto o vacío, se vuelve null seguro.
+    let municipioId = parseInt(req.body.id_municipio_fk, 10);
+    if (isNaN(municipioId)) {
+      municipioId = null;
+    }
+
     const nuevoUsuario = await registerUsuarioAuth({
       nombres: String(req.body.nombres || "").trim(),
       apellidos: String(req.body.apellidos || "").trim(),
       correo_electronico,
       contrasena: passwordEncriptada,
       telefono: String(req.body.telefono || "").trim(),
-      id_municipio_fk: req.body.id_municipio_fk,
+      id_municipio_fk: municipioId, // <-- Ahora es completamente seguro
       resumen_profesional: String(req.body.resumen_profesional || "").trim()
     });
 
@@ -223,6 +229,7 @@ export const registrarUsuario = async (req, res) => {
       data: nuevoUsuario
     });
   } catch (error) {
+    console.error("🔴 Error real en registro:", error.message); // <-- Esto imprimirá el error real en tu terminal si falla otra cosa
     res.status(500).json({ mensaje: "Error al registrar usuario", error: error.message });
   }
 };

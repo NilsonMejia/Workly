@@ -6,7 +6,7 @@
             <i class="bi bi-briefcase-fill text-white fs-2"></i>
             <div class="lh-sm ms-2">
               <span class="text-white fw-bold fs-3">Workly</span>
-              <span class="d-block text-white-50 small">Tu busqueda de trabajo profesional</span>
+              <span class="d-block text-white-50 small">Tu búsqueda de trabajo profesional</span>
             </div>
           </a>
 
@@ -24,7 +24,9 @@
             <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
               <a href="../notificaciones" class="text-white position-relative text-decoration-none">
                 <i class="bi bi-bell-fill fs-4"></i>
-                <span class="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                <span v-if="resumen.no_leidas > 0" class="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {{ resumen.no_leidas }}
+                </span>
               </a>
               <a href="../miperfil" class="text-white text-decoration-none">
                 <i class="bi bi-person-circle fs-4"></i>
@@ -36,11 +38,12 @@
 
       <main class="flex-grow-1 py-4 py-lg-5">
         <div class="container px-4 px-lg-5">
+          
           <section class="surface-card hero-card p-4 p-lg-5 mb-4">
             <div class="row g-4 align-items-center position-relative">
               <div class="col-12 col-xl-7">
                 <span class="badge rounded-pill text-bg-light text-primary fw-semibold mb-3">Centro de alertas</span>
-                <h1 class="display-6 fw-bold mb-2">Mantente al dia con cada movimiento de tus postulaciones</h1>
+                <h1 class="display-6 fw-bold mb-2">Mantente al día con cada movimiento de tus postulaciones</h1>
                 <p class="mb-0 text-white-50">Controla respuestas de empresas, cambios de estado y mensajes clave desde un solo panel.</p>
               </div>
               <div class="col-12 col-xl-5">
@@ -48,25 +51,25 @@
                   <div class="col-6">
                     <div class="metric-pill">
                       <div class="small text-white-50 mb-1">Sin leer</div>
-                      <div class="fs-3 fw-bold" id="resumenNoLeidas">0</div>
+                      <div class="fs-3 fw-bold">{{ resumen.no_leidas }}</div>
                     </div>
                   </div>
                   <div class="col-6">
                     <div class="metric-pill">
                       <div class="small text-white-50 mb-1">Total</div>
-                      <div class="fs-3 fw-bold" id="resumenTotal">0</div>
+                      <div class="fs-3 fw-bold">{{ resumen.total }}</div>
                     </div>
                   </div>
                   <div class="col-6">
                     <div class="metric-pill">
                       <div class="small text-white-50 mb-1">Postulaciones</div>
-                      <div class="fs-5 fw-bold" id="resumenPostulaciones">0</div>
+                      <div class="fs-5 fw-bold">{{ resumen.postulaciones }}</div>
                     </div>
                   </div>
                   <div class="col-6">
                     <div class="metric-pill">
                       <div class="small text-white-50 mb-1">Sistema</div>
-                      <div class="fs-5 fw-bold" id="resumenSistema">0</div>
+                      <div class="fs-5 fw-bold">{{ resumen.sistema }}</div>
                     </div>
                   </div>
                 </div>
@@ -78,23 +81,26 @@
             <div class="d-flex flex-column flex-xl-row justify-content-between align-items-xl-center gap-3 mb-4">
               <div>
                 <h2 class="h3 fw-bold mb-1">Bandeja personal</h2>
-                <p class="text-muted mb-0">Filtra rapido y revisa que sigue en cada oportunidad.</p>
+                <p class="text-muted mb-0">Filtra rápido y revisa qué sigue en cada oportunidad.</p>
               </div>
-              <button class="btn btn-primary rounded-pill px-4" id="btnMarcarTodas">
-                <i class="bi bi-check2-all me-2"></i>Marcar todas como leidas
+              <button @click="marcarTodasLeidas" class="btn btn-primary rounded-pill px-4">
+                <i class="bi bi-check2-all me-2"></i>Marcar todas como leídas
               </button>
             </div>
 
-            <div id="alertContainer" class="mb-3"></div>
+            <div v-if="alerta.mostrar" :class="`alert alert-${alerta.tipo} alert-dismissible fade show rounded-4 shadow-sm mb-3`" role="alert">
+              {{ alerta.mensaje }}
+              <button type="button" class="btn-close" @click="alerta.mostrar = false" aria-label="Cerrar"></button>
+            </div>
 
             <div class="row g-3 align-items-end mb-4">
               <div class="col-12 col-lg-5">
-                <label for="inputBuscar" class="form-label fw-semibold">Buscar</label>
-                <input id="inputBuscar" type="search" class="form-control form-control-lg rounded-4" placeholder="Titulo o mensaje">
+                <label class="form-label fw-semibold">Buscar</label>
+                <input v-model="filtros.buscar" @keyup.enter="init" type="search" class="form-control form-control-lg rounded-4" placeholder="Título o mensaje">
               </div>
               <div class="col-12 col-md-6 col-lg-3">
-                <label for="filtroTipo" class="form-label fw-semibold">Tipo</label>
-                <select id="filtroTipo" class="form-select form-select-lg rounded-4">
+                <label class="form-label fw-semibold">Tipo</label>
+                <select v-model="filtros.tipo" class="form-select form-select-lg rounded-4">
                   <option value="">Todas</option>
                   <option value="postulacion">Postulaciones</option>
                   <option value="estado">Estados</option>
@@ -103,15 +109,15 @@
                 </select>
               </div>
               <div class="col-12 col-md-6 col-lg-2">
-                <label for="filtroLeida" class="form-label fw-semibold">Estado</label>
-                <select id="filtroLeida" class="form-select form-select-lg rounded-4">
+                <label class="form-label fw-semibold">Estado</label>
+                <select v-model="filtros.leida" class="form-select form-select-lg rounded-4">
                   <option value="">Todas</option>
-                  <option value="0">No leidas</option>
-                  <option value="1">Leidas</option>
+                  <option value="0">No leídas</option>
+                  <option value="1">Leídas</option>
                 </select>
               </div>
               <div class="col-12 col-lg-2 d-grid">
-                <button class="btn btn-outline-primary btn-lg rounded-4" id="btnFiltrar">
+                <button @click="init" class="btn btn-outline-primary btn-lg rounded-4">
                   <i class="bi bi-funnel me-2"></i>Filtrar
                 </button>
               </div>
@@ -119,20 +125,66 @@
 
             <div class="row g-4">
               <div class="col-12 col-xl-8">
-                <div class="d-grid gap-3" id="listaNotificaciones"></div>
+                <div class="d-grid gap-3">
+                  
+                  <div v-if="notificaciones.length === 0" class="empty-state text-center p-5 rounded-4">
+                    <div class="empty-state-icon mx-auto mb-3">
+                      <i class="bi bi-bell-slash fs-2"></i>
+                    </div>
+                    <h3 class="h5 fw-bold mb-2">No hay notificaciones para mostrar</h3>
+                    <p class="text-muted mb-0">Prueba otro filtro o espera nuevas respuestas de empresas.</p>
+                  </div>
+
+                  <article v-else v-for="item in notificaciones" :key="item.id_notificacion" class="notification-card" :class="{ 'is-unread': Number(item.leida) === 0 }">
+                    <div class="d-flex gap-3">
+                      <div class="notification-icon flex-shrink-0">
+                        <i :class="['bi', ICONOS[item.tipo_notificacion] || ICONOS.sistema]"></i>
+                      </div>
+                      <div class="flex-grow-1">
+                        <div class="d-flex flex-column flex-lg-row justify-content-between gap-2 mb-2">
+                          <div>
+                            <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                              <h3 class="h6 fw-bold mb-0">{{ item.titulo }}</h3>
+                              <span class="badge rounded-pill text-bg-light border text-uppercase">{{ getTypeLabel(item.tipo_notificacion) }}</span>
+                              <span v-if="Number(item.leida) === 0" class="badge rounded-pill text-bg-primary">Nuevo</span>
+                            </div>
+                            <p class="text-muted mb-0">{{ item.mensaje }}</p>
+                          </div>
+                          <small class="text-muted text-lg-end">{{ formatDate(item.fecha_creacion) }}</small>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2 mt-3">
+                          <button @click="toggleLeida(item.id_notificacion, item.leida)" type="button" :class="['btn btn-sm rounded-pill', Number(item.leida) === 0 ? 'btn-outline-primary' : 'btn-outline-secondary']">
+                            <i :class="['bi me-1', Number(item.leida) === 0 ? 'bi-check2' : 'bi-envelope']"></i>
+                            {{ Number(item.leida) === 0 ? "Marcar leída" : "Marcar no leída" }}
+                          </button>
+                          
+                          <a v-if="item.enlace" :href="resolveNotificationLink(item.enlace)" class="btn btn-sm btn-light rounded-pill border">
+                            <i class="bi bi-box-arrow-up-right me-1"></i>Ver detalle
+                          </a>
+                          
+                          <button @click="eliminarNotificacion(item.id_notificacion)" type="button" class="btn btn-sm btn-outline-danger rounded-pill">
+                            <i class="bi bi-trash3 me-1"></i>Eliminar
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+
+                </div>
               </div>
+              
               <div class="col-12 col-xl-4">
                 <div class="summary-card p-4 mb-3">
                   <div class="d-flex align-items-center gap-3 mb-3">
                     <div class="summary-icon"><i class="bi bi-send-check"></i></div>
                     <div>
                       <h3 class="h5 fw-bold mb-0">Seguimiento</h3>
-                      <p class="text-muted small mb-0">Resumen rapido de tu estado actual</p>
+                      <p class="text-muted small mb-0">Resumen rápido de tu estado actual</p>
                     </div>
                   </div>
                   <div class="d-flex justify-content-between">
                     <span class="text-muted">Cambios de estado</span>
-                    <strong id="resumenEstado">0</strong>
+                    <strong>{{ resumen.cambios_estado }}</strong>
                   </div>
                 </div>
 
@@ -140,8 +192,8 @@
                   <div class="d-flex align-items-center gap-3 mb-3">
                     <div class="summary-icon"><i class="bi bi-lightning-charge-fill"></i></div>
                     <div>
-                      <h3 class="h5 fw-bold mb-0">Acciones rapidas</h3>
-                      <p class="text-muted small mb-0">Atajos utiles para seguir postulando</p>
+                      <h3 class="h5 fw-bold mb-0">Acciones rápidas</h3>
+                      <p class="text-muted small mb-0">Atajos útiles para seguir postulando</p>
                     </div>
                   </div>
                   <div class="d-grid gap-2">
@@ -158,11 +210,11 @@
                 </div>
 
                 <div class="summary-card p-4">
-                  <h3 class="h5 fw-bold mb-3">Buenas practicas</h3>
+                  <h3 class="h5 fw-bold mb-3">Buenas prácticas</h3>
                   <ul class="list-unstyled text-muted small mb-0 d-grid gap-2">
                     <li><i class="bi bi-check2-circle text-primary me-2"></i>Revisa cambios de estado en cuanto aparezcan.</li>
                     <li><i class="bi bi-check2-circle text-primary me-2"></i>Abre el detalle cuando una empresa responda.</li>
-                    <li><i class="bi bi-check2-circle text-primary me-2"></i>Manten tu perfil actualizado para nuevas oportunidades.</li>
+                    <li><i class="bi bi-check2-circle text-primary me-2"></i>Mantén tu perfil actualizado para nuevas oportunidades.</li>
                   </ul>
                 </div>
               </div>
@@ -180,293 +232,189 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { API_URL, getToken } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
 
-onMounted(async () => {
-  requireAuth(["usuario"]);
+// === VARIABLES REACTIVAS DE VUE ===
+const notificaciones = ref([]);
+const resumen = ref({
+  no_leidas: 0,
+  postulaciones: 0,
+  cambios_estado: 0,
+  sistema: 0,
+  total: 0
+});
 
-  const alertContainer = document.getElementById("alertContainer");
-  const listaNotificaciones = document.getElementById("listaNotificaciones");
-  const btnMarcarTodas = document.getElementById("btnMarcarTodas");
-  const btnFiltrar = document.getElementById("btnFiltrar");
-  const filtroTipo = document.getElementById("filtroTipo");
-  const filtroLeida = document.getElementById("filtroLeida");
-  const inputBuscar = document.getElementById("inputBuscar");
+const filtros = ref({
+  buscar: "",
+  tipo: "",
+  leida: ""
+});
 
-  const resumenNoLeidas = document.getElementById("resumenNoLeidas");
-  const resumenPostulaciones = document.getElementById("resumenPostulaciones");
-  const resumenEstado = document.getElementById("resumenEstado");
-  const resumenSistema = document.getElementById("resumenSistema");
-  const resumenTotal = document.getElementById("resumenTotal");
+const alerta = ref({
+  mostrar: false,
+  mensaje: "",
+  tipo: "danger"
+});
 
-  const ICONOS = {
-    postulacion: "bi-send-check",
-    estado: "bi-arrow-repeat",
-    sistema: "bi-bell-fill",
-    comentario: "bi-chat-left-text-fill"
+const ICONOS = {
+  postulacion: "bi-send-check",
+  estado: "bi-arrow-repeat",
+  sistema: "bi-bell-fill",
+  comentario: "bi-chat-left-text-fill"
+};
+
+const authHeaders = {
+  Authorization: `Bearer ${getToken()}`
+};
+
+// === FUNCIONES UTILITARIAS ===
+const mostrarAlerta = (mensaje, tipo = "danger") => {
+  alerta.value = { mostrar: true, mensaje, tipo };
+  // Ocultar automáticamente después de 5 segundos
+  setTimeout(() => alerta.value.mostrar = false, 5000);
+};
+
+const resolveNotificationLink = (value) => {
+  if (!value) return null;
+  try {
+    return new URL(value, API_URL).toString();
+  } catch {
+    return value;
+  }
+};
+
+const formatDate = (value) => {
+  if (!value) return "Reciente";
+  const date = new Date(value);
+  return Number.isNaN(date.getTime())
+    ? "Reciente"
+    : date.toLocaleString("es-SV", { dateStyle: "medium", timeStyle: "short" });
+};
+
+const getTypeLabel = (value) => {
+  const labels = {
+    postulacion: "Postulación",
+    estado: "Estado",
+    sistema: "Sistema",
+    comentario: "Comentario"
   };
+  return labels[value] || "Sistema";
+};
 
-  const authHeaders = {
-    Authorization: `Bearer ${getToken()}`
-  };
+const getFilterQuery = () => {
+  const params = new URLSearchParams();
+  if (filtros.value.tipo) params.set("tipo_notificacion", filtros.value.tipo);
+  if (filtros.value.leida) params.set("leida", filtros.value.leida);
+  if (filtros.value.buscar.trim()) params.set("search", filtros.value.buscar.trim());
+  return params.toString();
+};
 
-  const resolveNotificationLink = (value) => {
-    if (!value) {
-      return null;
-    }
-
-    try {
-      return new URL(value, API_URL).toString();
-    } catch {
-      return value;
-    }
-  };
-
-  const showAlert = (message, type = "danger") => {
-    if (!alertContainer) {
-      return;
-    }
-
-    alertContainer.innerHTML = `
-      <div class="alert alert-${type} alert-dismissible fade show rounded-4 shadow-sm" role="alert">
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-      </div>
-    `;
-  };
-
-  const formatDate = (value) => {
-    if (!value) {
-      return "Reciente";
-    }
-
-    const date = new Date(value);
-
-    return Number.isNaN(date.getTime())
-      ? "Reciente"
-      : date.toLocaleString("es-SV", { dateStyle: "medium", timeStyle: "short" });
-  };
-
-  const getFilterQuery = () => {
-    const params = new URLSearchParams();
-
-    if (filtroTipo.value) {
-      params.set("tipo_notificacion", filtroTipo.value);
-    }
-
-    if (filtroLeida.value) {
-      params.set("leida", filtroLeida.value);
-    }
-
-    if (inputBuscar.value.trim()) {
-      params.set("search", inputBuscar.value.trim());
-    }
-
-    return params.toString();
-  };
-
-  const renderResumen = (data) => {
-    resumenNoLeidas.textContent = data.no_leidas ?? 0;
-    resumenPostulaciones.textContent = data.postulaciones ?? 0;
-    resumenEstado.textContent = data.cambios_estado ?? 0;
-    resumenSistema.textContent = data.sistema ?? 0;
-    resumenTotal.textContent = data.total ?? 0;
-  };
-
-  const getTypeLabel = (value) => {
-    const labels = {
-      postulacion: "Postulacion",
-      estado: "Estado",
-      sistema: "Sistema",
-      comentario: "Comentario"
+// === CONSUMO DE API ===
+const actualizarResumen = async () => {
+  try {
+    const response = await fetch(`${API_URL}/notificaciones/resumen`, { headers: authHeaders });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.mensaje || "No se pudo cargar el resumen");
+    
+    // Actualizamos el objeto reactivo y Vue pinta los números solos
+    resumen.value = {
+      no_leidas: data.no_leidas ?? 0,
+      postulaciones: data.postulaciones ?? 0,
+      cambios_estado: data.cambios_estado ?? 0,
+      sistema: data.sistema ?? 0,
+      total: data.total ?? 0
     };
+  } catch (error) {
+    console.error("Error resumen:", error);
+  }
+};
 
-    return labels[value] || "Sistema";
-  };
-
-  const renderNotificaciones = (items) => {
-    if (!items.length) {
-      listaNotificaciones.innerHTML = `
-        <div class="empty-state text-center p-5 rounded-4">
-          <div class="empty-state-icon mx-auto mb-3">
-            <i class="bi bi-bell-slash fs-2"></i>
-          </div>
-          <h3 class="h5 fw-bold mb-2">No hay notificaciones para mostrar</h3>
-          <p class="text-muted mb-0">Prueba otro filtro o espera nuevas respuestas de empresas.</p>
-        </div>
-      `;
-      return;
-    }
-
-    listaNotificaciones.innerHTML = items.map((item) => `
-      <article class="notification-card ${Number(item.leida) === 0 ? "is-unread" : ""}">
-        <div class="d-flex gap-3">
-          <div class="notification-icon flex-shrink-0">
-            <i class="bi ${ICONOS[item.tipo_notificacion] || ICONOS.sistema}"></i>
-          </div>
-          <div class="flex-grow-1">
-            <div class="d-flex flex-column flex-lg-row justify-content-between gap-2 mb-2">
-              <div>
-                <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
-                  <h3 class="h6 fw-bold mb-0">${item.titulo}</h3>
-                  <span class="badge rounded-pill text-bg-light border text-uppercase">${getTypeLabel(item.tipo_notificacion)}</span>
-                  ${Number(item.leida) === 0 ? '<span class="badge rounded-pill text-bg-primary">Nuevo</span>' : ""}
-                </div>
-                <p class="text-muted mb-0">${item.mensaje}</p>
-              </div>
-              <small class="text-muted text-lg-end">${formatDate(item.fecha_creacion)}</small>
-            </div>
-            <div class="d-flex flex-wrap gap-2 mt-3">
-              <button type="button" class="btn btn-sm ${Number(item.leida) === 0 ? "btn-outline-primary" : "btn-outline-secondary"} rounded-pill" data-action="toggle" data-id="${item.id_notificacion}" data-leida="${item.leida}">
-                <i class="bi ${Number(item.leida) === 0 ? "bi-check2" : "bi-envelope"} me-1"></i>
-                ${Number(item.leida) === 0 ? "Marcar leida" : "Marcar no leida"}
-              </button>
-              ${item.enlace ? `
-                <a class="btn btn-sm btn-light rounded-pill border" href="${resolveNotificationLink(item.enlace)}">
-                  <i class="bi bi-box-arrow-up-right me-1"></i>Ver detalle
-                </a>
-              ` : ""}
-              <button type="button" class="btn btn-sm btn-outline-danger rounded-pill" data-action="delete" data-id="${item.id_notificacion}">
-                <i class="bi bi-trash3 me-1"></i>Eliminar
-              </button>
-            </div>
-          </div>
-        </div>
-      </article>
-    `).join("");
-
-    document.querySelectorAll("[data-action='toggle']").forEach((button) => {
-      button.addEventListener("click", async () => {
-        await toggleLeida(button.dataset.id, button.dataset.leida);
-      });
-    });
-
-    document.querySelectorAll("[data-action='delete']").forEach((button) => {
-      button.addEventListener("click", async () => {
-        await eliminarNotificacion(button.dataset.id);
-      });
-    });
-  };
-
-  const actualizarResumen = async () => {
-    const response = await fetch(`${API_URL}/notificaciones/resumen`, {
-      headers: authHeaders
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.mensaje || "No se pudo cargar el resumen");
-    }
-
-    renderResumen(data);
-  };
-
-  const cargarNotificaciones = async () => {
+const cargarNotificaciones = async () => {
+  try {
     const query = getFilterQuery();
-    const response = await fetch(`${API_URL}/notificaciones${query ? `?${query}` : ""}`, {
-      headers: authHeaders
-    });
-
+    const response = await fetch(`${API_URL}/notificaciones${query ? `?${query}` : ""}`, { headers: authHeaders });
     const data = await response.json();
+    
+    if (!response.ok) throw new Error(data.mensaje || "No se pudieron cargar las notificaciones");
+    
+    notificaciones.value = Array.isArray(data) ? data : [];
+  } catch (error) {
+    mostrarAlerta(error.message);
+  }
+};
 
-    if (!response.ok) {
-      throw new Error(data.mensaje || "No se pudieron cargar las notificaciones");
-    }
-
-    renderNotificaciones(Array.isArray(data) ? data : []);
-  };
-
-  const toggleLeida = async (id, leida) => {
+const toggleLeida = async (id, leida) => {
+  try {
     const path = Number(leida) === 0 ? "leer" : "no-leida";
     const response = await fetch(`${API_URL}/notificaciones/${id}/${path}`, {
       method: "PUT",
       headers: authHeaders
     });
-
     const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.mensaje || "No se pudo actualizar la notificacion");
-    }
-
-    showAlert(data.mensaje, "success");
+    
+    if (!response.ok) throw new Error(data.mensaje || "No se pudo actualizar la notificación");
+    
+    mostrarAlerta(data.mensaje, "success");
     await init();
-  };
+  } catch (error) {
+    mostrarAlerta(error.message);
+  }
+};
 
-  const eliminarNotificacion = async (id) => {
+const eliminarNotificacion = async (id) => {
+  try {
     const response = await fetch(`${API_URL}/notificaciones/${id}`, {
       method: "DELETE",
       headers: authHeaders
     });
-
     const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.mensaje || "No se pudo eliminar la notificacion");
-    }
-
-    showAlert(data.mensaje, "success");
+    
+    if (!response.ok) throw new Error(data.mensaje || "No se pudo eliminar la notificación");
+    
+    mostrarAlerta(data.mensaje, "success");
     await init();
-  };
+  } catch (error) {
+    mostrarAlerta(error.message);
+  }
+};
 
-  btnMarcarTodas.addEventListener("click", async () => {
-    try {
-      const response = await fetch(`${API_URL}/notificaciones/marcar-todas/leidas`, {
-        method: "PUT",
-        headers: authHeaders
-      });
+const marcarTodasLeidas = async () => {
+  try {
+    const response = await fetch(`${API_URL}/notificaciones/marcar-todas/leidas`, {
+      method: "PUT",
+      headers: authHeaders
+    });
+    const data = await response.json();
+    
+    if (!response.ok) throw new Error(data.mensaje || "No se pudieron marcar todas");
+    
+    mostrarAlerta(data.mensaje, "success");
+    await init();
+  } catch (error) {
+    mostrarAlerta(error.message);
+  }
+};
 
-      const data = await response.json();
+const init = async () => {
+  await Promise.all([actualizarResumen(), cargarNotificaciones()]);
+};
 
-      if (!response.ok) {
-        throw new Error(data.mensaje || "No se pudieron marcar todas las notificaciones");
-      }
-
-      showAlert(data.mensaje, "success");
-      await init();
-    } catch (error) {
-      showAlert(error.message);
-    }
-  });
-
-  btnFiltrar.addEventListener("click", async () => {
-    try {
-      await init();
-    } catch (error) {
-      showAlert(error.message);
-    }
-  });
-
-  inputBuscar.addEventListener("keydown", async (event) => {
-    if (event.key !== "Enter") {
-      return;
-    }
-
-    event.preventDefault();
-
-    try {
-      await init();
-    } catch (error) {
-      showAlert(error.message);
-    }
-  });
-
-  const init = async () => {
-    await Promise.all([actualizarResumen(), cargarNotificaciones()]);
-  };
-
-  init().catch((error) => {
-    console.error(error);
-    showAlert(error.message || "No se pudo cargar la vista de notificaciones");
-  });
+// === CICLO DE VIDA ===
+onMounted(async () => {
+  requireAuth(["usuario"]);
+  
+  try {
+    await init();
+  } catch (error) {
+    mostrarAlerta(error.message || "No se pudo cargar la vista de notificaciones");
+  }
 });
 </script>
 
 <style>
-
+/* SE MANTIENE TU CSS INTACTO */
 :root {
       --nav-bg: #011671;
       --page-bg: linear-gradient(180deg, #edf3ff 0%, #f7faff 100%);

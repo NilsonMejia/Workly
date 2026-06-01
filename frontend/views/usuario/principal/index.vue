@@ -1,7 +1,6 @@
 <template>
   <div class="d-flex flex-column min-vh-100">
-    <!-- ========== NAVBAR ========== -->
-        <nav class="navbar navbar-expand-lg py-3 navbar-custom">
+    <nav class="navbar navbar-expand-lg py-3 navbar-custom">
             <div class="container-fluid px-4 px-lg-5">
                 <a class="navbar-brand d-flex align-items-center text-decoration-none"
                     href="../../public/paginainicial">
@@ -46,37 +45,32 @@
             </div>
         </nav>
 
-        <!-- ========== MAIN ========== -->
         <main class="flex-grow-1 py-4">
             <div class="container px-4 px-lg-5">
 
-                <!-- Banner de bienvenida (nuevo) -->
                 <div class="welcome-banner d-flex align-items-center justify-content-between">
                     <div>
-                        <h2>👋 ¡Bienvenido, <span id="nombreUsuario">Usuario</span>!</h2>
-                        <p>Hoy hay 342 nuevas vacantes para ti</p>
+                        <h2>👋 ¡Bienvenido, <span>{{ nombreUsuarioVisible }}</span>!</h2>
+                        <p>Hoy hay nuevas vacantes esperando por ti</p>
                     </div>
                     <div class="d-none d-md-block">
                         <i class="bi bi-graph-up-arrow fs-2 opacity-50"></i>
                     </div>
                 </div>
 
-                <!-- Búsqueda rápida -->
                 <section class="mb-5">
                     <h5 class="fw-bold mb-3" style="color: #121826;">
-                        <i class="bi bi-search-heart me-2" style="color: var(--primary-deep);"></i>Explora ofertas de
-                        trabajo
+                        <i class="bi bi-search-heart me-2" style="color: var(--primary-deep);"></i>Explora ofertas de trabajo
                     </h5>
                     <div class="search-bar d-flex align-items-center">
                         <i class="bi bi-search fs-5 text-muted me-2"></i>
                         <input type="text" id="inputBusquedaRapida" class="form-control border-0 shadow-none bg-transparent py-2" placeholder="Puesto, empresa o habilidad...">
-    <button class="btn btn-primary-deep px-4 py-2 fw-semibold" id="btnBusquedaRapida">
-        Buscar <i class="bi bi-arrow-right ms-1"></i>
-    </button>
+                        <button class="btn btn-primary-deep px-4 py-2 fw-semibold" id="btnBusquedaRapida">
+                            Buscar <i class="bi bi-arrow-right ms-1"></i>
+                        </button>
                     </div>
                 </section>
 
-                <!-- Filtros avanzados (REDISEÑADO Y MEJOR ORDEN) -->
                 <section class="mb-5">
         <div class="d-flex align-items-center mb-3">
             <i class="bi bi-sliders2 fs-4 me-2" style="color: var(--primary-deep);"></i>
@@ -176,6 +170,7 @@
             </div>
         </div>
     </section>
+
     <section id="seccion-resultados-busqueda" class="mb-5 d-none">
         <div class="d-flex align-items-center mb-4">
             <h4 class="fw-bold mb-0" style="color: #121826;">
@@ -184,10 +179,9 @@
             <span id="contador-resultados" class="badge bg-primary ms-3 rounded-pill">0 encontrados</span>
         </div>
 
-        <div class="row g-4" id="contenedor-resultados">
-            </div>
+        <div class="row g-4" id="contenedor-resultados"></div>
     </section>
-                <!-- Estadísticas (conservadas con diseño mejorado) -->
+
                 <section class="mb-5">
                     <div class="row g-4">
                         <div class="col-6 col-md-3">
@@ -225,7 +219,6 @@
                     </div>
                 </section>
 
-                <!-- Empleos Destacados (ID conservado para API) -->
                 <section class="mb-5">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h2 class="fw-bold mb-0" style="color: #121826;">
@@ -236,117 +229,52 @@
                             Ver todos <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
-                    <div class="row g-4" id="contenedor-destacados">
-                        <!-- El spinner se mantiene; app.js lo reemplazará -->
-                        <div class="text-center py-5">
+                    
+                    <div class="row g-4">
+                        <div v-if="cargandoVacantes" class="text-center py-5 w-100">
                             <div class="spinner-border" style="color: var(--primary-deep);" role="status"></div>
                             <p class="mt-2 text-secondary">Cargando las mejores ofertas para ti...</p>
                         </div>
-                    </div>
-                </section>
-
-                <!-- Consejos de carrera (mejorado) -->
-                <section class="mb-5">
-                    <h5 class="fw-bold mb-3" style="color: #121826;">
-                        <i class="bi bi-lightbulb me-2" style="color: #ffc107;"></i>Consejos para tu carrera
-                    </h5>
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <div class="card-custom p-4 h-100">
-                                <div class="d-flex gap-3">
-                                    <div class="bg-light p-3 rounded-4">
-                                        <i class="bi bi-file-earmark-text fs-2" style="color: var(--primary-deep);"></i>
-                                    </div>
-                                    <div>
-                                        <h6 class="fw-bold">Cómo destacar tu CV</h6>
-                                        <p class="text-secondary small mb-2">Aprende a crear un currículum que capture la
-                                            atención de los reclutadores.</p>
-                                        <a href="../recursos" class="text-decoration-none fw-semibold small"
-                                            style="color: var(--primary-deep);">
-                                            Leer más <i class="bi bi-arrow-right"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                        
+                        <div v-else-if="vacantesDestacadas.length === 0" class="col-12 text-center py-4">
+                            <p class='text-muted'>No hay empleos destacados por ahora.</p>
                         </div>
-                        <div class="col-md-6">
-                            <div class="card-custom p-4 h-100">
-                                <div class="d-flex gap-3">
-                                    <div class="bg-light p-3 rounded-4">
-                                        <i class="bi bi-camera-video fs-2" style="color: var(--primary-deep);"></i>
-                                    </div>
-                                    <div>
-                                        <h6 class="fw-bold">Preparación para entrevistas</h6>
-                                        <p class="text-secondary small mb-2">Consejos prácticos para enfrentar entrevistas
-                                            técnicas y de RRHH.</p>
-                                        <a href="../recursos" class="text-decoration-none fw-semibold small"
-                                            style="color: var(--primary-deep);">
-                                            Leer más <i class="bi bi-arrow-right"></i>
-                                        </a>
-                                    </div>
+
+                        <div v-else class="col-md-4 mb-4" v-for="vacante in vacantesDestacadas" :key="vacante.id_vacante">
+                            <div class="job-card bg-white rounded-4 p-4 h-100 d-flex flex-column position-relative" style="border: 1px solid #e0e5f0; transition: all 0.3s ease;">
+                                <div class="d-flex align-items-start mb-3 mt-2">
+                                <div class="bg-light rounded-3 d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 50px; height: 50px; border: 1px solid #edf0f7;">
+                                    <i class="bi bi-buildings fs-4" style="color: var(--primary-deep);"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1" style="color: #121826; font-size: 1.05rem;">{{ vacante.titulo_puesto || vacante.titulo || "Vacante" }}</h6>
+                                    <p class="text-secondary small mb-0 fw-medium">{{ vacante.nombre_empresa || vacante.nombre_comercial || vacante.empresa || "Empresa" }}</p>
+                                </div>
+                                </div>
+                                <div class="mb-4 mt-2">
+                                <div class="d-flex align-items-center text-muted small mb-2">
+                                    <i class="bi bi-geo-alt me-2 text-secondary"></i> {{ vacante.nombre_municipio || "El Salvador" }}
+                                </div>
+                                <div class="d-flex align-items-center text-muted small mb-2">
+                                    <i class="bi bi-cash-stack me-2 text-secondary"></i> {{ formatearSalario(vacante) }}
+                                </div>
+                                <div class="d-flex align-items-center text-muted small">
+                                    <i class="bi bi-bar-chart-steps me-2 text-secondary"></i> {{ vacante.experiencia_nivel || "No especificado" }}
+                                </div>
+                                </div>
+                                <div class="mt-auto pt-3 border-top">
+                                <a :href="'../detalleempleo?id=' + vacante.id_vacante" class="btn text-white w-100 rounded-pill fw-medium py-2" style="background-color: var(--primary-deep); box-shadow: 0 4px 10px rgba(63, 81, 181, 0.2);">
+                                    Ver vacante <i class="bi bi-arrow-right-short ms-1 fs-5 align-middle"></i>
+                                </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Empresas destacadas (nuevo) -->
-                <section class="mb-5">
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h5 class="fw-bold mb-0" style="color: #121826;">
-                            <i class="bi bi-building me-2" style="color: var(--primary-deep);"></i>Empresas que contratan
-                        </h5>
-                    </div>
-                    <div class="row g-3">
-                        <div class="col-6 col-md-2">
-                            <div class="bg-white p-3 rounded-4 text-center shadow-sm">
-                                <i class="bi bi-google fs-1"></i>
-                                <p class="mb-0 mt-2 fw-semibold small">Google</p>
-                                <span class="skill-tag">12 vacantes</span>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-2">
-                            <div class="bg-white p-3 rounded-4 text-center shadow-sm">
-                                <i class="bi bi-microsoft fs-1"></i>
-                                <p class="mb-0 mt-2 fw-semibold small">Microsoft</p>
-                                <span class="skill-tag">8 vacantes</span>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-2">
-                            <div class="bg-white p-3 rounded-4 text-center shadow-sm">
-                                <i class="bi bi-apple fs-1"></i>
-                                <p class="mb-0 mt-2 fw-semibold small">Apple</p>
-                                <span class="skill-tag">5 vacantes</span>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-2">
-                            <div class="bg-white p-3 rounded-4 text-center shadow-sm">
-                                <i class="bi bi-amazon fs-1"></i>
-                                <p class="mb-0 mt-2 fw-semibold small">Amazon</p>
-                                <span class="skill-tag">15 vacantes</span>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-2">
-                            <div class="bg-white p-3 rounded-4 text-center shadow-sm">
-                                <i class="bi bi-meta fs-1"></i>
-                                <p class="mb-0 mt-2 fw-semibold small">Meta</p>
-                                <span class="skill-tag">6 vacantes</span>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-2">
-                            <div class="bg-white p-3 rounded-4 text-center shadow-sm">
-                                <i class="bi bi-twitter fs-1"></i>
-                                <p class="mb-0 mt-2 fw-semibold small">X (Twitter)</p>
-                                <span class="skill-tag">3 vacantes</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-            </div>
+                </div>
         </main>
 
-        <!-- ========== FOOTER ========== -->
         <footer class="py-4 mt-auto footer-custom">
             <div class="container text-center">
                 <div class="d-flex flex-wrap justify-content-center gap-4 gap-md-5">
@@ -357,27 +285,40 @@
                 </div>
             </div>
         </footer>
-
-        <!-- Bootstrap JS -->
-
-
-        <!-- Script de la API (conservado) -->
-
-
-        <!-- Estilos adicionales de compatibilidad -->
   </div>
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+// 💡 CORRECCIÓN 3: Importamos "ref" de Vue para crear variables que actualicen el HTML solas
+import { ref, onMounted } from "vue";
 import { API_URL, getUsuario, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
+
+// Creamos nuestras variables reactivas
+const nombreUsuarioVisible = ref("Usuario");
+const vacantesDestacadas = ref([]);
+const cargandoVacantes = ref(true);
+
+const formatearSalario = (vacante) => {
+  if (vacante.salario_offrecido === null || vacante.salario_offrecido === undefined || vacante.salario_offrecido === "") {
+    return "A convenir";
+  }
+  return `$${Number(vacante.salario_offrecido).toFixed(2)}`;
+};
 
 onMounted(async () => {
   requireAuth(["usuario"]);
 
-  const contenedorDestacados = document.getElementById("contenedor-destacados");
-  const nombreUsuario = document.getElementById("nombreUsuario");
+  // 1. Obtener y asignar el nombre usando Reactividad (sin getElementById)
+  const usuario = getUsuario();
+  if (usuario) {
+    nombreUsuarioVisible.value = usuario.nombres || usuario.nombre || usuario.nombre_comercial || usuario.correo_electronico || "Usuario";
+  }
+
+  // 2. Cargar los empleos desde la BD
+  await cargarEmpleosDestacados();
+
+  // ----- TODO ESTE CÓDIGO A CONTINUACIÓN ES PARA TUS FILTROS (Se mantiene como lo tenías) -----
   const btnBusquedaRapida = document.getElementById("btnBusquedaRapida");
   const inputBusquedaRapida = document.getElementById("inputBusquedaRapida");
   const btnAplicarFiltros = document.getElementById("btnAplicarFiltros");
@@ -386,28 +327,36 @@ onMounted(async () => {
   const contenedorResultados = document.getElementById("contenedor-resultados");
   const contadorResultados = document.getElementById("contador-resultados");
 
-  const obtenerNombreVisible = () => {
-    const usuario = getUsuario();
+  const normalizarTexto = (value = "") =>
+    value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 
-    if (!usuario) {
-      return "Usuario";
-    }
-
-    return (
-      usuario.nombres ||
-      usuario.nombre ||
-      usuario.nombre_comercial ||
-      usuario.correo_electronico ||
-      "Usuario"
-    );
+  const obtenerModalidades = () => {
+    const modalidades = [];
+    if (document.getElementById("filtroRemoto")?.checked) modalidades.push("Remoto");
+    if (document.getElementById("filtroPresencial")?.checked) modalidades.push("Presencial");
+    if (document.getElementById("filtroHibrido")?.checked) modalidades.push("Hibrido");
+    return modalidades;
   };
 
-  const formatearSalario = (vacante) => {
-    if (vacante.salario_offrecido === null || vacante.salario_offrecido === undefined || vacante.salario_offrecido === "") {
-      return "A convenir";
-    }
+  const construirFiltros = () => {
+    const params = new URLSearchParams();
+    const palabra = document.getElementById("filtroPalabra")?.value.trim() || "";
+    const ubicacion = document.getElementById("filtroUbicacion")?.value.trim() || "";
+    const tipo = document.getElementById("filtroTipo")?.value || "";
+    const experiencia = document.getElementById("filtroExperiencia")?.value || "";
+    const salarioMin = document.getElementById("filtroSalarioMin")?.value || "";
+    const salarioMax = document.getElementById("filtroSalarioMax")?.value || "";
+    const modalidades = obtenerModalidades();
 
-    return `$${Number(vacante.salario_offrecido).toFixed(2)}`;
+    if (palabra) params.set("q", palabra);
+    if (ubicacion) params.set("ubicacion", ubicacion);
+    if (tipo && !normalizarTexto(tipo).includes("todos")) params.set("tipo", tipo);
+    if (experiencia && !normalizarTexto(experiencia).includes("todos")) params.set("experiencia", experiencia);
+    if (salarioMin && !normalizarTexto(salarioMin).includes("min")) params.set("min", salarioMin);
+    if (salarioMax && !normalizarTexto(salarioMax).includes("max")) params.set("max", salarioMax);
+    if (modalidades.length > 0) params.set("modalidad", modalidades.join(","));
+
+    return params;
   };
 
   const tarjetaVacante = (vacante) => `
@@ -442,20 +391,8 @@ onMounted(async () => {
     </div>
   `;
 
-  const renderDestacados = (vacantes) => {
-    if (!contenedorDestacados) return;
-
-    if (!vacantes.length) {
-      contenedorDestacados.innerHTML = "<p class='text-center text-muted'>No hay empleos destacados por ahora.</p>";
-      return;
-    }
-
-    contenedorDestacados.innerHTML = vacantes.slice(0, 6).map(tarjetaVacante).join("");
-  };
-
   const renderResultados = (vacantes) => {
     if (!seccionResultados || !contenedorResultados || !contadorResultados) return;
-
     seccionResultados.classList.remove("d-none");
     contadorResultados.textContent = `${vacantes.length} encontrados`;
 
@@ -469,80 +406,11 @@ onMounted(async () => {
       `;
       return;
     }
-
     contenedorResultados.innerHTML = vacantes.map(tarjetaVacante).join("");
-  };
-
-  const cargarEmpleosDestacados = async () => {
-    if (!contenedorDestacados) return;
-
-    try {
-      const response = await fetch(`${API_URL}/vacantes`);
-      if (!response.ok) throw new Error("No se pudieron cargar las vacantes");
-
-      const vacantes = await response.json();
-      renderDestacados(Array.isArray(vacantes) ? vacantes : []);
-    } catch (error) {
-      console.error("Error cargando empleos:", error);
-      contenedorDestacados.innerHTML = "<p class='text-danger text-center'><i class='bi bi-exclamation-circle'></i> Error al conectar con el servidor.</p>";
-    }
-  };
-
-  const normalizarTexto = (value = "") =>
-    value
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase()
-      .trim();
-
-  const obtenerModalidades = () => {
-    const modalidades = [];
-    if (document.getElementById("filtroRemoto")?.checked) modalidades.push("Remoto");
-    if (document.getElementById("filtroPresencial")?.checked) modalidades.push("Presencial");
-    if (document.getElementById("filtroHibrido")?.checked) modalidades.push("Hibrido");
-    return modalidades;
-  };
-
-  const construirFiltros = () => {
-    const params = new URLSearchParams();
-
-    const palabra = document.getElementById("filtroPalabra")?.value.trim() || "";
-    const ubicacion = document.getElementById("filtroUbicacion")?.value.trim() || "";
-    const tipo = document.getElementById("filtroTipo")?.value || "";
-    const experiencia = document.getElementById("filtroExperiencia")?.value || "";
-    const salarioMin = document.getElementById("filtroSalarioMin")?.value || "";
-    const salarioMax = document.getElementById("filtroSalarioMax")?.value || "";
-    const modalidades = obtenerModalidades();
-
-    if (palabra) params.set("q", palabra);
-    if (ubicacion) params.set("ubicacion", ubicacion);
-
-    if (tipo && !normalizarTexto(tipo).includes("todos")) {
-      params.set("tipo", tipo);
-    }
-
-    if (experiencia && !normalizarTexto(experiencia).includes("todos")) {
-      params.set("experiencia", experiencia);
-    }
-
-    if (salarioMin && !normalizarTexto(salarioMin).includes("min")) {
-      params.set("min", salarioMin);
-    }
-
-    if (salarioMax && !normalizarTexto(salarioMax).includes("max")) {
-      params.set("max", salarioMax);
-    }
-
-    if (modalidades.length > 0) {
-      params.set("modalidad", modalidades.join(","));
-    }
-
-    return params;
   };
 
   const buscarConFiltros = async () => {
     if (!contenedorResultados) return;
-
     const params = construirFiltros();
     contenedorResultados.innerHTML = `<div class="col-12 text-center py-5"><div class="spinner-border text-primary" role="status"></div><p class="mt-2 text-muted">Buscando los mejores empleos para ti...</p></div>`;
     seccionResultados?.classList.remove("d-none");
@@ -551,9 +419,8 @@ onMounted(async () => {
     try {
       const response = await fetch(`${API_URL}/vacantes/busqueda/filtros?${params.toString()}`);
       if (!response.ok) throw new Error("No se pudieron filtrar las vacantes");
-
       let vacantes = await response.json();
-      vacantes = Array.isArray(vacantes) ? vacantes : [];
+      vacantes = Array.isArray(vacantes) ? vacantes : (vacantes.data || vacantes.vacantes || []);
 
       const modalidades = obtenerModalidades().map(normalizarTexto);
       if (modalidades.length > 0) {
@@ -562,7 +429,6 @@ onMounted(async () => {
           return modalidades.some((modalidad) => modalidadVacante.includes(modalidad));
         });
       }
-
       renderResultados(vacantes);
     } catch (error) {
       console.error("Error filtrando vacantes:", error);
@@ -589,30 +455,40 @@ onMounted(async () => {
       navigateTo("../buscarempleo");
       return;
     }
-
     btnBusquedaRapida?.setAttribute("disabled", "true");
     btnBusquedaRapida.innerHTML = `Buscando <span class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>`;
     navigateTo(`../buscarempleo?q=${encodeURIComponent(query)}`);
   };
 
-  document.addEventListener("DOMContentLoaded", () => {
-    if (nombreUsuario) {
-      nombreUsuario.textContent = obtenerNombreVisible();
-    }
-
-    cargarEmpleosDestacados();
-
-    btnBusquedaRapida?.addEventListener("click", irABusqueda);
-    inputBusquedaRapida?.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        irABusqueda();
-      }
-    });
-
-    btnAplicarFiltros?.addEventListener("click", buscarConFiltros);
-    btnLimpiarFiltros?.addEventListener("click", limpiarFiltros);
+  btnBusquedaRapida?.addEventListener("click", irABusqueda);
+  inputBusquedaRapida?.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") irABusqueda();
   });
+
+  btnAplicarFiltros?.addEventListener("click", buscarConFiltros);
+  btnLimpiarFiltros?.addEventListener("click", limpiarFiltros);
 });
+
+// 💡 CORRECCIÓN 4: Función asíncrona dedicada a traer los datos correctos
+const cargarEmpleosDestacados = async () => {
+  cargandoVacantes.value = true;
+  try {
+    const response = await fetch(`${API_URL}/vacantes`);
+    if (!response.ok) throw new Error("Error en servidor");
+
+    const data = await response.json();
+    
+    // Defensa: Por si la API devuelve { data: [...] } en lugar de [...]
+    const arregloVacantes = Array.isArray(data) ? data : (data.data || data.vacantes || []);
+    
+    // Guardamos solo los primeros 6 empleos en nuestra variable reactiva
+    vacantesDestacadas.value = arregloVacantes.slice(0, 6);
+  } catch (error) {
+    console.error("Error cargando empleos:", error);
+  } finally {
+    cargandoVacantes.value = false;
+  }
+};
 </script>
 
 <style>

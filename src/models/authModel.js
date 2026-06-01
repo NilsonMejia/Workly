@@ -27,19 +27,17 @@ export const loginEmpresa = async (correo_electronico) => {
   const [rows] = await pool.query(
     `
     SELECT
-      e.id_empresa,
-      e.nombre_comercial,
-      e.razon_social,
-      e.sitio_web,
-      e.descripcion_empresa,
-      e.id_municipio_fk,
-      e.correo_electronico,
-      e.contrasena,
-      COALESCE(e.email_verificado, 0) AS email_verificado,
-      epd.telefono
-    FROM Empresas e
-    LEFT JOIN Empresas_Perfil_Detalle epd ON epd.id_empresa_fk = e.id_empresa
-    WHERE e.correo_electronico = ?
+      id_empresa,
+      nombre_comercial,
+      razon_social,
+      sitio_web,
+      descripcion_empresa,
+      id_municipio_fk,
+      correo_electronico,
+      contrasena,
+      COALESCE(email_verificado, 0) AS email_verificado
+    FROM Empresas
+    WHERE correo_electronico = ?
     LIMIT 1
     `,
     [correo_electronico]
@@ -56,8 +54,7 @@ export const registerEmpresaAuth = async (empresa) => {
     descripcion_empresa,
     id_municipio_fk,
     correo_electronico,
-    contrasena,
-    telefono
+    contrasena
   } = empresa;
 
   const [result] = await pool.query(
@@ -86,17 +83,6 @@ export const registerEmpresaAuth = async (empresa) => {
     ]
   );
 
-  if (telefono) {
-    await pool.query(
-      `
-      INSERT INTO Empresas_Perfil_Detalle (id_empresa_fk, telefono)
-      VALUES (?, ?)
-      ON DUPLICATE KEY UPDATE telefono = VALUES(telefono)
-      `,
-      [result.insertId, telefono]
-    );
-  }
-
   return {
     id_empresa: result.insertId,
     nombre_comercial,
@@ -116,7 +102,8 @@ export const registerUsuarioAuth = async (usuario) => {
     resumen_profesional
   } = usuario;
 
-  await ensureEmailVerificationSchema();
+  // 💡 EL TRUCO: Si resumen_profesional viene vacío desde Vue, le asignamos un texto en blanco ("")
+  const resumenSeguro = resumen_profesional || "";
 
   const [result] = await pool.query(
     `
@@ -140,7 +127,7 @@ export const registerUsuarioAuth = async (usuario) => {
       contrasena,
       telefono,
       id_municipio_fk,
-      resumen_profesional
+      resumenSeguro 
     ]
   );
 

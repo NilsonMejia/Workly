@@ -1,6 +1,5 @@
 <template>
   <div class="d-flex flex-column min-vh-100">
-    <!-- ========== NAVBAR MEJORADO ========== -->
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
         <div class="container-fluid px-4 px-lg-5">
             <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../../public/paginainicial">
@@ -39,18 +38,20 @@
                     <a href="../miperfil" class="text-white d-inline-block">
                         <i class="bi bi-person-circle fs-2"></i>
                     </a>
+                    
+                    <button @click="logout" class="btn btn-outline-light btn-sm ms-2" style="border-radius: 20px;">
+                        <i class="bi bi-box-arrow-right"></i> Salir
+                    </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- ========== MAIN ========== -->
     <main class="flex-grow-1 py-4">
         <div class="container-fluid px-4 px-lg-5">
 
             <div class="main-card mb-5 mt-2">
 
-                <!-- Encabezado -->
                 <div class="d-flex align-items-center gap-3 mb-5">
                     <div class="bg-light p-3 rounded-4">
                         <i class="bi bi-lightbulb fs-2" style="color: var(--primary-deep);"></i>
@@ -61,7 +62,6 @@
                     </div>
                 </div>
 
-                <!-- Recursos destacados -->
                 <section class="mb-5">
                     <div class="section-title">
                         <i class="bi bi-stars"></i>
@@ -105,7 +105,6 @@
                     </div>
                 </section>
 
-                <!-- Explorar por categoría -->
                 <section class="mb-5">
                     <div class="section-title">
                         <i class="bi bi-grid-3x3-gap-fill"></i>
@@ -160,7 +159,6 @@
                     </div>
                 </section>
 
-                <!-- Artículo reciente destacado -->
                 <section>
                     <div class="section-title">
                         <i class="bi bi-newspaper"></i>
@@ -198,7 +196,6 @@
         </div>
     </main>
 
-    <!-- ========== FOOTER ========== -->
     <footer class="py-4 mt-auto footer-custom">
         <div class="container text-center">
             <div class="d-flex flex-wrap justify-content-center gap-4 gap-md-5">
@@ -210,11 +207,6 @@
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
-
-
-
-    <!-- Ajustes adicionales -->
   </div>
 </template>
 
@@ -224,14 +216,10 @@ import { requireAuth, logout } from "../../../assets/js/shared/auth.js";
 
 onMounted(() => {
   requireAuth(["usuario"]);
-
-  const btnLogout = document.getElementById("btnLogout");
-  btnLogout.addEventListener("click", logout);
 });
 </script>
 
 <style>
-
 * { font-family: 'Inter', sans-serif; }
         :root {
             --primary-deep: #3f51b5;
