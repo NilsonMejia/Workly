@@ -215,7 +215,7 @@
 
 <script setup>
 import { onMounted } from "vue";
-import { API_URL, buildPendingVerificationPath, normalizeAppRedirect } from "../../../assets/js/shared/config.js";
+import { API_URL, buildPendingVerificationPath, normalizeAppRedirect, navigateTo } from "../../../assets/js/shared/config.js";
 
 onMounted(async () => {
   const tabUsuario = document.getElementById("tabUsuario");
@@ -358,7 +358,7 @@ onMounted(async () => {
       const redirectPath = normalizeAppRedirect(data.redirect, fallbackPath);
 
       setTimeout(() => {
-        window.location.href = redirectPath;
+        navigateTo(redirectPath);
       }, 1800);
     } catch (error) {
       showAlert(error.message);

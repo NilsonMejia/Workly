@@ -1,0 +1,1 @@
+import{h as a,g as l,n as e,c as s,r as c}from"./index-B3hwfRKK.js";const t=c("public/login"),u=(n=[])=>{const r=a(),o=l();return!r||!o?(e(t),!1):n.length>0&&!n.includes(o)?(s(),e(t),!1):!0},g=()=>{s(),e(t)};export{g as l,u as r};

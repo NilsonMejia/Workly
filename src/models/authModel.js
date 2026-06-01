@@ -1,39 +1,6 @@
 import { pool } from "../config/db.js";
-import { ensureEmailVerificationSchema } from "./usuarioModel.js";
-
-let companyProfileSchemaReadyPromise = null;
-
-const ensureEmpresaPerfilSchema = async () => {
-  if (companyProfileSchemaReadyPromise) {
-    return companyProfileSchemaReadyPromise;
-  }
-
-  companyProfileSchemaReadyPromise = (async () => {
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS Empresas_Perfil_Detalle (
-        id_empresa_fk INT NOT NULL,
-        telefono VARCHAR(20) NULL,
-        direccion VARCHAR(255) NULL,
-        logo_empresa LONGTEXT NULL,
-        especialidades_json LONGTEXT NULL,
-        cultura_json LONGTEXT NULL,
-        beneficios_json LONGTEXT NULL,
-        PRIMARY KEY (id_empresa_fk),
-        CONSTRAINT fk_empresas_perfil_detalle_empresa
-          FOREIGN KEY (id_empresa_fk)
-          REFERENCES Empresas(id_empresa)
-          ON UPDATE CASCADE
-          ON DELETE CASCADE
-      ) ENGINE=InnoDB;
-    `);
-  })();
-
-  return companyProfileSchemaReadyPromise;
-};
 
 export const loginUsuario = async (correo_electronico) => {
-  await ensureEmailVerificationSchema();
-
   const [rows] = await pool.query(
     `
     SELECT
@@ -57,9 +24,6 @@ export const loginUsuario = async (correo_electronico) => {
 };
 
 export const loginEmpresa = async (correo_electronico) => {
-  await ensureEmpresaPerfilSchema();
-  await ensureEmailVerificationSchema();
-
   const [rows] = await pool.query(
     `
     SELECT
@@ -95,9 +59,6 @@ export const registerEmpresaAuth = async (empresa) => {
     contrasena,
     telefono
   } = empresa;
-
-  await ensureEmpresaPerfilSchema();
-  await ensureEmailVerificationSchema();
 
   const [result] = await pool.query(
     `

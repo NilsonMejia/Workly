@@ -1,5 +1,7 @@
+import { navigateTo } from "./config.js";
+
 export const goTo = (path) => {
-  window.location.href = path;
+  navigateTo(path);
 };
 
 export const getQueryParam = (key) => {

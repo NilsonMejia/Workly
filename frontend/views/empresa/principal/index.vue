@@ -443,7 +443,7 @@
 
 <script setup>
 import { onMounted } from "vue";
-import { API_URL, getToken, getUsuario } from "../../../assets/js/shared/config.js";
+import { API_URL, getToken, getUsuario, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
 import {
   addCompanyForumComment,
@@ -674,7 +674,7 @@ onMounted(async () => {
     if (detailNode) detailNode.textContent = total > 0 ? `${total} vacantes publicadas en este momento.` : "Todavia no has publicado vacantes.";
     if (progressNode) progressNode.style.width = `${Math.min(100, total * 10)}%`;
     actionButton?.addEventListener("click", () => {
-      window.location.href = "../misvacantes";
+      navigateTo("../misvacantes");
     });
   };
 
@@ -689,7 +689,7 @@ onMounted(async () => {
     if (button) {
       button.innerHTML = `Ver todos (${dashboardData.metricas?.total_postulaciones ?? 0}) <i class="bi bi-arrow-right ms-1"></i>`;
       button.addEventListener("click", () => {
-        window.location.href = "../postulaciones";
+        navigateTo("../postulaciones");
       });
     }
 
@@ -808,7 +808,7 @@ onMounted(async () => {
     });
 
     btnIrPublicarVacante?.addEventListener("click", () => {
-      window.location.href = "../publicarvacante";
+      navigateTo("../publicarvacante");
     });
 
     btnGuardarPub?.addEventListener("click", () => {

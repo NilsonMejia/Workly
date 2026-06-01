@@ -1,4 +1,4 @@
-import { resolveViewPath } from "./config.js";
+import { resolveViewPath, navigateTo } from "./config.js";
 
 const verificarAcceso = () => {
    
@@ -40,7 +40,7 @@ const expulsarUsuario = () => {
     localStorage.removeItem("usuario");
     
     
-    window.location.href = resolveViewPath("public/login");
+    navigateTo(resolveViewPath("public/login"));
 };
 
 verificarAcceso();

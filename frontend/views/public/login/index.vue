@@ -86,10 +86,11 @@
 
 <script setup>
 import { onMounted } from "vue";
+import { useRouter } from "vue-router";
 import { API_URL, saveSession, clearSession, buildPendingVerificationPath, normalizeAppRedirect } from "../../../assets/js/shared/config.js";
 
 onMounted(async () => {
-  const formLogin = document.getElementById("formLogin");
+  const router = useRouter();
   const alertContainer = document.getElementById("alertContainer");
   const btnReenviarVerificacion = document.getElementById("btnReenviarVerificacion");
   const enlaceRegistro = document.getElementById("linkRegistro");
@@ -145,7 +146,7 @@ onMounted(async () => {
 
       const fallbackPath = buildPendingVerificationPath({ email: correo });
       setTimeout(() => {
-        window.location.href = normalizeAppRedirect(data.redirect, fallbackPath);
+        router.push(normalizeAppRedirect(data.redirect, fallbackPath));
       }, 1200);
     } catch (error) {
       showAlert(error.message);
@@ -164,6 +165,8 @@ onMounted(async () => {
     const contrasena = passwordInput.value.trim();
 
     try {
+      console.log("🔐 Iniciando login con:", correo_electronico);
+      
       const response = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -174,6 +177,7 @@ onMounted(async () => {
       });
 
       const data = await response.json();
+      console.log("📡 Respuesta del servidor:", { status: response.status, data });
 
       if (!response.ok) {
         if (response.status === 403 && data.code === "EMAIL_NO_VERIFICADO") {
@@ -185,7 +189,7 @@ onMounted(async () => {
           });
 
           setTimeout(() => {
-            window.location.href = normalizeAppRedirect(data.redirect, fallbackPath);
+            router.push(normalizeAppRedirect(data.redirect, fallbackPath));
           }, 1200);
           return;
         }
@@ -194,15 +198,20 @@ onMounted(async () => {
       }
 
       saveSession(data.token, data.tipo, data.data);
+      console.log("✅ Sesión guardada. Tipo:", data.tipo);
 
       const destinos = {
-        usuario: "../../usuario/principal",
-        empresa: "../../empresa/principal",
-        admin: "../../admin/principal"
+        usuario: "/views/usuario/principal",
+        empresa: "/views/empresa/principal",
+        admin: "/views/admin/principal"
       };
 
-      window.location.href = destinos[data.tipo] || "../../public/paginainicial";
+      const destino = destinos[data.tipo] || "/views/public/paginainicial";
+      console.log("📍 Navegando a:", destino);
+      
+      router.push(destino);
     } catch (error) {
+      console.error("❌ Error en login:", error);
       showAlert(error.message);
     }
   });

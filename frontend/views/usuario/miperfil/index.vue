@@ -150,7 +150,8 @@ import {
   clearSession,
   resolveViewPath,
   buildPendingVerificationPath,
-  normalizeAppRedirect
+  normalizeAppRedirect,
+  navigateTo
 } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
 
@@ -242,12 +243,12 @@ onMounted(async () => {
         email: data?.correo_electronico,
         tipo: data?.tipo
       });
-      window.location.href = normalizeAppRedirect(data?.redirect, fallback);
+      navigateTo(normalizeAppRedirect(data?.redirect, fallback));
       return;
     }
 
     clearSession();
-    window.location.href = LOGIN_PATH;
+    navigateTo(LOGIN_PATH);
   };
 
   const fetchJson = async (url, options = {}) => {

@@ -158,7 +158,7 @@
 
 <script setup>
 import { onMounted } from "vue";
-import { API_URL, getToken } from "../../../assets/js/shared/config.js";
+import { API_URL, getToken, clearSession, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
 
 onMounted(async () => {
@@ -289,7 +289,7 @@ onMounted(async () => {
 
       if (response.status === 401 || response.status === 403) {
         clearSession();
-        window.location.href = "../../public/login";
+        navigateTo("/views/public/login");
         return;
       }
 

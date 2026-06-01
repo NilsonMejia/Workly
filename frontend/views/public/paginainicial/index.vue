@@ -273,6 +273,10 @@ onMounted(async () => {
   const alertContainer = document.getElementById("alertContainer");
   const statVacantes = document.getElementById("statVacantes");
 
+  if (!contenedorVacantes || !alertContainer || !statVacantes) {
+    return;
+  }
+
   const showAlert = (message, type = "danger") => {
     alertContainer.innerHTML = `
       <div class="alert alert-${type}" role="alert">

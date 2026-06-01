@@ -252,7 +252,7 @@
 
 <script setup>
 import { onMounted } from "vue";
-import { API_URL, getToken, clearSession } from "../../../assets/js/shared/config.js";
+import { API_URL, getToken, clearSession, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
 
 onMounted(async () => {
@@ -284,7 +284,7 @@ onMounted(async () => {
 
   const redirectToLogin = () => {
     clearSession();
-    window.location.href = "../../public/login";
+    navigateTo("../../public/login");
   };
 
   const showAlert = (message, type = "danger") => {

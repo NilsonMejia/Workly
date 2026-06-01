@@ -370,7 +370,7 @@
 
 <script setup>
 import { onMounted } from "vue";
-import { API_URL, getUsuario } from "../../../assets/js/shared/config.js";
+import { API_URL, getUsuario, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
 
 onMounted(async () => {
@@ -586,13 +586,13 @@ onMounted(async () => {
   const irABusqueda = () => {
     const query = inputBusquedaRapida?.value.trim();
     if (!query) {
-      window.location.href = "../buscarempleo";
+      navigateTo("../buscarempleo");
       return;
     }
 
     btnBusquedaRapida?.setAttribute("disabled", "true");
     btnBusquedaRapida.innerHTML = `Buscando <span class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>`;
-    window.location.href = `../buscarempleo?q=${encodeURIComponent(query)}`;
+    navigateTo(`../buscarempleo?q=${encodeURIComponent(query)}`);
   };
 
   document.addEventListener("DOMContentLoaded", () => {

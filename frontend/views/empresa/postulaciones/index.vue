@@ -299,6 +299,7 @@
 import { onMounted } from "vue";
 import { API_URL, getToken } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
+import { createSafeAlert, escapeHtml } from "../../../assets/js/shared/security.js";
 
 onMounted(async () => {
   requireAuth(["empresa"]);
@@ -607,7 +608,7 @@ onMounted(async () => {
 
   cargarLista().catch((error) => {
     console.error(error);
-    contenedorPostulaciones.innerHTML = `<div class="alert alert-danger">${error.message}</div>`;
+    contenedorPostulaciones.innerHTML = createSafeAlert(error.message, "danger");
   });
 });
 </script>

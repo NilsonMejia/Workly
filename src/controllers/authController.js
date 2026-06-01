@@ -32,6 +32,8 @@ const HORAS_VERIFICACION = 24;
 const LONGITUD_CODIGO = 6;
 
 const normalizarCorreo = (value) => String(value || "").trim().toLowerCase();
+const ADMIN_EMAIL = "admin@workly.com";
+const ADMIN_PASSWORD = "admin123";
 
 const generarTokenCorreo = () => crypto.randomBytes(32).toString("hex");
 const generarCodigoCorreo = () =>
@@ -94,24 +96,29 @@ export const iniciarSesion = async (req, res) => {
       return res.status(400).json({ mensaje: "Faltan datos obligatorios" });
     }
 
-    if (correo_electronico === "admin@workly.com" && String(contrasena).trim() === "admin123") {
+    if (
+      correo_electronico === ADMIN_EMAIL &&
+      String(contrasena).trim() === ADMIN_PASSWORD
+    ) {
+      const admin = {
+        id_admin: 1,
+        nombre: "Administrador Workly",
+        correo_electronico: ADMIN_EMAIL,
+        rol: "admin",
+        email_verificado: true
+      };
+
       const token = generarToken({
-        id: 1,
+        id: admin.id_admin,
         tipo: "admin",
         email_verificado: true
       });
 
       return res.json({
-        mensaje: "Login admin correcto",
+        mensaje: "Login correcto",
         token,
         tipo: "admin",
-        data: {
-          id: 1,
-          correo_electronico,
-          usuario: "admin",
-          tipo: "admin",
-          email_verificado: true
-        }
+        data: admin
       });
     }
 

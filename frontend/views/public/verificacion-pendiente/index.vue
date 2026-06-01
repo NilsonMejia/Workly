@@ -71,7 +71,7 @@
 
 <script setup>
 import { onMounted } from "vue";
-import { API_URL, buildPendingVerificationPath, normalizeAppRedirect, resolveViewPath } from "../../../assets/js/shared/config.js";
+import { API_URL, buildPendingVerificationPath, normalizeAppRedirect, resolveViewPath, navigateTo } from "../../../assets/js/shared/config.js";
 
 onMounted(async () => {
   const alertContainer = document.getElementById("alertContainer");
@@ -132,10 +132,10 @@ onMounted(async () => {
       showAlert(data.mensaje, "success");
 
       setTimeout(() => {
-        window.location.href = normalizeAppRedirect(
+        navigateTo(normalizeAppRedirect(
           data.redirect,
           resolveViewPath("public/login?verified=1")
-        );
+        ));
       }, 1200);
     } catch (error) {
       showAlert(error.message);
@@ -193,7 +193,7 @@ onMounted(async () => {
       showAlert(data.mensaje, "success");
       const fallbackPath = buildPendingVerificationPath({ email: data.email, tipo: data.tipo });
       setTimeout(() => {
-        window.location.href = normalizeAppRedirect(data.redirect, fallbackPath);
+        navigateTo(normalizeAppRedirect(data.redirect, fallbackPath));
       }, 1200);
     } catch (error) {
       showAlert(error.message);
@@ -210,7 +210,7 @@ onMounted(async () => {
   if (!email || !tipo) {
     showAlert("Faltan datos para continuar con la verificacion. Vuelve a iniciar sesion.", "warning");
     setTimeout(() => {
-      window.location.href = resolveViewPath("public/login");
+      navigateTo(resolveViewPath("public/login"));
     }, 1800);
   } else {
     actualizarVista();

@@ -110,7 +110,7 @@
 
 <script setup>
 import { onMounted } from "vue";
-import { getToken, getTipo, getUsuario } from "../../../assets/js/shared/config.js";
+import { getToken, getTipo, getUsuario, navigateTo } from "../../../assets/js/shared/config.js";
 
 onMounted(() => {
   const estadoSesion = document.getElementById("estadoSesion");
@@ -147,26 +147,26 @@ onMounted(() => {
     const tipo = getTipo();
 
     if (!token || !tipo) {
-      window.location.href = "../login";
+      navigateTo("../login");
       return;
     }
 
     if (tipo === "usuario") {
-      window.location.href = "../../usuario/principal";
+      navigateTo("../../usuario/principal");
       return;
     }
 
     if (tipo === "empresa") {
-      window.location.href = "../../empresa/principal";
+      navigateTo("../../empresa/principal");
       return;
     }
 
     if (tipo === "admin") {
-      window.location.href = "../../admin/principal";
+      navigateTo("../../admin/principal");
       return;
     }
 
-    window.location.href = "../login";
+    navigateTo("../login");
   };
 
   btnContinuar.addEventListener("click", redirigir);

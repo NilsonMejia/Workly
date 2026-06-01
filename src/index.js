@@ -4,6 +4,7 @@ import { pool } from "./config/db.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import cors from "cors";
+import initializeDatabase from "./init.js";
 
 import authRoutes from "./routes/authRoutes.js";
 import catalogosRoutes from "./routes/catalogosRoutes.js";
@@ -109,6 +110,12 @@ app.use((req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+app.listen(PORT, async () => {
+  try {
+    await initializeDatabase();
+    console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
+  } catch (error) {
+    console.error("❌ Error al iniciar servidor:", error.message);
+    process.exit(1);
+  }
 });

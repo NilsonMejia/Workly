@@ -325,7 +325,7 @@
 
 <script setup>
 import { onMounted } from "vue";
-import { API_URL, getToken, getUsuario } from "../../../assets/js/shared/config.js";
+import { API_URL, getToken, getUsuario, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
 
 onMounted(async () => {
@@ -576,7 +576,7 @@ onMounted(async () => {
         empresaButton.innerHTML = `Ver perfil de ${nombreEmpresa}`;
 
         empresaButton.addEventListener("click", () => {
-          window.location.href = `../valoracionempresa?id_empresa=${vacante.id_empresa}`;
+          navigateTo(`../valoracionempresa?id_empresa=${vacante.id_empresa}`);
         }, { once: true });
       }
 

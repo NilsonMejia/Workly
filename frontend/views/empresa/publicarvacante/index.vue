@@ -185,7 +185,7 @@
 
 <script setup>
 import { onMounted } from "vue";
-import { API_URL, getToken } from "../../../assets/js/shared/config.js";
+import { API_URL, getToken, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
 
 onMounted(async () => {
@@ -317,7 +317,7 @@ onMounted(async () => {
       modal?.hide();
 
       alert("Vacante publicada con exito en Workly.");
-      window.location.href = "../misvacantes";
+      navigateTo("../misvacantes");
     } catch (error) {
       console.error(error);
       alert(`Ocurrio un error: ${error.message}`);
