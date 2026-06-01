@@ -1,0 +1,856 @@
+<template>
+  <div class="d-flex flex-column min-vh-100">
+    <!-- ========== NAVBAR MEJORADO ========== -->
+    <nav class="navbar navbar-expand-lg py-3 navbar-custom">
+        <div class="container-fluid px-4 px-lg-5">
+            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../../public/paginainicial/index.html">
+                <i class="bi bi-briefcase-fill brand-icon"></i>
+                <div class="lh-sm ms-2">
+                    <span class="brand-text">Workly</span>
+                    <span class="brand-sub">Tu búsqueda de trabajo profesional</span>
+                </div>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <div class="navbar-nav mx-auto mt-3 mt-lg-0 gap-2">
+                    <a href="../buscarempleo/index.html" class="nav-link-custom active text-decoration-none px-3 py-2">
+                        <i class="bi bi-search me-1"></i> Búsqueda
+                    </a>
+                    <a href="../recursos/index.html" class="nav-link-custom text-decoration-none px-3 py-2">
+                        <i class="bi bi-journal-bookmark-fill me-1"></i> Recursos
+                    </a>
+                    <a href="../valoracionempresa/index.html" class="nav-link-custom text-decoration-none px-3 py-2">
+                        <i class="bi bi-star-fill me-1"></i> Valoraciones
+                    </a>
+                    <a href="../miperfil/index.html" class="nav-link-custom text-decoration-none px-3 py-2">
+                        <i class="bi bi-person-badge me-1"></i> Mi Perfil
+                    </a>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-center gap-4 mt-3 mt-lg-0">
+                    <a href="../notificaciones/index.html" class="position-relative cursor-pointer text-decoration-none">
+                        <i class="bi bi-bell-fill fs-3 text-white"></i>
+                        <span class="notification-badge">5</span>
+                    </a>
+                    <a href="../miperfil/index.html" class="text-white"><i class="bi bi-person-circle fs-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== MAIN ========== -->
+    <main class="flex-grow-1 py-4">
+        <div class="container px-4 px-lg-5">
+
+            <!-- BARRA DE BÚSQUEDA PRINCIPAL FUNCIONAL -->
+            <div class="search-bar-wrapper mb-4 d-flex align-items-center">
+                <i class="bi bi-search fs-5 text-muted me-2"></i>
+                <input type="text" id="inputBusquedaPrincipal" class="form-control border-0 shadow-none bg-transparent py-2"
+                       placeholder="Puesto, empresa o palabra clave...">
+                <button class="btn btn-primary-deep px-4 py-2 fw-semibold" id="btnBuscarPrincipal">
+                    Buscar empleo <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+            </div>
+
+            <!-- Barra de estado (ID conservado) -->
+            <div class="status-bar mb-4">
+                <p class="mb-0 text-secondary small fw-medium" id="barraEstado">
+                    <i class="bi bi-info-circle me-1" style="color: var(--primary-deep);"></i>
+                    <span id="textoBarraEstado">Se encontraron resultados para tu búsqueda profesional</span>
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Aside: Filtros mejorados con acordeones y botón sticky -->
+                <aside class="col-12 col-lg-3">
+                    <div class="filter-card">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h6 class="fw-bold mb-0 d-flex align-items-center" style="color: #121826;">
+                                <i class="bi bi-funnel-fill me-2" style="color: var(--primary-deep);"></i>Filtros
+                            </h6>
+                            <!-- Botón aplicar filtros ahora está justo al lado del título para acceso rápido -->
+                            <button type="button" id="btnAplicarFiltros" class="btn btn-primary-deep btn-sm px-4 py-2 fw-semibold">
+                                Aplicar <i class="bi bi-check2 ms-1"></i>
+                            </button>
+                        </div>
+
+                        <!-- Acordeón de filtros -->
+                        <div class="accordion" id="accordionFiltros">
+                            <!-- Fecha de publicación -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFecha">
+                                        <i class="bi bi-calendar3 me-2"></i> Fecha de publicación
+                                    </button>
+                                </h2>
+                                <div id="collapseFecha" class="accordion-collapse collapse show" data-bs-parent="#accordionFiltros">
+                                    <div class="accordion-body pt-2">
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="fecha1">
+                                            <label class="form-check-label text-secondary small fw-medium" for="fecha1">Cualquier fecha</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="fecha2">
+                                            <label class="form-check-label text-secondary small fw-medium" for="fecha2">Últimas 24 horas</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="fecha3">
+                                            <label class="form-check-label text-secondary small fw-medium" for="fecha3">Última semana</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="fecha4">
+                                            <label class="form-check-label text-secondary small fw-medium" for="fecha4">Último mes</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Nivel de experiencia -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNivel">
+                                        <i class="bi bi-bar-chart-steps me-2"></i> Nivel de experiencia
+                                    </button>
+                                </h2>
+                                <div id="collapseNivel" class="accordion-collapse collapse" data-bs-parent="#accordionFiltros">
+                                    <div class="accordion-body pt-2">
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="nivel1">
+                                            <label class="form-check-label text-secondary small fw-medium" for="nivel1">Practicante</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="nivel2">
+                                            <label class="form-check-label text-secondary small fw-medium" for="nivel2">Junior</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="nivel3">
+                                            <label class="form-check-label text-secondary small fw-medium" for="nivel3">Semi-senior</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="nivel4">
+                                            <label class="form-check-label text-secondary small fw-medium" for="nivel4">Senior</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Rango salarial -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSalario">
+                                        <i class="bi bi-cash-stack me-2"></i> Rango salarial
+                                    </button>
+                                </h2>
+                                <div id="collapseSalario" class="accordion-collapse collapse" data-bs-parent="#accordionFiltros">
+                                    <div class="accordion-body pt-2">
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="salario1">
+                                            <label class="form-check-label text-secondary small fw-medium" for="salario1">$0 - $500</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="salario2">
+                                            <label class="form-check-label text-secondary small fw-medium" for="salario2">$500 - $800</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="salario3">
+                                            <label class="form-check-label text-secondary small fw-medium" for="salario3">$800 - $1,000</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="salario4">
+                                            <label class="form-check-label text-secondary small fw-medium" for="salario4">$1,000 - $1,500</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="salario5">
+                                            <label class="form-check-label text-secondary small fw-medium" for="salario5">$2,000+</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botón adicional sticky (opcional) pero ya tenemos uno arriba -->
+                        <div class="sticky-apply-btn d-lg-none">
+                            <button type="button" class="btn btn-primary-deep w-100 py-3 fw-semibold" id="btnAplicarFiltrosMobile">
+                                <i class="bi bi-funnel me-2"></i>Aplicar filtros
+                            </button>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Sección principal: Vacantes -->
+                <section class="col-12 col-lg-9">
+                    <!-- Contenedor de vacantes (ID conservado) -->
+                    <div id="contenedor-vacantes">
+                        <div class="text-center py-5">
+                            <div class="spinner-border" style="color: var(--primary-deep);" role="status"></div>
+                            <p class="mt-2 text-secondary">Buscando vacantes reales...</p>
+                        </div>
+                    </div>
+
+                    <!-- Paginación -->
+                    <nav class="d-flex justify-content-center mt-5">
+                        <div class="pagination-container d-flex align-items-center gap-3">
+                            <button class="btn btn-link text-secondary text-decoration-none small fw-medium">
+                                <i class="bi bi-arrow-left me-1"></i> Anterior
+                            </button>
+                            <div class="d-flex gap-2">
+                                <span class="badge page-active d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">1</span>
+                                <button class="btn btn-link text-secondary text-decoration-none p-0 mx-1 page-link-custom">2</button>
+                                <button class="btn btn-link text-secondary text-decoration-none p-0 mx-1 page-link-custom">3</button>
+                                <span class="text-secondary align-self-center">...</span>
+                                <button class="btn btn-link text-secondary text-decoration-none p-0 mx-1 page-link-custom">10</button>
+                            </div>
+                            <button class="btn btn-link text-secondary text-decoration-none small fw-medium">Siguiente <i class="bi bi-arrow-right ms-1"></i></button>
+                        </div>
+                    </nav>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- ========== TOAST ========== -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="toastFiltros" class="toast align-items-center text-white border-0 rounded-4 shadow mb-2" role="alert" style="background-color: var(--primary-deep);">
+            <div class="d-flex">
+                <div class="toast-body fs-6 py-3 fw-semibold">
+                    <i class="bi bi-funnel-fill me-2 fs-5"></i> ¡Filtros aplicados correctamente!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="py-4 mt-auto footer-custom">
+        <div class="container text-center">
+            <div class="d-flex flex-wrap justify-content-center gap-4 gap-md-5">
+                <a href="#"><i class="bi bi-question-circle me-1"></i>Ayuda</a>
+                <a href="#"><i class="bi bi-shield-lock me-1"></i>Privacidad</a>
+                <a href="#">Términos</a>
+                <span class="text-white opacity-75">💼 Workly 2026 · Conectando talento</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+
+
+    <!-- Script de la API (conservado) -->
+
+
+    <!-- Ajustes adicionales -->
+  </div>
+</template>
+
+<script setup>
+import { onMounted } from "vue";
+import { API_URL } from "../../../assets/js/shared/config.js";
+
+onMounted(async () => {
+  const PAGE_SIZE = 6;
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const contenedorVacantes = document.getElementById("contenedor-vacantes");
+    const inputBusqueda = document.getElementById("inputBusquedaPrincipal");
+    const btnBuscar = document.getElementById("btnBuscarPrincipal");
+    const btnAplicarFiltros = document.getElementById("btnAplicarFiltros");
+    const btnAplicarMobile = document.getElementById("btnAplicarFiltrosMobile");
+    const textoBarraEstado = document.getElementById("textoBarraEstado");
+    const paginacionRoot = document.querySelector(".pagination-container");
+
+    let resultadosActuales = [];
+    let paginaActual = 1;
+
+    const formatearFecha = (fecha) => {
+      if (!fecha) return "Sin fecha";
+      const parsed = new Date(fecha);
+      if (Number.isNaN(parsed.getTime())) return "Sin fecha";
+      return parsed.toLocaleDateString("es-SV");
+    };
+
+    const formatearSalario = (vacante) => {
+      if (vacante.salario_offrecido === null || vacante.salario_offrecido === undefined || vacante.salario_offrecido === "") {
+        return "A convenir";
+      }
+
+      return `$${Number(vacante.salario_offrecido).toFixed(2)}`;
+    };
+
+    const normalizarTexto = (value = "") =>
+      value
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+
+    const parseFechaVacante = (value) => {
+      if (!value) return null;
+      const parsed = new Date(value);
+      return Number.isNaN(parsed.getTime()) ? null : parsed;
+    };
+
+    const aplicarFiltroLocalFecha = (vacantes) => {
+      let rangoDias = null;
+
+      if (document.getElementById("fecha2")?.checked) rangoDias = 1;
+      else if (document.getElementById("fecha3")?.checked) rangoDias = 7;
+      else if (document.getElementById("fecha4")?.checked) rangoDias = 30;
+
+      if (!rangoDias) {
+        return vacantes;
+      }
+
+      const ahora = Date.now();
+      return vacantes.filter((vacante) => {
+        const fecha = parseFechaVacante(vacante.fecha_publicacion);
+        if (!fecha) return false;
+        const diferenciaDias = (ahora - fecha.getTime()) / (1000 * 60 * 60 * 24);
+        return diferenciaDias >= 0 && diferenciaDias <= rangoDias;
+      });
+    };
+
+    const tarjetaVacante = (vacante) => `
+      <div class="card mb-4 p-4 border-0 shadow-sm" style="border-radius: 20px; transition: transform 0.2s;">
+        <div class="row align-items-center">
+          <div class="col-md-9">
+            <div class="d-flex align-items-center mb-2 flex-wrap gap-2">
+              <h5 class="fw-bold mb-0 me-3" style="color: #121826;">${vacante.titulo_puesto || "Vacante"}</h5>
+              <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill fw-medium px-3">${vacante.modalidad || "Modalidad no indicada"}</span>
+              <span class="badge bg-light text-dark rounded-pill fw-medium px-3">${vacante.experiencia_nivel || "No especificado"}</span>
+            </div>
+            <p class="text-secondary fw-medium mb-3">${vacante.nombre_empresa || vacante.nombre_comercial || vacante.empresa || "Empresa confidencial"}</p>
+
+            <div class="d-flex flex-wrap gap-3 small text-muted">
+              <div class="d-flex align-items-center">
+                <i class="bi bi-geo-alt me-1"></i> ${vacante.nombre_municipio || "El Salvador"}
+              </div>
+              <div class="d-flex align-items-center">
+                <i class="bi bi-cash me-1"></i> ${formatearSalario(vacante)}
+              </div>
+              <div class="d-flex align-items-center">
+                <i class="bi bi-clock me-1"></i> ${formatearFecha(vacante.fecha_publicacion)}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 text-md-end mt-4 mt-md-0">
+            <a href="../detalleempleo/index.html?id=${vacante.id_vacante}" class="btn px-4 py-2 fw-semibold w-100 w-md-auto text-white" style="background-color: var(--primary-deep); border-radius: 30px;">
+              Ver detalles <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const getCheckedValues = (ids) =>
+      ids
+        .map((id) => document.getElementById(id))
+        .filter((input) => input?.checked);
+
+    const obtenerParametrosFiltros = () => {
+      const params = new URLSearchParams();
+      const query = inputBusqueda?.value.trim();
+
+      if (query) params.set("q", query);
+
+      if (document.getElementById("fecha2")?.checked) params.set("fecha", "24h");
+      else if (document.getElementById("fecha3")?.checked) params.set("fecha", "semana");
+      else if (document.getElementById("fecha4")?.checked) params.set("fecha", "mes");
+
+      const experiencia = [];
+      if (document.getElementById("nivel1")?.checked) experiencia.push("Practicante");
+      if (document.getElementById("nivel2")?.checked) experiencia.push("Junior");
+      if (document.getElementById("nivel3")?.checked) experiencia.push("Semi-senior");
+      if (document.getElementById("nivel4")?.checked) experiencia.push("Senior");
+      if (experiencia.length > 0) params.set("experiencia", experiencia.join(","));
+
+      if (document.getElementById("salario1")?.checked) {
+        params.set("min", "0");
+        params.set("max", "500");
+      } else if (document.getElementById("salario2")?.checked) {
+        params.set("min", "501");
+        params.set("max", "800");
+      } else if (document.getElementById("salario3")?.checked) {
+        params.set("min", "801");
+        params.set("max", "1000");
+      } else if (document.getElementById("salario4")?.checked) {
+        params.set("min", "1001");
+        params.set("max", "1500");
+      } else if (document.getElementById("salario5")?.checked) {
+        params.set("min", "2000");
+      }
+
+      return params;
+    };
+
+    const syncUrl = (params) => {
+      const query = params.toString();
+      const newUrl = query ? `${window.location.pathname}?${query}` : window.location.pathname;
+      window.history.replaceState({}, "", newUrl);
+    };
+
+    const renderPaginacion = () => {
+      if (!paginacionRoot) return;
+
+      const totalPaginas = Math.max(1, Math.ceil(resultadosActuales.length / PAGE_SIZE));
+      const paginas = [];
+
+      for (let page = 1; page <= totalPaginas; page += 1) {
+        paginas.push(`
+          <button class="btn btn-link text-decoration-none p-0 mx-1 page-link-custom ${page === paginaActual ? "page-active" : "text-secondary"}" data-page="${page}">
+            ${page}
+          </button>
+        `);
+      }
+
+      paginacionRoot.innerHTML = `
+        <button class="btn btn-link text-secondary text-decoration-none small fw-medium" id="btnPaginaAnterior" ${paginaActual === 1 ? "disabled" : ""}>
+          <i class="bi bi-arrow-left me-1"></i> Anterior
+        </button>
+        <div class="d-flex gap-2 align-items-center">${paginas.join("")}</div>
+        <button class="btn btn-link text-secondary text-decoration-none small fw-medium" id="btnPaginaSiguiente" ${paginaActual === totalPaginas ? "disabled" : ""}>
+          Siguiente <i class="bi bi-arrow-right ms-1"></i>
+        </button>
+      `;
+
+      document.getElementById("btnPaginaAnterior")?.addEventListener("click", () => {
+        if (paginaActual > 1) {
+          paginaActual -= 1;
+          renderResultadosPaginados();
+        }
+      });
+
+      document.getElementById("btnPaginaSiguiente")?.addEventListener("click", () => {
+        if (paginaActual < totalPaginas) {
+          paginaActual += 1;
+          renderResultadosPaginados();
+        }
+      });
+
+      paginacionRoot.querySelectorAll("[data-page]").forEach((button) => {
+        button.addEventListener("click", () => {
+          paginaActual = Number(button.dataset.page);
+          renderResultadosPaginados();
+        });
+      });
+    };
+
+    const renderResultadosPaginados = () => {
+      if (!contenedorVacantes) return;
+
+      if (!resultadosActuales.length) {
+        contenedorVacantes.innerHTML = `
+          <div class="text-center py-5 bg-white rounded-4 border">
+            <i class="bi bi-search fs-1 text-muted opacity-50 mb-3 d-block"></i>
+            <h5 class="fw-bold text-dark">No encontramos vacantes</h5>
+            <p class="text-secondary">Intenta buscar con otras palabras o limpia los filtros laterales.</p>
+          </div>
+        `;
+        renderPaginacion();
+        return;
+      }
+
+      const inicio = (paginaActual - 1) * PAGE_SIZE;
+      const pagina = resultadosActuales.slice(inicio, inicio + PAGE_SIZE);
+      contenedorVacantes.innerHTML = pagina.map(tarjetaVacante).join("");
+      renderPaginacion();
+    };
+
+    const aplicarFiltroLocalModalidad = (vacantes) => {
+      const modalidadesSeleccionadas = getCheckedValues(["modalidadRemoto", "modalidadPresencial", "modalidadHibrido"]);
+
+      if (!modalidadesSeleccionadas.length) {
+        return vacantes;
+      }
+
+      const modalidades = modalidadesSeleccionadas.map((input) => normalizarTexto(input.value));
+      return vacantes.filter((vacante) => {
+        const modalidadVacante = normalizarTexto(vacante.modalidad || "");
+        return modalidades.some((modalidad) => modalidadVacante.includes(modalidad));
+      });
+    };
+
+    const cargarVacantes = async (params = new URLSearchParams()) => {
+      if (!contenedorVacantes) return;
+
+      contenedorVacantes.innerHTML = `
+        <div class="text-center py-5">
+          <div class="spinner-border text-primary" role="status"></div>
+          <p class="mt-2 text-secondary">Buscando vacantes reales...</p>
+        </div>
+      `;
+
+      try {
+        const query = params.toString();
+        const url = query ? `${API_URL}/vacantes/busqueda/filtros?${query}` : `${API_URL}/vacantes`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Error al consultar la API");
+
+        let vacantes = await response.json();
+        vacantes = Array.isArray(vacantes) ? vacantes : [];
+        vacantes = aplicarFiltroLocalModalidad(vacantes);
+        vacantes = aplicarFiltroLocalFecha(vacantes);
+
+        resultadosActuales = vacantes;
+        paginaActual = 1;
+
+        if (textoBarraEstado) {
+          if (query) {
+            textoBarraEstado.textContent = `Se encontraron ${resultadosActuales.length} resultados con los filtros seleccionados`;
+          } else {
+            textoBarraEstado.textContent = `Mostrando ${resultadosActuales.length} vacantes disponibles`;
+          }
+        }
+
+        syncUrl(params);
+        renderResultadosPaginados();
+      } catch (error) {
+        console.error("Error cargando vacantes:", error);
+        contenedorVacantes.innerHTML = `
+          <div class="text-center py-5">
+            <i class="bi bi-exclamation-triangle text-danger fs-1"></i>
+            <p class="text-danger mt-2">Hubo un error al conectar con el servidor.</p>
+          </div>
+        `;
+      }
+    };
+
+    const aplicarFiltros = () => {
+      const params = obtenerParametrosFiltros();
+      cargarVacantes(params);
+
+      const toastElement = document.getElementById("toastFiltros");
+      if (toastElement) {
+        new bootstrap.Toast(toastElement).show();
+      }
+    };
+
+    const hidratarDesdeUrl = () => {
+      const params = new URLSearchParams(window.location.search);
+
+      if (inputBusqueda && params.has("q")) {
+        inputBusqueda.value = params.get("q");
+      }
+
+      const fecha = params.get("fecha");
+      if (!fecha) document.getElementById("fecha1").checked = true;
+      else if (fecha === "24h") document.getElementById("fecha2").checked = true;
+      else if (fecha === "semana") document.getElementById("fecha3").checked = true;
+      else if (fecha === "mes") document.getElementById("fecha4").checked = true;
+
+      const experiencia = normalizarTexto(params.get("experiencia") || "");
+      if (experiencia.includes("practic")) document.getElementById("nivel1").checked = true;
+      if (experiencia.includes("junior")) document.getElementById("nivel2").checked = true;
+      if (experiencia.includes("semi")) document.getElementById("nivel3").checked = true;
+      if (experiencia.includes("senior")) document.getElementById("nivel4").checked = true;
+
+      const min = params.get("min");
+      const max = params.get("max");
+      if (min === "0" && max === "500") document.getElementById("salario1").checked = true;
+      else if (min === "501" && max === "800") document.getElementById("salario2").checked = true;
+      else if (min === "801" && max === "1000") document.getElementById("salario3").checked = true;
+      else if (min === "1001" && max === "1500") document.getElementById("salario4").checked = true;
+      else if (min === "2000") document.getElementById("salario5").checked = true;
+
+      return params;
+    };
+
+    const configurarGruposExclusivos = () => {
+      [
+        ["fecha1", "fecha2", "fecha3", "fecha4"],
+        ["salario1", "salario2", "salario3", "salario4", "salario5"]
+      ].forEach((group) => {
+        group.forEach((id) => {
+          const input = document.getElementById(id);
+          input?.addEventListener("change", () => {
+            if (!input.checked) return;
+            group
+              .filter((otherId) => otherId !== id)
+              .forEach((otherId) => {
+                const otherInput = document.getElementById(otherId);
+                if (otherInput) otherInput.checked = false;
+              });
+          });
+        });
+      });
+    };
+
+    btnBuscar?.addEventListener("click", aplicarFiltros);
+    inputBusqueda?.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        aplicarFiltros();
+      }
+    });
+
+    btnAplicarFiltros?.addEventListener("click", aplicarFiltros);
+    btnAplicarMobile?.addEventListener("click", aplicarFiltros);
+
+    configurarGruposExclusivos();
+    const paramsIniciales = hidratarDesdeUrl();
+    cargarVacantes(paramsIniciales);
+  });
+});
+</script>
+
+<style>
+@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css");
+
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap");
+
+* { font-family: 'Inter', sans-serif; }
+        :root {
+            --primary-deep: #3f51b5;
+            --nav-bg: #011671;
+            --soft-accent: #f1ebd9;
+            --light-text: #e2e4e8;
+            --body-bg: #f5f7fc;
+        }
+        body {
+            background-color: var(--body-bg);
+        }
+        /* Navbar personalizado */
+        .navbar-custom {
+            background-color: var(--nav-bg) !important;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+        }
+        .navbar-brand .brand-icon {
+            font-size: 3.5rem;
+            color: white;
+            margin-right: 0.75rem;
+        }
+        .navbar-brand .brand-text {
+            color: white;
+            font-weight: 700;
+            font-size: 2rem;
+            line-height: 1.2;
+        }
+        .navbar-brand .brand-sub {
+            color: var(--light-text);
+            font-size: 0.95rem;
+        }
+        .nav-link-custom {
+            color: white !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            transition: background 0.2s;
+        }
+        .nav-link-custom:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .nav-link-custom.active {
+            background: rgba(255,255,255,0.2);
+        }
+        .btn-primary-deep {
+            background-color: var(--primary-deep);
+            border: none;
+            color: white;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border-radius: 40px;
+            padding: 0.6rem 1.5rem;
+        }
+        .btn-primary-deep:hover {
+            background-color: #2c3e8f;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(63, 81, 181, 0.25);
+            color: white;
+        }
+        /* Barra de búsqueda principal */
+        .search-bar-wrapper {
+            background: white;
+            border-radius: 60px;
+            padding: 0.4rem 0.4rem 0.4rem 1.8rem;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            border: 1px solid #e9ecf2;
+        }
+        .search-bar-wrapper input {
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            padding: 0.7rem 0;
+        }
+        .search-bar-wrapper input:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        /* Barra de estado */
+        .status-bar {
+            background: white;
+            border-radius: 40px;
+            padding: 0.6rem 1.8rem;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.02);
+            border: 1px solid #eef2f6;
+        }
+        /* Tarjeta de filtros */
+        .filter-card {
+            background: white;
+            border: none;
+            border-radius: 28px;
+            box-shadow: 0 15px 30px -8px rgba(1, 22, 113, 0.06);
+            padding: 1.5rem;
+            border: 1px solid #edf0f5;
+            position: sticky;
+            top: 20px;
+        }
+        .filter-section-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #121826;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+        .filter-section-title i {
+            color: var(--primary-deep);
+            margin-right: 8px;
+        }
+        .accordion-button {
+            padding: 0.75rem 0;
+            font-weight: 600;
+            color: #121826;
+            background: transparent;
+            box-shadow: none;
+            border-bottom: 1px solid #eef2f6;
+        }
+        .accordion-button:not(.collapsed) {
+            color: var(--primary-deep);
+            background: transparent;
+            box-shadow: none;
+        }
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: var(--primary-deep);
+        }
+        .accordion-item {
+            border: none;
+            background: transparent;
+        }
+        .form-check-input:checked {
+            background-color: var(--primary-deep);
+            border-color: var(--primary-deep);
+        }
+        .form-check-input:focus {
+            box-shadow: 0 0 0 0.2rem rgba(63, 81, 181, 0.15);
+        }
+        /* Tarjetas de vacantes (se renderizan dinámicamente) */
+        #contenedor-vacantes .card {
+            border: none;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #f0f3f9;
+        }
+        #contenedor-vacantes .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -10px rgba(63,81,181,0.1);
+            border-color: var(--primary-deep);
+        }
+        /* Paginación */
+        .pagination-container {
+            background: white;
+            border-radius: 60px;
+            padding: 0.5rem 1.2rem;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.02);
+        }
+        .page-link-custom {
+            color: #5a6275;
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0.9rem;
+            border-radius: 40px;
+            font-weight: 500;
+        }
+        .page-link-custom:hover {
+            background: #f0f3fc;
+            color: var(--primary-deep);
+        }
+        .page-active {
+            background: var(--primary-deep) !important;
+            color: white !important;
+        }
+        /* Footer */
+        .footer-custom {
+            background-color: var(--nav-bg);
+            color: var(--light-text);
+        }
+        .footer-custom a {
+            color: var(--light-text) !important;
+            text-decoration: none;
+        }
+        .footer-custom a:hover {
+            color: white !important;
+            text-decoration: underline;
+        }
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            padding: 0.2rem 0.4rem;
+            font-size: 0.65rem;
+            font-weight: bold;
+            border: 2px solid white;
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        /* Botón de filtros sticky */
+        .sticky-apply-btn {
+            position: sticky;
+            bottom: 20px;
+            background: white;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+.cursor-pointer { cursor: pointer; }
+    .accordion-button::after {
+        background-size: 1rem;
+    }
+    .form-check-input {
+        cursor: pointer;
+        border: 1.5px solid #cdd2dc;
+    }
+    .form-check-label {
+        cursor: pointer;
+    }
+    .page-active {
+        background-color: var(--primary-deep) !important;
+        color: white !important;
+        font-weight: 600;
+    }
+    /* Para que el botón sticky no tape contenido */
+    .sticky-apply-btn {
+        background: white;
+        padding-top: 15px;
+        margin-top: 15px;
+        border-top: 1px solid #edf0f5;
+    }
+
+.vacante-card {
+  height: 100%;
+}
+
+.vacante-card .card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.vacante-meta {
+  font-size: 0.92rem;
+  color: #6c757d;
+}
+
+.vacante-footer {
+  margin-top: auto;
+}
+</style>

@@ -1,0 +1,462 @@
+<template>
+  <div class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg py-3 navbar-custom">
+        <div class="container-fluid px-4 px-lg-5">
+            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.html">
+                <i class="bi bi-briefcase-fill brand-icon"></i>
+                <div class="lh-sm ms-2">
+                    <span class="brand-text">Workly</span>
+                    <span class="brand-sub">Panel de Empresa</span>
+                </div>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <div class="navbar-nav mx-auto mt-3 mt-lg-0 gap-1">
+                    <a href="../publicarvacante/index.html" class="nav-link-custom active text-decoration-none"><i class="bi bi-plus-circle me-1"></i> Publicar</a>
+                    <a href="../misvacantes/index.html" class="nav-link-custom text-decoration-none"><i class="bi bi-briefcase me-1"></i> Mis vacantes</a>
+                    <a href="../postulaciones/index.html" class="nav-link-custom text-decoration-none"><i class="bi bi-people me-1"></i> Postulaciones</a>
+                    <a href="../foro/index.html" class="nav-link-custom text-decoration-none"><i class="bi bi-chat-dots me-1"></i> Foro</a>
+                    <a href="../resenaempresa/index.html" class="nav-link-custom text-decoration-none"><i class="bi bi-star me-1"></i> Reseñas</a>
+                </div>
+                <div class="d-flex align-items-center justify-content-center gap-4 mt-3 mt-lg-0">
+                    <a href="../notificaciones/index.html" class="text-white position-relative d-inline-block">
+                        <i class="bi bi-bell-fill fs-3"></i>
+                        <span class="notification-badge">2</span>
+                    </a>
+                    <a href="../perfil/index.html" class="text-white d-inline-block">
+                        <i class="bi bi-person-circle fs-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow-1 py-4">
+        <div class="container px-4 px-lg-5">
+            <form id="formVacante">
+                <div class="form-card">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between mb-2">
+                        <h4 class="fw-bold mb-0 d-flex align-items-center gap-2" style="color: #121826;">
+                            <i class="bi bi-megaphone-fill" style="color: var(--primary-deep);"></i> Publicar Nueva Vacante
+                        </h4>
+                        <div class="d-flex align-items-center mt-2 mt-sm-0">
+                            <span class="step-indicator active">1</span>
+                            <div class="progress-bar-custom"><div class="progress-fill"></div></div>
+                            <span class="step-indicator">2</span>
+                        </div>
+                    </div>
+                    <p class="text-secondary mb-4">Completa la informacion para que los candidatos encuentren tu oferta facilmente.</p>
+
+                    <div class="section-title">
+                        <i class="bi bi-info-circle-fill"></i>
+                        <span>Informacion Basica</span>
+                    </div>
+
+                    <div class="row g-4 mb-5">
+                        <div class="col-12 col-md-6">
+                            <label class="form-label fw-semibold small text-secondary">Titulo del Puesto</label>
+                            <input type="text" id="titulo_puesto" class="form-control-custom w-100" placeholder="Ej: Desarrollador Frontend" required>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label fw-semibold small text-secondary">Categoria</label>
+                            <select id="id_categoria_fk" class="form-select-custom w-100" required>
+                                <option value="" disabled selected>Selecciona una categoria</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label class="form-label fw-semibold small text-secondary">Ubicacion (Municipio)</label>
+                            <select id="id_municipio_fk" class="form-select-custom w-100" required>
+                                <option value="" disabled selected>Selecciona municipio</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label class="form-label fw-semibold small text-secondary">Modalidad</label>
+                            <select id="modalidad" class="form-select-custom w-100" required>
+                                <option value="Presencial">Presencial</option>
+                                <option value="Hibrido">Hibrido</option>
+                                <option value="Remoto" selected>Remoto</option>
+                                <option value="Medio Tiempo">Medio Tiempo</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label class="form-label fw-semibold small text-secondary">Salario ofrecido ($)</label>
+                            <input type="number" min="0" step="0.01" id="salario_offrecido" class="form-control-custom w-100" placeholder="Ej: 1000" required>
+                        </div>
+                    </div>
+
+                    <div class="section-title mt-4">
+                        <i class="bi bi-file-text-fill"></i>
+                        <span>Detalles del Puesto</span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold small text-secondary">Descripcion general del puesto</label>
+                        <textarea id="descripcion_puesto" class="form-control-custom w-100" rows="4" placeholder="Describe brevemente el rol, el equipo y el impacto del puesto..." required></textarea>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small text-secondary">Responsabilidades</label>
+                            <textarea id="responsabilidades" class="form-control-custom w-100" rows="4" placeholder="Ej: Disenar arquitecturas. Mentorear juniors. Optimizar codigo." required></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small text-secondary">Requisitos</label>
+                            <textarea id="requisitos" class="form-control-custom w-100" rows="4" placeholder="Ej: 5 anos de experiencia. Conocimiento en React. Ingles avanzado." required></textarea>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label class="form-label fw-semibold small text-secondary">Tipo de contrato</label>
+                            <select id="tipo_contrato" class="form-select-custom w-100" required>
+                                <option value="" disabled selected>Selecciona el contrato</option>
+                                <option value="Tiempo completo">Tiempo completo</option>
+                                <option value="Medio tiempo">Medio tiempo</option>
+                                <option value="Por proyecto">Por proyecto</option>
+                                <option value="Pasantia">Pasantia</option>
+                                <option value="Freelance">Freelance</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label class="form-label fw-semibold small text-secondary">Educacion requerida</label>
+                            <input type="text" id="educacion" class="form-control-custom w-100" placeholder="Ej: Ingenieria en Sistemas" required>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label class="form-label fw-semibold small text-secondary">Idiomas requeridos</label>
+                            <input type="text" id="idiomas" class="form-control-custom w-100" placeholder="Ej: Espanol, Ingles" required>
+                        </div>
+                    </div>
+                    <div class="form-text mb-4"><i class="bi bi-info-circle"></i> Termina cada frase con un punto para que se vea como lista en el detalle.</div>
+
+                    <hr class="my-4">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                        <button type="button" id="btnGuardarBorrador" class="btn btn-outline-primary-deep px-5 py-2 fw-semibold">
+                            <i class="bi bi-bookmark me-2"></i>Guardar Borrador
+                        </button>
+                        <button type="button" class="btn btn-primary-deep px-5 py-2 fw-semibold" data-bs-toggle="modal" data-bs-target="#modalPaso2">
+                            Continuar a Publicar <i class="bi bi-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="modalPaso2" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content border-0 shadow-lg">
+                            <div class="modal-header border-bottom-0 pb-0 px-4 pt-4">
+                                <div class="d-flex align-items-center w-100">
+                                    <div class="step-indicator active me-3" style="width: 36px; height: 36px;">2</div>
+                                    <h5 class="modal-title fw-bold" style="color: #121826;">Confirmacion</h5>
+                                    <button type="button" class="btn-close shadow-none ms-auto" data-bs-dismiss="modal"></button>
+                                </div>
+                            </div>
+                            <div class="modal-body px-4 py-4">
+                                <p class="text-secondary mb-4">Revisa las preferencias finales de tu publicacion. Una vez confirmada, la vacante estara visible para todos los candidatos.</p>
+                                <div class="mb-3 form-check bg-light p-3 rounded-4 d-flex align-items-center gap-3">
+                                    <input type="checkbox" class="form-check-input shadow-none mt-0" id="checkNotificar" checked style="width: 1.2em; height: 1.2em;">
+                                    <label class="form-check-label fw-medium small" for="checkNotificar">Notificar a los candidatos compatibles</label>
+                                </div>
+                                <div class="mb-4 form-check bg-light p-3 rounded-4 d-flex align-items-center gap-3">
+                                    <input type="checkbox" class="form-check-input shadow-none mt-0" id="checkDestacar" style="width: 1.2em; height: 1.2em;">
+                                    <label class="form-check-label fw-medium small" for="checkDestacar">Marcar como vacante destacada</label>
+                                </div>
+                                <div class="d-flex gap-2 justify-content-end mt-4">
+                                    <button type="button" class="btn btn-outline-secondary px-4 py-2 rounded-pill" data-bs-dismiss="modal">Volver</button>
+                                    <button type="button" id="btnConfirmarFinal" class="btn btn-primary-deep px-5 py-2">Confirmar y Publicar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="py-4 mt-auto footer-custom">
+        <div class="container text-center">
+            <div class="d-flex flex-wrap justify-content-center gap-4 gap-md-5">
+                <a href="#"><i class="bi bi-question-circle me-1"></i>Ayuda</a>
+                <a href="#"><i class="bi bi-shield-lock me-1"></i>Privacidad</a>
+                <a href="#">Terminos</a>
+                <span class="text-white opacity-75">Workly 2026 · Conectando talento</span>
+            </div>
+        </div>
+    </footer>
+  </div>
+</template>
+
+<script setup>
+import { onMounted } from "vue";
+import { API_URL, getToken } from "../../../assets/js/shared/config.js";
+import { requireAuth } from "../../../assets/js/shared/auth.js";
+
+onMounted(async () => {
+  requireAuth(["empresa"]);
+
+  const formVacante = document.getElementById("formVacante");
+  const btnConfirmarFinal = document.getElementById("btnConfirmarFinal");
+  const modalPaso2 = document.getElementById("modalPaso2");
+
+  const fieldIds = [
+    "id_categoria_fk",
+    "id_municipio_fk",
+    "titulo_puesto",
+    "descripcion_puesto",
+    "salario_offrecido",
+    "modalidad",
+    "responsabilidades",
+    "requisitos",
+    "tipo_contrato",
+    "educacion",
+    "idiomas"
+  ];
+
+  const getField = (id) => document.getElementById(id);
+
+  const authHeaders = () => ({
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${getToken()}`
+  });
+
+  const cargarOpciones = async (endpoint, selectId, placeholder, valueKey, labelBuilder) => {
+    const select = getField(selectId);
+    if (!select) return;
+
+    const response = await fetch(`${API_URL}${endpoint}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.mensaje || "No se pudieron cargar las opciones del formulario");
+    }
+
+    select.innerHTML = [
+      `<option value="" disabled selected>${placeholder}</option>`,
+      ...data.map((item) => `<option value="${item[valueKey]}">${labelBuilder(item)}</option>`)
+    ].join("");
+  };
+
+  const cargarCatalogos = async () => {
+    await Promise.all([
+      cargarOpciones(
+        "/catalogos/categorias",
+        "id_categoria_fk",
+        "Selecciona una categoria",
+        "id_categoria",
+        (item) => item.nombre_categoria
+      ),
+      cargarOpciones(
+        "/catalogos/municipios-agrupados",
+        "id_municipio_fk",
+        "Selecciona municipio",
+        "id_municipio",
+        (item) => `${item.nombre_municipio} - ${item.nombre_departamento}`
+      )
+    ]);
+  };
+
+  const obtenerPayload = () => {
+    const missing = fieldIds.filter((id) => !getField(id));
+    if (missing.length) {
+      throw new Error(`Faltan campos en la vista: ${missing.join(", ")}`);
+    }
+
+
+    const valCategoria = getField("id_categoria_fk").value;
+    const valMunicipio = getField("id_municipio_fk").value;
+    const valSalario = getField("salario_offrecido").value;
+
+
+    if (!valCategoria) throw new Error("Por favor, selecciona una categoría válida de la lista.");
+    if (!valMunicipio) throw new Error("Por favor, selecciona un municipio válido de la lista.");
+    if (!valSalario) throw new Error("Por favor, ingresa un salario ofrecido.");
+
+
+    const payload = {
+      id_categoria_fk: Number(valCategoria),
+      id_municipio_fk: Number(valMunicipio),
+      titulo_puesto: getField("titulo_puesto").value.trim(),
+      descripcion_puesto: getField("descripcion_puesto").value.trim(),
+      responsabilidades: getField("responsabilidades").value.trim(),
+      requisitos: getField("requisitos").value.trim(),
+      salario_offrecido: Number(valSalario),
+      modalidad: getField("modalidad").value.trim(),
+      tipo_contrato: getField("tipo_contrato").value.trim(),
+      educacion: getField("educacion").value.trim(),
+      idiomas: getField("idiomas").value.trim()
+    };
+
+
+    const vacios = Object.entries(payload)
+      .filter(([_, value]) => value === "")
+      .map(([key]) => key);
+
+    if (vacios.length) {
+      throw new Error(`Completa todos los campos obligatorios: ${vacios.join(", ")}`);
+    }
+
+    return payload;
+  };
+
+  const enviarVacante = async () => {
+    try {
+      const response = await fetch(`${API_URL}/vacantes`, {
+        method: "POST",
+        headers: authHeaders(),
+        body: JSON.stringify(obtenerPayload())
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        const errores = Array.isArray(data.errores)
+          ? data.errores.map((item) => item.msg).join(", ")
+          : null;
+        throw new Error(errores || data.mensaje || data.error || "Error al publicar la vacante");
+      }
+
+      const modal = modalPaso2 && window.bootstrap?.Modal
+        ? window.bootstrap.Modal.getInstance(modalPaso2)
+        : null;
+      modal?.hide();
+
+      alert("Vacante publicada con exito en Workly.");
+      window.location.href = "../misvacantes/index.html";
+    } catch (error) {
+      console.error(error);
+      alert(`Ocurrio un error: ${error.message}`);
+    }
+  };
+
+  if (formVacante) {
+    formVacante.addEventListener("submit", (event) => {
+      event.preventDefault();
+    });
+  }
+
+  if (btnConfirmarFinal) {
+    btnConfirmarFinal.addEventListener("click", (event) => {
+      event.preventDefault();
+      enviarVacante();
+    });
+  }
+
+  cargarCatalogos().catch((error) => {
+    console.error(error);
+    alert(error.message || "No se pudieron cargar las categorias y municipios.");
+  });
+});
+</script>
+
+<style>
+@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css");
+
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap");
+
+* { font-family: 'Inter', sans-serif; }
+        :root {
+            --primary-deep: #3f51b5;
+            --nav-bg: #011671;
+            --light-text: #e2e4e8;
+        }
+        body { background: linear-gradient(145deg, #eef2f9 0%, #f9fafc 100%); }
+        .navbar-custom { background-color: var(--nav-bg) !important; box-shadow: 0 6px 20px rgba(1, 22, 113, 0.15); }
+        .brand-icon { font-size: 3.5rem; color: white; margin-right: 0.75rem; }
+        .brand-text { color: white; font-weight: 700; font-size: 2rem; line-height: 1.2; }
+        .brand-sub { color: var(--light-text); font-size: 0.95rem; }
+        .nav-link-custom {
+            color: white !important;
+            font-weight: 500;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            transition: all 0.2s;
+            background: rgba(255,255,255,0.05);
+        }
+        .nav-link-custom:hover { background: rgba(255,255,255,0.15); }
+        .nav-link-custom.active { background: rgba(255,255,255,0.2); }
+        .btn-primary-deep {
+            background: linear-gradient(135deg, var(--primary-deep), #2c3e8f);
+            border: none;
+            color: white;
+            font-weight: 600;
+            border-radius: 40px;
+            padding: 0.6rem 1.8rem;
+            box-shadow: 0 6px 14px rgba(63, 81, 181, 0.25);
+        }
+        .btn-outline-primary-deep {
+            background: transparent;
+            border: 2px solid var(--primary-deep);
+            color: var(--primary-deep);
+            font-weight: 600;
+            border-radius: 40px;
+            padding: 0.5rem 1.8rem;
+        }
+        .form-card {
+            background: white;
+            border-radius: 36px;
+            box-shadow: 0 25px 40px -12px rgba(1, 22, 113, 0.08);
+            border: 1px solid rgba(63, 81, 181, 0.06);
+            overflow: hidden;
+            padding: 2rem 2.5rem;
+        }
+        .form-control-custom, .form-select-custom {
+            background-color: #f8fafd;
+            border: 1.5px solid #e0e6ed;
+            border-radius: 20px;
+            padding: 0.75rem 1.2rem;
+            font-size: 0.95rem;
+        }
+        textarea.form-control-custom { border-radius: 24px; }
+        .section-title {
+            font-weight: 700;
+            color: #121826;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title i { color: var(--primary-deep); font-size: 1.6rem; }
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e9ecf9;
+            color: var(--primary-deep);
+            font-weight: 700;
+        }
+        .step-indicator.active { background: var(--primary-deep); color: white; }
+        .progress-bar-custom {
+            height: 8px;
+            width: 100px;
+            background: #e9ecf5;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 0 0.75rem;
+        }
+        .progress-fill { height: 100%; width: 50%; background: var(--primary-deep); }
+        .footer-custom { background-color: var(--nav-bg); color: var(--light-text); }
+        .footer-custom a { color: var(--light-text) !important; text-decoration: none; }
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ff4757;
+            color: white;
+            border-radius: 50%;
+            padding: 0.25rem 0.45rem;
+            font-size: 0.7rem;
+            font-weight: bold;
+            border: 2px solid white;
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.95)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        .modal-content { border-radius: 32px !important; }
+        .btn-success { background: #2ecc71 !important; border-color: #2ecc71 !important; color: white !important; }
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 160px;
+}
+</style>

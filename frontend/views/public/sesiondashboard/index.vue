@@ -1,0 +1,294 @@
+<template>
+  <div class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg py-3 navbar-custom">
+        <div class="container-fluid px-4 px-lg-5">
+            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../paginainicial/index.html">
+                <i class="bi bi-briefcase-fill brand-icon"></i>
+                <div class="lh-sm ms-2">
+                    <span class="brand-text">Workly</span>
+                    <span class="brand-sub">Dashboard administrativo</span>
+                </div>
+            </a>
+            <button class="btn border-0 text-white fs-1 ms-auto p-0 d-lg-none">
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="flex-grow-1 d-flex align-items-center justify-content-center py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-10 col-xl-8">
+                    <div class="login-card p-4 p-md-5 mx-2">
+                        <div class="text-center mb-4">
+                            <div class="d-inline-flex bg-white p-3 rounded-4 shadow-sm mb-3">
+                                <i class="bi bi-shield-lock-fill fs-1" style="color: var(--primary-deep);"></i>
+                            </div>
+                            <h1 class="display-6 fw-bold" style="color: #121826;">Acceso al Dashboard</h1>
+                            <p class="text-secondary">Ingresa con tus credenciales de administrador</p>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-9 col-lg-8">
+                                <div class="mb-4">
+                                    <label class="form-label fw-semibold text-dark">
+                                        <i class="bi bi-envelope me-1"></i> Correo electronico
+                                    </label>
+                                    <div class="input-group-custom d-flex align-items-center">
+                                        <input type="email" id="emailInput" class="form-control-custom"
+                                               placeholder="admin@workly.com" value="">
+                                        <span class="input-icon ps-2"><i class="bi bi-chevron-right"></i></span>
+                                    </div>
+                                    <div id="emailError" class="text-danger small mt-1 d-none fw-semibold">
+                                        <i class="bi bi-exclamation-circle"></i> Este campo es obligatorio.
+                                    </div>
+                                </div>
+
+                                <div class="mb-5">
+                                    <label class="form-label fw-semibold text-dark">
+                                        <i class="bi bi-lock me-1"></i> Contrasena
+                                    </label>
+                                    <div class="input-group-custom d-flex align-items-center">
+                                        <input type="password" id="passInput" class="form-control-custom"
+                                               placeholder="********" value="">
+                                        <span class="input-icon ps-2"><i class="bi bi-eye-slash"></i></span>
+                                    </div>
+                                    <div id="passError" class="text-danger small mt-1 d-none fw-semibold">
+                                        <i class="bi bi-exclamation-circle"></i> Este campo es obligatorio.
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-center mb-4">
+                                    <button type="button" id="btnIniciarSesion"
+                                            class="btn btn-primary-deep py-3 px-5 rounded-pill shadow-sm fs-5 fw-semibold">
+                                        <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesion
+                                    </button>
+                                </div>
+
+                                <p class="text-center text-secondary small">
+                                    <i class="bi bi-question-circle"></i> ¿Problemas para acceder? Contacta a soporte
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="errorToast" class="toast align-items-center text-white bg-danger border-0 rounded-4 shadow mb-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body fs-6 py-3 fw-semibold">
+                    <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i> Error! Por favor, completa todos los campos.
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+        <div id="successToast" class="toast align-items-center text-white bg-success border-0 rounded-4 shadow" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body fs-6 py-3 fw-semibold">
+                    <i class="bi bi-check-circle-fill me-2 fs-5"></i> Inicio de sesion exitoso! Redirigiendo...
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-4 mt-auto footer-custom">
+        <div class="container text-center">
+            <div class="d-flex flex-wrap justify-content-center gap-4 gap-md-5">
+                <a href="#"><i class="bi bi-question-circle me-1"></i>Ayuda</a>
+                <a href="#"><i class="bi bi-shield-lock me-1"></i>Privacidad</a>
+                <a href="#">Terminos</a>
+                <span class="text-white opacity-75">Workly 2026 · Panel administrativo</span>
+            </div>
+        </div>
+    </footer>
+  </div>
+</template>
+
+<script setup>
+import { onMounted } from "vue";
+import { getToken, getTipo, getUsuario } from "../../../assets/js/shared/config.js";
+
+onMounted(() => {
+  const estadoSesion = document.getElementById("estadoSesion");
+  const btnContinuar = document.getElementById("btnContinuar");
+
+  const renderEstado = () => {
+    const token = getToken();
+    const tipo = getTipo();
+    const usuario = getUsuario();
+
+    if (!token || !tipo) {
+      estadoSesion.innerHTML = `
+        <div class="alert alert-warning mb-0">
+          No hay una sesión activa.
+        </div>
+      `;
+      btnContinuar.textContent = "Ir a login";
+      return;
+    }
+
+    estadoSesion.innerHTML = `
+      <div class="alert alert-success mb-0 text-start">
+        <div><strong>Tipo:</strong> ${tipo}</div>
+        <div><strong>Sesión:</strong> activa</div>
+        <div><strong>Usuario:</strong> ${usuario?.correo_electronico || usuario?.nombre_comercial || "Identificado"}</div>
+      </div>
+    `;
+
+    btnContinuar.textContent = "Ir a mi panel";
+  };
+
+  const redirigir = () => {
+    const token = getToken();
+    const tipo = getTipo();
+
+    if (!token || !tipo) {
+      window.location.href = "../login/index.html";
+      return;
+    }
+
+    if (tipo === "usuario") {
+      window.location.href = "../../usuario/principal/index.html";
+      return;
+    }
+
+    if (tipo === "empresa") {
+      window.location.href = "../../empresa/principal/index.html";
+      return;
+    }
+
+    if (tipo === "admin") {
+      window.location.href = "../../admin/principal/index.html";
+      return;
+    }
+
+    window.location.href = "../login/index.html";
+  };
+
+  btnContinuar.addEventListener("click", redirigir);
+
+  renderEstado();
+});
+</script>
+
+<style>
+@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css");
+
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap");
+
+* { font-family: 'Inter', sans-serif; }
+        :root {
+            --primary-deep: #3f51b5;
+            --nav-bg: #011671;
+            --soft-accent: #f1ebd9;
+            --light-text: #e2e4e8;
+        }
+        body {
+            background: linear-gradient(145deg, #f4f7fc 0%, #eef1f9 100%);
+        }
+        .navbar-custom {
+            background-color: var(--nav-bg) !important;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+        }
+        .navbar-brand .brand-icon {
+            font-size: 3.5rem;
+            color: white;
+            margin-right: 0.75rem;
+        }
+        .navbar-brand .brand-text {
+            color: white;
+            font-weight: 700;
+            font-size: 2rem;
+            line-height: 1.2;
+        }
+        .navbar-brand .brand-sub {
+            color: var(--light-text);
+            font-size: 0.95rem;
+        }
+        .btn-primary-deep {
+            background-color: var(--primary-deep);
+            border: none;
+            color: white;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .btn-primary-deep:hover {
+            background-color: #2c3e8f;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(63, 81, 181, 0.25);
+            color: white;
+        }
+        .login-card {
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.7);
+            border-radius: 2.5rem;
+            box-shadow: 0 30px 40px -15px rgba(1, 22, 113, 0.15);
+            transition: transform 0.25s ease;
+        }
+        .login-card:hover {
+            transform: translateY(-4px);
+        }
+        .input-group-custom {
+            border-bottom: 2px solid #cdd2dc;
+            transition: border-color 0.2s;
+        }
+        .input-group-custom:focus-within {
+            border-bottom-color: var(--primary-deep);
+        }
+        .form-control-custom {
+            border: none;
+            background: transparent;
+            padding: 0.75rem 0.5rem;
+            font-size: 1rem;
+            width: 100%;
+        }
+        .form-control-custom:focus {
+            box-shadow: none;
+            background: transparent;
+            outline: none;
+        }
+        .input-icon {
+            color: #5a6275;
+        }
+        .footer-custom {
+            background-color: var(--nav-bg);
+            color: var(--light-text);
+        }
+        .footer-custom a {
+            color: var(--light-text) !important;
+            text-decoration: none;
+        }
+        .footer-custom a:hover {
+            color: white !important;
+            text-decoration: underline;
+        }
+        .toast-custom {
+            border-radius: 16px !important;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+.form-control-custom.is-invalid {
+        border-bottom: 2px solid #dc3545 !important;
+    }
+    .input-group-custom {
+        border-bottom: 2px solid #cdd2dc;
+    }
+    .navbar-toggler-icon {
+        filter: invert(1);
+    }
+
+.sesion-wrapper {
+  background: linear-gradient(135deg, #eef5ff 0%, #ffffff 100%);
+}
+</style>
