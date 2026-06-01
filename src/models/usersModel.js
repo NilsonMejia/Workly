@@ -1,4 +1,14 @@
 import { pool } from "../config/db.js";
+import bcrypt from "bcryptjs";
+
+const hashPassword = async (password) => {
+  const value = String(password || "").trim();
+  if (!value) {
+    return null;
+  }
+
+  return bcrypt.hash(value, 10);
+};
 
 export const getAllUser = async () => {
   const [rows] = await pool.query(`
@@ -46,6 +56,7 @@ export const createUser = async (user) => {
     id_municipio_fk,
     resumen_profesional
   } = user;
+  const passwordEncriptada = await hashPassword(contrasena);
 
   const [result] = await pool.query(
     `
@@ -54,7 +65,7 @@ export const createUser = async (user) => {
       nombres,
       apellidos,
       correo_electronico,
-      contrasena,
+      passwordEncriptada,
       telefono,
       id_municipio_fk,
       resumen_profesional
@@ -93,6 +104,7 @@ export const updateUser = async (id, user) => {
     id_municipio_fk,
     resumen_profesional
   } = user;
+  const passwordEncriptada = await hashPassword(contrasena);
 
   const [result] = await pool.query(
     `
@@ -101,7 +113,7 @@ export const updateUser = async (id, user) => {
       nombres = ?,
       apellidos = ?,
       correo_electronico = ?,
-      contrasena = ?,
+      contrasena = COALESCE(?, contrasena),
       telefono = ?,
       id_municipio_fk = ?,
       resumen_profesional = ?
@@ -111,7 +123,7 @@ export const updateUser = async (id, user) => {
       nombres,
       apellidos,
       correo_electronico,
-      contrasena,
+      passwordEncriptada,
       telefono,
       id_municipio_fk,
       resumen_profesional,

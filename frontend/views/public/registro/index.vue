@@ -216,6 +216,7 @@
 <script setup>
 import { onMounted } from "vue";
 import { API_URL, buildPendingVerificationPath, normalizeAppRedirect, navigateTo } from "../../../assets/js/shared/config.js";
+import { fetchJson } from "../../../assets/js/shared/api.js";
 
 onMounted(async () => {
   const tabUsuario = document.getElementById("tabUsuario");
@@ -308,8 +309,7 @@ onMounted(async () => {
 
   const cargarMunicipios = async () => {
     try {
-      const response = await fetch(`${API_URL}/catalogos/municipios-agrupados`);
-      const data = await response.json();
+      const data = await fetchJson(`${API_URL}/catalogos/municipios-agrupados`);
 
       let optionsHtml = `<option value="">Selecciona un municipio</option>`;
       let departamentoActual = "";
@@ -412,16 +412,15 @@ onMounted(async () => {
     try {
       const payload = obtenerPayload();
 
-      const response = await fetch(payload.url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload.body)
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        showAlert(buildValidationMessage(data), "danger", Array.isArray(data?.errores));
+      let data;
+      try {
+        data = await fetchJson(payload.url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload.body)
+        });
+      } catch (error) {
+        showAlert(buildValidationMessage(error.data || { mensaje: error.message }), "danger", Array.isArray(error.data?.errores));
         return;
       }
 

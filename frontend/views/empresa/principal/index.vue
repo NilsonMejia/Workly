@@ -330,6 +330,7 @@ import CompanyNavbar from "../../../components/CompanyNavbar.vue";
 import { ref, onMounted } from "vue";
 import { API_URL, getToken, getUsuario, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
+import { escapeHtml } from "../../../assets/js/shared/security.js";
 import {
   addCompanyForumComment,
   createCompanyForumPost,
@@ -472,34 +473,34 @@ onMounted(async () => {
       <article class="post-card">
         <div class="d-flex gap-3 mb-3">
           <div class="bg-light rounded-4 shadow-sm d-flex align-items-center justify-content-center fw-bold" style="width: 64px; height: 64px; color: var(--primary-deep);">
-            ${post.authorInitials}
+            ${escapeHtml(post.authorInitials)}
           </div>
           <div class="flex-grow-1">
             <div class="d-flex justify-content-between align-items-start gap-3">
               <div>
-                <h6 class="fw-bold mb-1" style="color: #121826;">${post.companyName}</h6>
+                <h6 class="fw-bold mb-1" style="color: #121826;">${escapeHtml(post.companyName)}</h6>
                 <div class="d-flex flex-wrap gap-2 align-items-center">
-                  <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2">${post.category}</span>
-                  <span class="text-secondary small"><i class="bi bi-clock me-1"></i>${formatDateTime(post.createdAt)}</span>
+                  <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2">${escapeHtml(post.category)}</span>
+                  <span class="text-secondary small"><i class="bi bi-clock me-1"></i>${escapeHtml(formatDateTime(post.createdAt))}</span>
                 </div>
               </div>
               <a href="../foro" class="btn btn-sm btn-outline-primary-deep rounded-pill">Abrir foro</a>
             </div>
           </div>
         </div>
-        <h5 class="fw-bold mb-2">${post.title}</h5>
-        <p class="text-secondary mb-4">${post.content}</p>
+        <h5 class="fw-bold mb-2">${escapeHtml(post.title)}</h5>
+        <p class="text-secondary mb-4">${escapeHtml(post.content)}</p>
         <div class="d-flex flex-wrap gap-2 mb-3">
-          <button type="button" class="btn btn-sm btn-light rounded-pill px-4" data-action="like" data-id="${post.id}">
+          <button type="button" class="btn btn-sm btn-light rounded-pill px-4" data-action="like" data-id="${escapeHtml(post.id)}">
             <i class="bi bi-hand-thumbs-up"></i> ${post.likes}
           </button>
-          <button type="button" class="btn btn-sm btn-light rounded-pill px-4" data-action="comment" data-id="${post.id}" data-title="${post.title}">
+          <button type="button" class="btn btn-sm btn-light rounded-pill px-4" data-action="comment" data-id="${escapeHtml(post.id)}" data-title="${escapeHtml(post.title)}">
             <i class="bi bi-chat"></i> ${post.comments.length}
           </button>
-          <button type="button" class="btn btn-sm btn-light rounded-pill px-4" data-action="share" data-id="${post.id}">
+          <button type="button" class="btn btn-sm btn-light rounded-pill px-4" data-action="share" data-id="${escapeHtml(post.id)}">
             <i class="bi bi-share"></i> ${post.shares}
           </button>
-          <button type="button" class="btn btn-sm btn-light rounded-pill px-4" data-action="save" data-id="${post.id}">
+          <button type="button" class="btn btn-sm btn-light rounded-pill px-4" data-action="save" data-id="${escapeHtml(post.id)}">
             <i class="bi ${post.saved ? "bi-bookmark-check-fill" : "bi-bookmark"}"></i> ${post.saved ? "Guardado" : "Guardar"}
           </button>
         </div>
@@ -509,9 +510,9 @@ onMounted(async () => {
             post.comments.length
               ? post.comments.slice(-2).reverse().map((comment) => `
                   <div class="border rounded-4 bg-white p-3 mb-2">
-                    <div class="fw-semibold small">${comment.author}</div>
-                    <div class="text-muted small mb-1">${formatDateTime(comment.createdAt)}</div>
-                    <div>${comment.content}</div>
+                    <div class="fw-semibold small">${escapeHtml(comment.author)}</div>
+                    <div class="text-muted small mb-1">${escapeHtml(formatDateTime(comment.createdAt))}</div>
+                    <div>${escapeHtml(comment.content)}</div>
                   </div>
                 `).join("")
               : '<div class="text-muted small">Todavia no hay comentarios en esta publicacion.</div>'
@@ -608,8 +609,8 @@ onMounted(async () => {
           ${index === 0 ? '<span class="position-absolute bottom-0 end-0 bg-success rounded-circle p-1 border border-white" style="width: 10px; height: 10px;"></span>' : ""}
         </div>
         <div class="flex-grow-1">
-          <span class="fw-semibold">${item.nombre_usuario}</span>
-          <p class="small text-secondary mb-0">${item.titulo_puesto} · ${formatDateTime(item.fecha_postulacion)}</p>
+          <span class="fw-semibold">${escapeHtml(item.nombre_usuario)}</span>
+          <p class="small text-secondary mb-0">${escapeHtml(item.titulo_puesto)} · ${escapeHtml(formatDateTime(item.fecha_postulacion))}</p>
         </div>
         <span class="badge bg-light text-dark">${item.nombre_estado}</span>
       </li>

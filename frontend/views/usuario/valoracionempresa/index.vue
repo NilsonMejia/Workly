@@ -107,6 +107,14 @@ onMounted(async () => {
     `;
   };
 
+  const escapeHtml = (value) =>
+    String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
   const formatearFecha = (fecha) => {
     if (!fecha) {
       return "Reciente";
@@ -188,7 +196,7 @@ onMounted(async () => {
 
   const renderEmpresas = () => {
     selectorEmpresa.innerHTML = empresas.map((empresa) => `
-      <option value="${empresa.id_empresa}">${empresa.nombre_comercial}</option>
+      <option value="${empresa.id_empresa}">${escapeHtml(empresa.nombre_comercial)}</option>
     `).join("");
 
     if (empresaSeleccionada) {
@@ -200,12 +208,12 @@ onMounted(async () => {
         <div class="d-flex justify-content-between gap-3">
           <div>
             <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
-              <h3 class="h6 fw-bold mb-0">${empresa.nombre_comercial}</h3>
+              <h3 class="h6 fw-bold mb-0">${escapeHtml(empresa.nombre_comercial)}</h3>
               ${Number(empresa.puede_valorar) === 1 ? '<span class="badge text-bg-success">Valorable</span>' : ""}
               ${Number(empresa.ya_valoro) === 1 ? '<span class="badge text-bg-info">Ya valorada</span>' : ""}
             </div>
-            <p class="text-muted small mb-2">${[empresa.nombre_municipio, empresa.nombre_departamento].filter(Boolean).join(", ") || "El Salvador"}</p>
-            <div class="small text-muted">${empresa.descripcion_empresa || "Empresa activa en Workly."}</div>
+            <p class="text-muted small mb-2">${escapeHtml([empresa.nombre_municipio, empresa.nombre_departamento].filter(Boolean).join(", ") || "El Salvador")}</p>
+            <div class="small text-muted">${escapeHtml(empresa.descripcion_empresa || "Empresa activa en Workly.")}</div>
           </div>
           <div class="text-end">
             <div class="fw-bold">${empresa.promedio || "0.0"}</div>
@@ -230,9 +238,9 @@ onMounted(async () => {
     resumenEmpresa.innerHTML = `
       <div class="d-flex flex-column flex-lg-row justify-content-between gap-4">
         <div>
-          <h2 class="h4 fw-bold mb-1">${empresa.nombre_comercial}</h2>
+          <h2 class="h4 fw-bold mb-1">${escapeHtml(empresa.nombre_comercial)}</h2>
           <p class="text-muted mb-2">${empresa.descripcion_empresa || "Empresa sin descripción registrada."}</p>
-          <div class="text-muted small">${[empresa.nombre_municipio, empresa.nombre_departamento].filter(Boolean).join(", ") || "El Salvador"}</div>
+          <div class="text-muted small">${escapeHtml([empresa.nombre_municipio, empresa.nombre_departamento].filter(Boolean).join(", ") || "El Salvador")}</div>
         </div>
         <div class="text-lg-end">
           <div class="display-6 fw-bold mb-1">${resumen?.promedio || empresa.promedio || "0.0"}</div>
@@ -260,12 +268,12 @@ onMounted(async () => {
       <article class="border rounded-4 p-4">
         <div class="d-flex justify-content-between flex-wrap gap-2 mb-2">
           <div>
-            <h3 class="h6 fw-bold mb-1">${item.nombre_usuario}</h3>
+            <h3 class="h6 fw-bold mb-1">${escapeHtml(item.nombre_usuario)}</h3>
             <div>${buildStars(item.puntuacion)}</div>
           </div>
           <small class="text-muted">${formatearFecha(item.fecha_valoracion)}</small>
         </div>
-        <p class="text-muted mb-0">${item.comentario || "Sin comentario adicional."}</p>
+        <p class="text-muted mb-0">${escapeHtml(item.comentario || "Sin comentario adicional.")}</p>
       </article>
     `).join("");
   };
@@ -332,7 +340,7 @@ onMounted(async () => {
     window.history.replaceState({}, "", url);
   };
 
-  formValoracion.addEventListener("submit", async (event) => {
+  formValoracion?.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     try {
@@ -385,7 +393,7 @@ onMounted(async () => {
     }
   });
 
-  selectorEmpresa.addEventListener("change", async () => {
+  selectorEmpresa?.addEventListener("change", async () => {
     try {
       await seleccionarEmpresa(Number(selectorEmpresa.value));
     } catch (error) {

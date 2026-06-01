@@ -204,6 +204,7 @@ import AdminNavbar from "../../../components/AdminNavbar.vue";
 import { onMounted } from "vue";
 import { API_URL, getToken, clearSession, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
+import { escapeHtml } from "../../../assets/js/shared/security.js";
 
 onMounted(async () => {
   requireAuth(["admin"]);
@@ -304,14 +305,14 @@ onMounted(async () => {
           <div class="d-flex align-items-center">
             <i class="bi bi-person-circle fs-3 me-2 text-secondary"></i>
             <div>
-              <div class="fw-bold">${item.nombres || ""} ${item.apellidos || ""}</div>
-              <div class="small text-muted">${item.resumen_profesional || ""}</div>
+              <div class="fw-bold">${escapeHtml(item.nombres || "")} ${escapeHtml(item.apellidos || "")}</div>
+              <div class="small text-muted">${escapeHtml(item.resumen_profesional || "")}</div>
             </div>
           </div>
         </td>
-        <td>${item.correo_electronico || "N/D"}</td>
-        <td>${item.telefono || "N/D"}</td>
-        <td>${item.nombre_municipio || item.id_municipio_fk || "N/D"}</td>
+        <td>${escapeHtml(item.correo_electronico || "N/D")}</td>
+        <td>${escapeHtml(item.telefono || "N/D")}</td>
+        <td>${escapeHtml(item.nombre_municipio || item.id_municipio_fk || "N/D")}</td>
         <td>
           <span class="badge rounded-pill ${Number(item.email_verificado) === 1 ? "bg-success" : "bg-warning text-dark"}">
             ${Number(item.email_verificado) === 1 ? "Verificado" : "Pendiente"}
@@ -322,7 +323,7 @@ onMounted(async () => {
             ${Number(item.email_verificado) === 1 ? "" : `
               <button
                 class="btn btn-sm text-white fw-bold px-3 btn-verificar"
-                data-id="${item.id_usuario}"
+                data-id="${escapeHtml(item.id_usuario)}"
                 style="background-color:#198754; border-radius: 6px;"
               >
                 Verificar
@@ -330,7 +331,7 @@ onMounted(async () => {
             `}
             <button
               class="btn btn-sm text-white fw-bold px-3 btn-eliminar"
-              data-id="${item.id_usuario}"
+              data-id="${escapeHtml(item.id_usuario)}"
               style="background-color:#dc3545; border-radius: 6px;"
             >
               Eliminar
@@ -363,7 +364,7 @@ onMounted(async () => {
     const municipios = response.ok ? await response.json() : [];
 
     selectMunicipio.innerHTML = `<option value="">Selecciona un municipio</option>${municipios.map((item) => `
-      <option value="${item.id_municipio}">${item.nombre_departamento} - ${item.nombre_municipio}</option>
+      <option value="${escapeHtml(item.id_municipio)}">${escapeHtml(item.nombre_departamento)} - ${escapeHtml(item.nombre_municipio)}</option>
     `).join("")}`;
   };
 

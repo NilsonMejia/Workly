@@ -58,6 +58,7 @@ import {
   incrementUserForumLike,
   toggleUserForumSave
 } from "../../../assets/js/shared/userForum.js";
+import { createSafeAlert, escapeHtml } from "../../../assets/js/shared/security.js";
 
 onMounted(() => {
   requireAuth(["usuario"]);
@@ -69,7 +70,8 @@ onMounted(() => {
   const alertContainer = document.getElementById("alertContainer");
 
   const showAlert = (message, type = "warning") => {
-    alertContainer.innerHTML = `<div class="alert alert-${type} rounded-4">${message}</div>`;
+    if (!alertContainer) return;
+    alertContainer.innerHTML = createSafeAlert(message, type);
   };
 
   const getAuthor = () => {
@@ -86,7 +88,7 @@ onMounted(() => {
     document.querySelector(".chip.active")?.dataset.category || "Entrevistas";
 
   const renderPosts = () => {
-    const category = filtroCategoria.value;
+    const category = filtroCategoria?.value || "";
     const posts = getUserForumPosts().filter((post) => !category || post.category === category);
 
     if (!posts.length) {
@@ -98,12 +100,12 @@ onMounted(() => {
       <article class="forum-card">
         <div class="d-flex justify-content-between gap-3 mb-2">
           <div>
-            <h2 class="h5 fw-bold mb-1">${post.title}</h2>
-            <div class="text-muted small">${post.author} · ${formatDate(post.createdAt)} · ${post.category}</div>
+            <h2 class="h5 fw-bold mb-1">${escapeHtml(post.title)}</h2>
+            <div class="text-muted small">${escapeHtml(post.author)} · ${escapeHtml(formatDate(post.createdAt))} · ${escapeHtml(post.category)}</div>
           </div>
           <span class="badge text-bg-light rounded-pill align-self-start">${post.likes} likes</span>
         </div>
-        <p class="text-muted">${post.content}</p>
+        <p class="text-muted">${escapeHtml(post.content)}</p>
         <div class="d-flex flex-wrap gap-2">
           <button type="button" class="btn btn-outline-primary rounded-pill" data-like="${post.id}">
             <i class="bi bi-hand-thumbs-up me-1"></i>Me gusta
@@ -137,8 +139,8 @@ onMounted(() => {
     });
   });
 
-  btnPublicarForo.addEventListener("click", () => {
-    const content = textoForo.value.trim();
+  btnPublicarForo?.addEventListener("click", () => {
+    const content = textoForo?.value.trim() || "";
     if (!content) {
       showAlert("Escribe un contenido antes de publicar.");
       return;
@@ -149,12 +151,12 @@ onMounted(() => {
       content,
       category: selectedCategory()
     });
-    textoForo.value = "";
+    if (textoForo) textoForo.value = "";
     showAlert("Tema publicado correctamente.", "success");
     renderPosts();
   });
 
-  filtroCategoria.addEventListener("change", renderPosts);
+  filtroCategoria?.addEventListener("change", renderPosts);
   renderPosts();
 });
 </script>

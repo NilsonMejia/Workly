@@ -156,7 +156,7 @@
                             </button>
                             
                             <div class="d-flex gap-2">
-                                <button v-for="page in totalPaginas" :key="page" 
+                                <button v-for="page in paginasVisibles" :key="page" 
                                         @click="cambiarPagina(page)"
                                         class="btn btn-link text-decoration-none p-0 mx-1 page-link-custom"
                                         :class="{'page-active': paginaActual === page}">
@@ -207,6 +207,14 @@ const textoBarraEstado = ref("Buscando vacantes...");
 
 // Propiedades computadas para la paginación automática
 const totalPaginas = computed(() => Math.max(1, Math.ceil(vacantesReales.value.length / PAGE_SIZE)));
+const paginasVisibles = computed(() => {
+    const total = totalPaginas.value;
+    const actual = paginaActual.value;
+    const ventana = 2;
+    const inicio = Math.max(1, actual - ventana);
+    const fin = Math.min(total, actual + ventana);
+    return Array.from({ length: fin - inicio + 1 }, (_, index) => inicio + index);
+});
 const vacantesPaginadas = computed(() => {
     const inicio = (paginaActual.value - 1) * PAGE_SIZE;
     return vacantesReales.value.slice(inicio, inicio + PAGE_SIZE);

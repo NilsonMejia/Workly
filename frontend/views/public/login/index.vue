@@ -88,6 +88,7 @@
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { API_URL, saveSession, clearSession, buildPendingVerificationPath, normalizeAppRedirect } from "../../../assets/js/shared/config.js";
+import { createSafeAlert } from "../../../assets/js/shared/security.js";
 
 onMounted(async () => {
   const router = useRouter();
@@ -108,12 +109,7 @@ onMounted(async () => {
   const showAlert = (message, type = "danger") => {
     if (!alertContainer) return;
 
-    alertContainer.innerHTML = `
-      <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-      </div>
-    `;
+    alertContainer.innerHTML = createSafeAlert(message, type);
   };
 
   const obtenerCorreoInput = () => document.getElementById("correo")?.value.trim().toLowerCase();
@@ -175,8 +171,6 @@ onMounted(async () => {
     const contrasena = passwordInput.value.trim();
 
     try {
-      console.log("🔐 Iniciando login con:", correo_electronico);
-      
       const response = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -187,7 +181,6 @@ onMounted(async () => {
       });
 
       const data = await response.json();
-      console.log("📡 Respuesta del servidor:", { status: response.status, data });
 
       if (!response.ok) {
         if (response.status === 403 && data.code === "EMAIL_NO_VERIFICADO") {
@@ -208,7 +201,6 @@ onMounted(async () => {
       }
 
       saveSession(data.token, data.tipo, data.data);
-      console.log("✅ Sesión guardada. Tipo:", data.tipo);
 
       const destinos = {
         usuario: "/views/usuario/principal",
@@ -217,8 +209,6 @@ onMounted(async () => {
       };
 
       const destino = destinos[data.tipo] || "/views/public/paginainicial";
-      console.log("📍 Navegando a:", destino);
-      
       router.push(destino);
     } catch (error) {
       console.error("❌ Error en login:", error);

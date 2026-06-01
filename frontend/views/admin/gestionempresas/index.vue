@@ -171,6 +171,7 @@ import AdminNavbar from "../../../components/AdminNavbar.vue";
 import { onMounted } from "vue";
 import { API_URL, getToken, clearSession, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
+import { escapeHtml } from "../../../assets/js/shared/security.js";
 
 onMounted(async () => {
   requireAuth(["admin"]);
@@ -256,16 +257,16 @@ onMounted(async () => {
           <div class="d-flex align-items-center">
             <i class="bi bi-building empresa-row-icon me-2"></i>
             <div>
-              <div class="fw-bold">${item.nombre_comercial || "N/D"}</div>
-              <div class="small text-muted">${item.razon_social || ""}</div>
+              <div class="fw-bold">${escapeHtml(item.nombre_comercial || "N/D")}</div>
+              <div class="small text-muted">${escapeHtml(item.razon_social || "")}</div>
             </div>
           </div>
         </td>
-        <td>${item.correo_electronico || "N/D"}</td>
-        <td>${item.sitio_web || "N/D"}</td>
-        <td>${item.nombre_municipio || item.id_municipio_fk || "N/D"}</td>
+        <td>${escapeHtml(item.correo_electronico || "N/D")}</td>
+        <td>${escapeHtml(item.sitio_web || "N/D")}</td>
+        <td>${escapeHtml(item.nombre_municipio || item.id_municipio_fk || "N/D")}</td>
         <td>
-          <button class="btn btn-sm fw-bold px-3 btn-eliminar text-white" data-id="${item.id_empresa}" style="background-color:#dc3545; border-radius: 6px;">
+          <button class="btn btn-sm fw-bold px-3 btn-eliminar text-white" data-id="${escapeHtml(item.id_empresa)}" style="background-color:#dc3545; border-radius: 6px;">
             Eliminar
           </button>
         </td>
@@ -288,7 +289,7 @@ onMounted(async () => {
     const municipios = response.ok ? await response.json() : [];
 
     selectMunicipio.innerHTML = `<option value="">Selecciona un municipio</option>${municipios.map((item) => `
-      <option value="${item.id_municipio}">${item.nombre_departamento} - ${item.nombre_municipio}</option>
+      <option value="${escapeHtml(item.id_municipio)}">${escapeHtml(item.nombre_departamento)} - ${escapeHtml(item.nombre_municipio)}</option>
     `).join("")}`;
   };
 

@@ -289,16 +289,16 @@ INSERT INTO Habilidades (nombre_habilidad) VALUES
 INSERT INTO Usuarios (
     nombres, apellidos, correo_electronico, contrasena, telefono, id_municipio_fk, resumen_profesional
 ) VALUES
-('Henry Gary', 'Arévalo Valencia', 'henry.arevalo@mail.com', 'Clave123', '7788-9900', 1, 'Estudiante de ingeniería con experiencia en desarrollo web y bases de datos.'),
-('Sofía Valeria', 'Velásquez Vega', 'sofia.vega@mail.com', 'Clave456', '7122-3344', 5, 'Especialista en diseño UI/UX y creación de prototipos funcionales.');
+('Henry Gary', 'Arévalo Valencia', 'henry.arevalo@mail.com', '$2b$10$QCiPURTuuhHk95016POq8efHfe4SVPbtuVUFGdxqC2vTj8/c2vu0C', '7788-9900', 1, 'Estudiante de ingeniería con experiencia en desarrollo web y bases de datos.'),
+('Sofía Valeria', 'Velásquez Vega', 'sofia.vega@mail.com', '$2b$10$qh1ctSVLUVL6gZGDeo00AOmeswEOhwL7Ts.WR3b9dUXoJCYucvEka', '7122-3344', 5, 'Especialista en diseño UI/UX y creación de prototipos funcionales.');
 
 -- Empresas
 INSERT INTO Empresas (
     nombre_comercial, razon_social, sitio_web, descripcion_empresa, id_municipio_fk, correo_electronico, contrasena
 ) VALUES
-('TechSolutions SV', 'TechSolutions S.A. de C.V.', 'www.techsolutions.sv', 'Empresa líder en desarrollo de software a medida, aplicaciones web y arquitecturas en la nube para clientes regionales.', 3, 'techsolutions@mail.com', 'ClaveEmpresa123'),
-('Global Marketing', 'Global Marketing Group', 'www.globalmkt.com', 'Agencia regional de publicidad, mercadeo digital y creación de interfaces interactivas para marcas de alto impacto.', 2, 'globalmarketing@mail.com', 'ClaveEmpresa456'),
-('InnovaNet El Salvador', 'InnovaNet S.A.', 'www.innovanet.sv', 'Proveedores de infraestructura de redes, configuración de routers y switches empresariales.', 4, 'rrhh@innovanet.sv', 'NetAdmin2026');
+('TechSolutions SV', 'TechSolutions S.A. de C.V.', 'www.techsolutions.sv', 'Empresa líder en desarrollo de software a medida, aplicaciones web y arquitecturas en la nube para clientes regionales.', 3, 'techsolutions@mail.com', '$2b$10$zd5Zrlx2cl4R76uHg.knHuXjAkeWViimtMQ8Sd0pB659s/uyjpi4O'),
+('Global Marketing', 'Global Marketing Group', 'www.globalmkt.com', 'Agencia regional de publicidad, mercadeo digital y creación de interfaces interactivas para marcas de alto impacto.', 2, 'globalmarketing@mail.com', '$2b$10$CXCydRRdnM5UJ5m2nWnYKuB64IqlajYCXZOKH7W4nS2UVmRU2w8.2'),
+('InnovaNet El Salvador', 'InnovaNet S.A.', 'www.innovanet.sv', 'Proveedores de infraestructura de redes, configuración de routers y switches empresariales.', 4, 'rrhh@innovanet.sv', '$2b$10$RuBuNW1DB.GKS4qr28nEwuSbNKV/D.gkcvjqZAmpl24RoVTrxJ2aS');
 
 -- Vacantes Completas
 INSERT INTO Vacantes (

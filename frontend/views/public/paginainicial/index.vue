@@ -218,6 +218,49 @@
         </div>
       </section>
 
+      <section class="py-5 bg-white">
+        <div class="container">
+          <div id="alertContainer" class="mb-4"></div>
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+            <div>
+              <h2 class="fw-bold mb-1">Vacantes recientes</h2>
+              <p class="text-secondary mb-0">Oportunidades verificadas disponibles en Workly.</p>
+            </div>
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2">
+              {{ vacantes.length }} vacantes
+            </span>
+          </div>
+
+          <div v-if="cargandoVacantes" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status"></div>
+          </div>
+          <div v-else-if="vacantes.length === 0" class="alert alert-light border">
+            No hay vacantes disponibles en este momento.
+          </div>
+          <div v-else class="row g-4">
+            <div v-for="item in vacantes" :key="item.id_vacante" class="col-md-6 col-xl-4">
+              <div class="card card-custom vacante-card">
+                <div class="card-body">
+                  <span class="badge bg-primary-subtle text-primary mb-2">{{ item.nombre_categoria || "General" }}</span>
+                  <h5 class="card-title">{{ item.titulo_puesto || "Vacante" }}</h5>
+                  <p class="text-muted mb-2">{{ item.nombre_comercial || "Empresa" }}</p>
+                  <div class="vacante-meta mb-3">
+                    <div><strong>Modalidad:</strong> {{ item.modalidad || "N/D" }}</div>
+                    <div><strong>Ubicación:</strong> {{ item.nombre_municipio || "El Salvador" }}</div>
+                  </div>
+                  <p class="card-text">{{ recortarDescripcion(item.descripcion_puesto) }}</p>
+                  <div class="vacante-footer">
+                    <button type="button" class="btn btn-primary w-100" @click="verDetalle(item.id_vacante)">
+                      Ver detalle
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- CALL TO ACTION FINAL -->
       <section class="py-5" style="background: linear-gradient(120deg, #eef1fa, #ffffff);">
         <div class="container">
@@ -265,41 +308,37 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
-import { API_URL } from "../../../assets/js/shared/config.js";
+import { onMounted, ref } from "vue";
+import { API_URL, navigateTo } from "../../../assets/js/shared/config.js";
+import { fetchJson } from "../../../assets/js/shared/api.js";
+import { createSafeAlert } from "../../../assets/js/shared/security.js";
+
+const vacantes = ref([]);
+const cargandoVacantes = ref(true);
+
+const recortarDescripcion = (value = "") => {
+  const text = String(value || "").trim();
+  return text.length > 120 ? `${text.slice(0, 120)}...` : text || "Sin descripción disponible.";
+};
+
+const verDetalle = (idVacante) => {
+  navigateTo(`usuario/detalleempleo?id=${encodeURIComponent(idVacante)}`);
+};
 
 onMounted(async () => {
-  const contenedorVacantes = document.getElementById("contenedorVacantes");
   const alertContainer = document.getElementById("alertContainer");
-  const statVacantes = document.getElementById("statVacantes");
-
-  if (!contenedorVacantes || !alertContainer || !statVacantes) {
-    return;
-  }
 
   const showAlert = (message, type = "danger") => {
-    alertContainer.innerHTML = `
-      <div class="alert alert-${type}" role="alert">
-        ${message}
-      </div>
-    `;
+    if (!alertContainer) return;
+    alertContainer.innerHTML = createSafeAlert(message, type);
   };
 
   const renderVacantes = (items) => {
-    statVacantes.textContent = items?.length ?? 0;
-
-    if (!items || items.length === 0) {
-      contenedorVacantes.innerHTML = `
-        <div class="col-12">
-          <div class="alert alert-light border">No hay vacantes disponibles en este momento.</div>
-        </div>
-      `;
-      return;
-    }
-
+    vacantes.value = (Array.isArray(items) ? items : items?.data || items?.vacantes || []).slice(0, 6);
+    return;
+    /*
     const top = items.slice(0, 6);
-
-    contenedorVacantes.innerHTML = top.map(item => `
+    const legacyMarkup = top.map(item => `
       <div class="col-md-6 col-xl-4">
         <div class="card card-custom vacante-card">
           <div class="card-body">
@@ -324,22 +363,18 @@ onMounted(async () => {
         </div>
       </div>
     `).join("");
+    */
   };
 
   const cargarVacantes = async () => {
     try {
-      const response = await fetch(`${API_URL}/vacantes/busqueda/filtros`);
-      const data = await response.json();
-
-      if (!response.ok) {
-        showAlert(data.mensaje || "No se pudieron cargar las vacantes");
-        return;
-      }
-
+      const data = await fetchJson(`${API_URL}/vacantes/busqueda/filtros`);
       renderVacantes(data);
     } catch (error) {
       console.error(error);
-      showAlert("Error de conexión con el servidor");
+      showAlert(error.message || "Error de conexión con el servidor");
+    } finally {
+      cargandoVacantes.value = false;
     }
   };
 

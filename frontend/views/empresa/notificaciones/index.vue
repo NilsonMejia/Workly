@@ -386,7 +386,7 @@ onMounted(async () => {
     await init();
   };
 
-  btnMarcarTodas.addEventListener("click", async () => {
+  btnMarcarTodas?.addEventListener("click", async () => {
     try {
       const response = await fetch(`${API_URL}/notificaciones/marcar-todas/leidas`, {
         method: "PUT",
@@ -406,7 +406,7 @@ onMounted(async () => {
     }
   });
 
-  btnFiltrar.addEventListener("click", async () => {
+  btnFiltrar?.addEventListener("click", async () => {
     try {
       await init();
     } catch (error) {
@@ -414,7 +414,7 @@ onMounted(async () => {
     }
   });
 
-  inputBuscar.addEventListener("keydown", async (event) => {
+  inputBuscar?.addEventListener("keydown", async (event) => {
     if (event.key !== "Enter") {
       return;
     }

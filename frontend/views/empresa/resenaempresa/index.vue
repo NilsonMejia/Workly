@@ -144,6 +144,7 @@ import CompanyNavbar from "../../../components/CompanyNavbar.vue";
 import { onMounted } from "vue";
 import { API_URL, getToken } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
+import { createSafeAlert, escapeHtml } from "../../../assets/js/shared/security.js";
 
 onMounted(async () => {
   requireAuth(["empresa"]);
@@ -185,12 +186,7 @@ onMounted(async () => {
   const showAlert = (message, type = "danger") => {
     if (!alertContainer) return;
 
-    alertContainer.innerHTML = `
-      <div class="alert alert-${type} alert-dismissible fade show rounded-4 shadow-sm" role="alert">
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-      </div>
-    `;
+    alertContainer.innerHTML = createSafeAlert(message, type);
   };
 
   const formatearFecha = (fecha) => {
@@ -216,13 +212,13 @@ onMounted(async () => {
       return '<span class="text-muted small">Sin etiquetas registradas</span>';
     }
 
-    return tags.map((tag) => `<span class="tag-chip">${tag}</span>`).join("");
+    return tags.map((tag) => `<span class="tag-chip">${escapeHtml(tag)}</span>`).join("");
   };
 
   const renderEmptyState = (message, icon = "bi-inbox") => `
     <div class="empty-state text-center p-4">
       <div class="mb-2"><i class="bi ${icon} fs-2 text-primary"></i></div>
-      <p class="text-muted mb-0">${message}</p>
+      <p class="text-muted mb-0">${escapeHtml(message)}</p>
     </div>
   `;
 
@@ -265,7 +261,7 @@ onMounted(async () => {
       ...postulaciones.map((item) => {
         const nombre = `${item.nombres} ${item.apellidos}`;
         const estado = item.id_resena ? " | con resena" : "";
-        return `<option value="${item.id_postulacion}">${nombre} | ${item.titulo_puesto}${estado}</option>`;
+        return `<option value="${escapeHtml(item.id_postulacion)}">${escapeHtml(nombre)} | ${escapeHtml(item.titulo_puesto)}${escapeHtml(estado)}</option>`;
       })
     ].join("");
   };
@@ -285,13 +281,13 @@ onMounted(async () => {
           <div class="flex-grow-1">
             <div class="d-flex flex-column flex-lg-row justify-content-between gap-2 mb-2">
               <div>
-                <h3 class="h6 fw-bold mb-1">${item.nombres} ${item.apellidos}</h3>
-                <p class="text-muted small mb-0">Postulante a ${item.titulo_puesto}</p>
+                <h3 class="h6 fw-bold mb-1">${escapeHtml(item.nombres)} ${escapeHtml(item.apellidos)}</h3>
+                <p class="text-muted small mb-0">Postulante a ${escapeHtml(item.titulo_puesto)}</p>
               </div>
-              <small class="text-muted">${formatearFecha(item.fecha_resena)}</small>
+              <small class="text-muted">${escapeHtml(formatearFecha(item.fecha_resena))}</small>
             </div>
-            <div class="stars mb-2">${renderStars(item.puntuacion)} <span class="text-muted small ms-2">${item.puntuacion}/5</span></div>
-            <p class="text-muted mb-3">${item.comentario || "Sin comentario adicional."}</p>
+            <div class="stars mb-2">${renderStars(item.puntuacion)} <span class="text-muted small ms-2">${escapeHtml(item.puntuacion)}/5</span></div>
+            <p class="text-muted mb-3">${escapeHtml(item.comentario || "Sin comentario adicional.")}</p>
             <div class="d-flex gap-2 flex-wrap">${renderTags(item.etiquetas || [])}</div>
           </div>
         </div>
@@ -314,12 +310,12 @@ onMounted(async () => {
           <div class="flex-grow-1">
             <div class="d-flex flex-column flex-lg-row justify-content-between gap-2 mb-2">
               <div>
-                <h3 class="h6 fw-bold mb-1">${item.nombre_usuario}</h3>
-                <div class="stars">${renderStars(item.puntuacion)} <span class="text-muted small ms-2">${item.puntuacion}/5</span></div>
+                <h3 class="h6 fw-bold mb-1">${escapeHtml(item.nombre_usuario)}</h3>
+                <div class="stars">${renderStars(item.puntuacion)} <span class="text-muted small ms-2">${escapeHtml(item.puntuacion)}/5</span></div>
               </div>
-              <small class="text-muted">${formatearFecha(item.fecha_valoracion)}</small>
+              <small class="text-muted">${escapeHtml(formatearFecha(item.fecha_valoracion))}</small>
             </div>
-            <p class="text-muted mb-0">${item.comentario || "Sin comentario adicional."}</p>
+            <p class="text-muted mb-0">${escapeHtml(item.comentario || "Sin comentario adicional.")}</p>
           </div>
         </div>
       </article>
@@ -342,15 +338,15 @@ onMounted(async () => {
             <div class="d-flex flex-column flex-lg-row justify-content-between gap-2 mb-2">
               <div>
                 <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
-                  <h3 class="h6 fw-bold mb-0">${item.nombres} ${item.apellidos}</h3>
-                  <span class="badge text-bg-light rounded-pill">${item.nombre_comercial}</span>
+                  <h3 class="h6 fw-bold mb-0">${escapeHtml(item.nombres)} ${escapeHtml(item.apellidos)}</h3>
+                  <span class="badge text-bg-light rounded-pill">${escapeHtml(item.nombre_comercial)}</span>
                 </div>
-                <p class="text-muted small mb-0">Referenciado por ${item.nombre_comercial} para ${item.titulo_puesto}</p>
+                <p class="text-muted small mb-0">Referenciado por ${escapeHtml(item.nombre_comercial)} para ${escapeHtml(item.titulo_puesto)}</p>
               </div>
-              <small class="text-muted">${formatearFecha(item.fecha_resena)}</small>
+              <small class="text-muted">${escapeHtml(formatearFecha(item.fecha_resena))}</small>
             </div>
-            <div class="stars mb-2">${renderStars(item.puntuacion)} <span class="text-muted small ms-2">${item.puntuacion}/5</span></div>
-            <p class="text-muted mb-3">${item.comentario || "Sin comentario adicional."}</p>
+            <div class="stars mb-2">${renderStars(item.puntuacion)} <span class="text-muted small ms-2">${escapeHtml(item.puntuacion)}/5</span></div>
+            <p class="text-muted mb-3">${escapeHtml(item.comentario || "Sin comentario adicional.")}</p>
             <div class="d-flex gap-2 flex-wrap">${renderTags(item.etiquetas || [])}</div>
           </div>
         </div>

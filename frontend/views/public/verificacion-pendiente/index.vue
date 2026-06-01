@@ -72,6 +72,7 @@
 <script setup>
 import { onMounted } from "vue";
 import { API_URL, buildPendingVerificationPath, normalizeAppRedirect, resolveViewPath, navigateTo } from "../../../assets/js/shared/config.js";
+import { createSafeAlert } from "../../../assets/js/shared/security.js";
 
 onMounted(async () => {
   const alertContainer = document.getElementById("alertContainer");
@@ -88,12 +89,8 @@ onMounted(async () => {
   const status = params.get("status") || "";
 
   const showAlert = (message, type = "danger") => {
-    alertContainer.innerHTML = `
-      <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-      </div>
-    `;
+    if (!alertContainer) return;
+    alertContainer.innerHTML = createSafeAlert(message, type);
   };
 
   const actualizarVista = () => {

@@ -162,6 +162,7 @@ import AdminNavbar from "../../../components/AdminNavbar.vue";
 import { onMounted } from "vue";
 import { API_URL, getToken, clearSession, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
+import { createSafeAlert, escapeHtml } from "../../../assets/js/shared/security.js";
 
 onMounted(async () => {
   requireAuth(["admin"]);
@@ -205,13 +206,7 @@ onMounted(async () => {
     else if (type === "info") icon = "info-circle";
     else if (type === "primary") icon = "info-circle";
 
-    alertContainer.innerHTML = `
-      <div class="alert alert-${type} alert-dismissible fade show rounded-4" role="alert">
-        <i class="bi bi-${icon} me-2"></i>
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-      </div>
-    `;
+    alertContainer.innerHTML = createSafeAlert(message, type);
 
     setTimeout(() => {
       const alert = alertContainer.querySelector(".alert");
@@ -319,11 +314,11 @@ onMounted(async () => {
           <div class="d-flex justify-content-between align-items-center">
             <h6 class="fw-bold mb-1">
               <i class="bi bi-${icono} me-2 text-${colorBorder}"></i>
-              ${item.titulo}
+              ${escapeHtml(item.titulo)}
             </h6>
-            <small class="text-muted">${item.tipo} · ${formatearFecha(item.fecha)}</small>
+            <small class="text-muted">${escapeHtml(item.tipo)} · ${escapeHtml(formatearFecha(item.fecha))}</small>
           </div>
-          <p class="small mb-0 text-muted">${item.origen} · ${item.detalle}</p>
+          <p class="small mb-0 text-muted">${escapeHtml(item.origen)} · ${escapeHtml(item.detalle)}</p>
         </div>
       `;
     }).join("");
@@ -436,17 +431,17 @@ onMounted(async () => {
     tablaModeracion.innerHTML = items.map(item => `
       <tr>
         <td>
-          <div class="fw-bold">${item.titulo}</div>
-          <div class="small text-muted">ID: ${item.id || "N/D"}</div>
+          <div class="fw-bold">${escapeHtml(item.titulo)}</div>
+          <div class="small text-muted">ID: ${escapeHtml(item.id || "N/D")}</div>
         </td>
         <td>
           <span class="badge bg-secondary px-3 py-2">
             <i class="bi bi-${item.tipo === "Usuario" ? "person" : item.tipo === "Empresa" ? "building" : "file-text"} me-1"></i>
-            ${item.tipo}
+            ${escapeHtml(item.tipo)}
           </span>
         </td>
-        <td>${item.origen}</td>
-        <td>${item.detalle}</td>
+        <td>${escapeHtml(item.origen)}</td>
+        <td>${escapeHtml(item.detalle)}</td>
         <td>${getEstadoBadge(item.estado)}</td>
         <td>
           <div class="d-flex gap-2">
@@ -472,8 +467,8 @@ onMounted(async () => {
         if (!item) return;
 
         const modal = new bootstrap.Modal(document.getElementById("modalConfirmacion"));
-        document.getElementById("confirmacionMensaje").innerHTML =
-          `¿Estás seguro de que deseas <strong>SUSPENDER</strong> ${item.tipo} "${item.titulo}"?`;
+        document.getElementById("confirmacionMensaje").textContent =
+          `¿Estás seguro de que deseas SUSPENDER ${item.tipo} "${item.titulo}"?`;
 
         document.getElementById("confirmarAccionBtn").onclick = async () => {
           await actualizarEstadoItem(item, "Suspendido");
@@ -490,8 +485,8 @@ onMounted(async () => {
         if (!item) return;
 
         const modal = new bootstrap.Modal(document.getElementById("modalConfirmacion"));
-        document.getElementById("confirmacionMensaje").innerHTML =
-          `¿Estás seguro de que deseas <strong>ACTIVAR</strong> ${item.tipo} "${item.titulo}"?`;
+        document.getElementById("confirmacionMensaje").textContent =
+          `¿Estás seguro de que deseas ACTIVAR ${item.tipo} "${item.titulo}"?`;
 
         document.getElementById("confirmarAccionBtn").onclick = async () => {
           const nuevoEstado = item.tipo === "Vacante" ? "Publicada" : "Activo";
@@ -509,8 +504,8 @@ onMounted(async () => {
         if (!item) return;
 
         const modal = new bootstrap.Modal(document.getElementById("modalConfirmacion"));
-        document.getElementById("confirmacionMensaje").innerHTML =
-          `¿Estás seguro de que deseas <strong>ELIMINAR</strong> ${item.tipo} "${item.titulo}"? Esta acción no se puede deshacer.`;
+        document.getElementById("confirmacionMensaje").textContent =
+          `¿Estás seguro de que deseas ELIMINAR ${item.tipo} "${item.titulo}"? Esta acción no se puede deshacer.`;
 
         document.getElementById("confirmarAccionBtn").onclick = async () => {
           await eliminarItem(item);

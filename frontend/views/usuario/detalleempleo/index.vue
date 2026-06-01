@@ -284,6 +284,8 @@ import UserNavbar from "../../../components/UserNavbar.vue";
 import { onMounted } from "vue";
 import { API_URL, getToken, getUsuario, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
+import { fetchJson } from "../../../assets/js/shared/api.js";
+import { createSafeAlert, escapeHtml } from "../../../assets/js/shared/security.js";
 
 onMounted(async () => {
   requireAuth(["usuario"]);
@@ -293,12 +295,7 @@ onMounted(async () => {
 
   const showAlert = (message, type = "danger") => {
     if (!alertContainer) return;
-    alertContainer.innerHTML = `
-      <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-      </div>
-    `;
+    alertContainer.innerHTML = createSafeAlert(message, type);
   };
 
   const getVacanteId = () => new URLSearchParams(window.location.search).get("id");
@@ -316,7 +313,7 @@ onMounted(async () => {
       .split(/\n|[.;]\s+/)
       .map((item) => item.trim())
       .filter((item) => item.length > 2)
-      .map((item) => `<li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color: var(--primary-deep);"></i>${item.replace(/[.;]$/, "")}</li>`)
+      .map((item) => `<li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color: var(--primary-deep);"></i>${escapeHtml(item.replace(/[.;]$/, ""))}</li>`)
       .join("");
   };
 
@@ -381,9 +378,7 @@ onMounted(async () => {
     if (!contenedor) return;
 
     try {
-      const response = await fetch(`${API_URL}/vacantes/${idVacante}/similares?limit=3`);
-      if (!response.ok) throw new Error("No se pudieron cargar vacantes similares");
-      const items = await response.json();
+      const items = await fetchJson(`${API_URL}/vacantes/${idVacante}/similares?limit=3`);
 
       if (!Array.isArray(items) || !items.length) {
         contenedor.innerHTML = `
@@ -399,11 +394,11 @@ onMounted(async () => {
       contenedor.innerHTML = items.map((item) => `
         <div class="col-12 col-md-4">
           <div class="similar-job-card d-flex flex-column">
-            <h6 class="fw-bold mb-3">${item.titulo_puesto || "Vacante similar"}</h6>
+            <h6 class="fw-bold mb-3">${escapeHtml(item.titulo_puesto || "Vacante similar")}</h6>
             <ul class="list-unstyled text-secondary small mb-4">
-              <li class="mb-1"><i class="bi bi-building me-2"></i>${item.nombre_empresa || item.nombre_comercial || "Empresa"}</li>
-              <li class="mb-1"><i class="bi bi-geo-alt me-2"></i>${item.nombre_municipio || "El Salvador"}</li>
-              <li class="mb-1"><i class="bi bi-bar-chart-steps me-2"></i>${item.experiencia_nivel || "No especificado"}</li>
+              <li class="mb-1"><i class="bi bi-building me-2"></i>${escapeHtml(item.nombre_empresa || item.nombre_comercial || "Empresa")}</li>
+              <li class="mb-1"><i class="bi bi-geo-alt me-2"></i>${escapeHtml(item.nombre_municipio || "El Salvador")}</li>
+              <li class="mb-1"><i class="bi bi-bar-chart-steps me-2"></i>${escapeHtml(item.experiencia_nivel || "No especificado")}</li>
               <li class="fw-bold"><i class="bi bi-cash me-2"></i>${formatSalary(item.salario_offrecido)}</li>
             </ul>
             <a class="btn btn-outline-primary w-100 mt-auto rounded-pill py-2 fw-semibold" style="border-color: var(--primary-deep); color: var(--primary-deep);" href="../detalleempleo?id=${item.id_vacante}">
@@ -445,11 +440,9 @@ onMounted(async () => {
     }
 
     try {
-      const response = await fetch(`${API_URL}/vacantes/detalle/${idVacante}`, {
+      const data = await fetchJson(`${API_URL}/vacantes/detalle/${idVacante}`, {
         headers: authHeaders()
       });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.mensaje || "No se pudo cargar la vacante");
 
       const vacante = data.vacante;
 
@@ -483,7 +476,7 @@ onMounted(async () => {
       // Requisitos alternativos (Si tienes este ID)
       const contenedorRequisitos = document.getElementById("detalle-requisitos");
       if (contenedorRequisitos) {
-          contenedorRequisitos.innerHTML = `<p><i class="bi bi-check-circle-fill text-primary me-2"></i> ${vacante.descripcion_puesto || "Información no detallada."}</p>`;
+          contenedorRequisitos.innerHTML = `<p><i class="bi bi-check-circle-fill text-primary me-2"></i> ${escapeHtml(vacante.descripcion_puesto || "Información no detallada.")}</p>`;
       }
 
       // Fecha principal
@@ -498,9 +491,9 @@ onMounted(async () => {
       const elemBadges = document.getElementById("badgesContenedor");
       if (elemBadges) {
           elemBadges.innerHTML = `
-            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold">${vacante.modalidad || "Presencial"}</span>
-            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold">${vacante.nombre_categoria || "Categoría general"}</span>
-            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold">ID: #VAC-${vacante.id_vacante}</span>
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold">${escapeHtml(vacante.modalidad || "Presencial")}</span>
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold">${escapeHtml(vacante.nombre_categoria || "Categoría general")}</span>
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold">ID: #VAC-${escapeHtml(vacante.id_vacante)}</span>
           `;
       }
 
@@ -530,7 +523,7 @@ onMounted(async () => {
       // -------------------------------------------------------------
       if (empresaButton && vacante.id_empresa) {
         const nombreEmpresa = vacante.nombre_comercial || "la empresa";
-        empresaButton.innerHTML = `Ver perfil de ${nombreEmpresa}`;
+        empresaButton.textContent = `Ver perfil de ${nombreEmpresa}`;
 
         empresaButton.addEventListener("click", () => {
           navigateTo(`../valoracionempresa?id_empresa=${vacante.id_empresa}`);
@@ -553,14 +546,11 @@ onMounted(async () => {
       const usuario = getUsuario();
       if (!usuario?.id_usuario) throw new Error("No se encontró una sesión válida para postular.");
 
-      const response = await fetch(`${API_URL}/postulaciones`, {
+      await fetchJson(`${API_URL}/postulaciones`, {
         method: "POST",
         headers: { "Content-Type": "application/json", ...authHeaders() },
-        body: JSON.stringify({ id_usuario_fk: usuario.id_usuario, id_vacante_fk: Number(idVacante), id_estado_fk: 1 })
+        body: JSON.stringify({ id_vacante_fk: Number(idVacante), id_estado_fk: 1 })
       });
-
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.mensaje || "Error al postularse.");
 
       new bootstrap.Toast(document.getElementById("toastPostulado")).show();
       setTimeout(cargarDetalle, 800);
@@ -583,14 +573,11 @@ onMounted(async () => {
     const yaGuardado = icono.classList.contains("bi-bookmark-fill");
 
     try {
-      const response = await fetch(`${API_URL}/guardados/${idVacante}`, {
+      const data = await fetchJson(`${API_URL}/guardados/${idVacante}`, {
         method: yaGuardado ? "DELETE" : "POST",
         headers: { "Content-Type": "application/json", ...authHeaders() },
         body: yaGuardado ? undefined : JSON.stringify({ id_vacante_fk: Number(idVacante) })
       });
-
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.mensaje || "No se pudo actualizar el guardado");
 
       actualizarEstadoGuardado(!yaGuardado);
       if (!yaGuardado) new bootstrap.Toast(document.getElementById("toastGuardado")).show();

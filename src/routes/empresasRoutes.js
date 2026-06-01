@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { verificarToken, autorizarRoles } from "../middlewares/authMiddleware.js";
 import {
   obtenerEmpresas,
   obtenerEmpresaPorId,
@@ -8,6 +9,8 @@ import {
 } from "../controllers/empresasController.js";
 
 const router = Router();
+
+router.use(verificarToken, autorizarRoles("admin"));
 
 router.get("/", obtenerEmpresas);
 router.get("/:id", obtenerEmpresaPorId);

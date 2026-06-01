@@ -17,7 +17,7 @@ router.put("/:id/estado", verificarToken, autorizarRoles("empresa", "admin"), ac
 router.get("/", obtenerPostulaciones);
 router.get("/usuario/:id_usuario", obtenerPostulacionesPorUsuario);
 router.get("/vacante/:id_vacante", obtenerPostulacionesPorVacante);
-router.post("/", crearPostulacion);
-router.delete("/:id", eliminarPostulacion);
+router.post("/", verificarToken, autorizarRoles("usuario"), crearPostulacion);
+router.delete("/:id", verificarToken, autorizarRoles("usuario"), eliminarPostulacion);
 
 export default router;

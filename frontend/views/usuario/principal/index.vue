@@ -251,6 +251,7 @@ import UserNavbar from "../../../components/UserNavbar.vue";
 import { ref, onMounted } from "vue";
 import { API_URL, getUsuario, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
+import { escapeHtml } from "../../../assets/js/shared/security.js";
 
 // Creamos nuestras variables reactivas
 const nombreUsuarioVisible = ref("Usuario");
@@ -276,7 +277,7 @@ onMounted(async () => {
   // 2. Cargar los empleos desde la BD
   await cargarEmpleosDestacados();
 
-  // ----- TODO ESTE CÓDIGO A CONTINUACIÓN ES PARA TUS FILTROS (Se mantiene como lo tenías) -----
+  // Filtros de busqueda avanzada.
   const btnBusquedaRapida = document.getElementById("btnBusquedaRapida");
   const inputBusquedaRapida = document.getElementById("inputBusquedaRapida");
   const btnAplicarFiltros = document.getElementById("btnAplicarFiltros");
@@ -325,13 +326,13 @@ onMounted(async () => {
             <i class="bi bi-buildings fs-4" style="color: var(--primary-deep);"></i>
           </div>
           <div>
-            <h6 class="fw-bold mb-1" style="color: #121826; font-size: 1.05rem;">${vacante.titulo_puesto || vacante.titulo || "Vacante"}</h6>
-            <p class="text-secondary small mb-0 fw-medium">${vacante.nombre_empresa || vacante.nombre_comercial || vacante.empresa || "Empresa"}</p>
+            <h6 class="fw-bold mb-1" style="color: #121826; font-size: 1.05rem;">${escapeHtml(vacante.titulo_puesto || vacante.titulo || "Vacante")}</h6>
+            <p class="text-secondary small mb-0 fw-medium">${escapeHtml(vacante.nombre_empresa || vacante.nombre_comercial || vacante.empresa || "Empresa")}</p>
           </div>
         </div>
         <div class="mb-4 mt-2">
           <div class="d-flex align-items-center text-muted small mb-2">
-            <i class="bi bi-geo-alt me-2 text-secondary"></i> ${vacante.nombre_municipio || "El Salvador"}
+            <i class="bi bi-geo-alt me-2 text-secondary"></i> ${escapeHtml(vacante.nombre_municipio || "El Salvador")}
           </div>
           <div class="d-flex align-items-center text-muted small mb-2">
             <i class="bi bi-cash-stack me-2 text-secondary"></i> ${formatearSalario(vacante)}
@@ -341,7 +342,7 @@ onMounted(async () => {
           </div>
         </div>
         <div class="mt-auto pt-3 border-top">
-          <a href="../detalleempleo?id=${vacante.id_vacante}" class="btn text-white w-100 rounded-pill fw-medium py-2" style="background-color: var(--primary-deep); box-shadow: 0 4px 10px rgba(63, 81, 181, 0.2);">
+          <a href="../detalleempleo?id=${encodeURIComponent(vacante.id_vacante)}" class="btn text-white w-100 rounded-pill fw-medium py-2" style="background-color: var(--primary-deep); box-shadow: 0 4px 10px rgba(63, 81, 181, 0.2);">
             Ver vacante <i class="bi bi-arrow-right-short ms-1 fs-5 align-middle"></i>
           </a>
         </div>
@@ -414,7 +415,7 @@ onMounted(async () => {
       return;
     }
     btnBusquedaRapida?.setAttribute("disabled", "true");
-    btnBusquedaRapida.innerHTML = `Buscando <span class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>`;
+    btnBusquedaRapida.textContent = "Buscando";
     navigateTo(`../buscarempleo?q=${encodeURIComponent(query)}`);
   };
 

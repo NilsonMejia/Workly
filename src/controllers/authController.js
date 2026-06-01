@@ -26,14 +26,13 @@ import {
   enviarVerificacionCorreo,
   enviarConfirmacionVerificacion
 } from "../services/emailService.js";
+import { getAdminEmail, validarCredencialesAdmin } from "../utils/adminCredentials.js";
 import { generarToken } from "../utils/jwt.js";
 
 const HORAS_VERIFICACION = 24;
 const LONGITUD_CODIGO = 6;
 
 const normalizarCorreo = (value) => String(value || "").trim().toLowerCase();
-const ADMIN_EMAIL = "admin@workly.com";
-const ADMIN_PASSWORD = "admin123";
 
 const generarTokenCorreo = () => crypto.randomBytes(32).toString("hex");
 const generarCodigoCorreo = () =>
@@ -96,14 +95,12 @@ export const iniciarSesion = async (req, res) => {
       return res.status(400).json({ mensaje: "Faltan datos obligatorios" });
     }
 
-    if (
-      correo_electronico === ADMIN_EMAIL &&
-      String(contrasena).trim() === ADMIN_PASSWORD
-    ) {
+    if (await validarCredencialesAdmin(correo_electronico, contrasena)) {
+      const adminEmail = getAdminEmail();
       const admin = {
         id_admin: 1,
         nombre: "Administrador Workly",
-        correo_electronico: ADMIN_EMAIL,
+        correo_electronico: adminEmail,
         rol: "admin",
         email_verificado: true
       };
@@ -187,7 +184,7 @@ export const registrarUsuario = async (req, res) => {
   try {
     const correo_electronico = normalizarCorreo(req.body.correo_electronico);
 
-    if (correo_electronico === ADMIN_EMAIL) {
+    if (correo_electronico === getAdminEmail()) {
       return res.status(409).json({
         mensaje: "Ese correo esta reservado para el administrador del sistema"
       });
@@ -246,7 +243,7 @@ export const registrarEmpresa = async (req, res) => {
   try {
     const correo_electronico = normalizarCorreo(req.body.correo_electronico);
 
-    if (correo_electronico === ADMIN_EMAIL) {
+    if (correo_electronico === getAdminEmail()) {
       return res.status(409).json({
         mensaje: "Ese correo esta reservado para el administrador del sistema"
       });

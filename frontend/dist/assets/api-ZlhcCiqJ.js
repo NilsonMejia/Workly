@@ -1,0 +1,1 @@
+const o=async e=>{const t=await e.text();if(!t)return null;try{return JSON.parse(t)}catch{return{mensaje:t}}},c=async(e,t={})=>{const s=await fetch(e,t),a=await o(s);if(!s.ok){const n=a?.mensaje||a?.message||`Error HTTP ${s.status}`,r=new Error(n);throw r.status=s.status,r.data=a,r}return a};export{c as f};

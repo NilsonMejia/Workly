@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import { crearNotificacionParaTodosLosUsuarios } from "../models/notificacionesModel.js";
 import { correoYaExisteEnSistema } from "../models/usuarioModel.js";
+import { getAdminEmail } from "../utils/adminCredentials.js";
 import {
   getAdminUsuarios,
   createAdminUsuario,
@@ -26,8 +27,6 @@ const parseNullableNumber = (value) => {
   const parsed = Number(value);
   return Number.isNaN(parsed) ? null : parsed;
 };
-
-const ADMIN_EMAIL = "admin@workly.com";
 
 export const obtenerUsuariosAdmin = async (req, res) => {
   try {
@@ -73,7 +72,7 @@ export const crearUsuarioAdmin = async (req, res) => {
       });
     }
 
-    if (correoNormalizado === ADMIN_EMAIL) {
+    if (correoNormalizado === getAdminEmail()) {
       return res.status(409).json({
         mensaje: "Ese correo esta reservado para el administrador del sistema"
       });

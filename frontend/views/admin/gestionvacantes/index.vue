@@ -231,6 +231,7 @@ import AdminNavbar from "../../../components/AdminNavbar.vue";
 import { onMounted } from "vue";
 import { API_URL, getToken, clearSession, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
+import { escapeHtml } from "../../../assets/js/shared/security.js";
 
 onMounted(async () => {
   requireAuth(["admin"]);
@@ -338,10 +339,10 @@ onMounted(async () => {
     actividadVacantes.innerHTML = top.map((vacante, index) => `
       <div class="p-3 rounded-4 bg-light border-start border-4 ${index === 0 ? "border-primary" : index === 1 ? "border-success" : "border-warning"}">
         <div class="d-flex justify-content-between align-items-center">
-          <h6 class="fw-bold mb-1">${vacante.titulo_puesto || "Vacante"}</h6>
-          <small class="text-muted">${formatearFecha(vacante.fecha_publicacion)}</small>
+          <h6 class="fw-bold mb-1">${escapeHtml(vacante.titulo_puesto || "Vacante")}</h6>
+          <small class="text-muted">${escapeHtml(formatearFecha(vacante.fecha_publicacion))}</small>
         </div>
-        <p class="small mb-0 text-muted">${vacante.nombre_comercial || "Empresa"} · ${vacante.modalidad || "N/D"} · ${vacante.estado || "Activo"}</p>
+        <p class="small mb-0 text-muted">${escapeHtml(vacante.nombre_comercial || "Empresa")} · ${escapeHtml(vacante.modalidad || "N/D")} · ${escapeHtml(vacante.estado || "Activo")}</p>
       </div>
     `).join("");
   };
@@ -364,19 +365,19 @@ onMounted(async () => {
     tablaVacantes.innerHTML = vacantes.map((vacante) => `
       <tr>
         <td>
-          <div class="fw-bold">${vacante.titulo_puesto || "N/D"}</div>
-          <div class="small text-muted">${vacante.modalidad || "N/D"} · ${vacante.nombre_categoria || "Sin categoría"}</div>
+          <div class="fw-bold">${escapeHtml(vacante.titulo_puesto || "N/D")}</div>
+          <div class="small text-muted">${escapeHtml(vacante.modalidad || "N/D")} · ${escapeHtml(vacante.nombre_categoria || "Sin categoría")}</div>
         </td>
-        <td>${vacante.nombre_comercial || "N/D"}</td>
-        <td><span class="badge bg-${vacante.estado === "Pausada" ? "warning text-dark" : vacante.estado === "Reportada" ? "danger" : "success"} px-3 py-2">${vacante.estado || "Activo"}</span></td>
-        <td class="text-muted">${formatearFecha(vacante.fecha_publicacion)}</td>
+        <td>${escapeHtml(vacante.nombre_comercial || "N/D")}</td>
+        <td><span class="badge bg-${vacante.estado === "Pausada" ? "warning text-dark" : vacante.estado === "Reportada" ? "danger" : "success"} px-3 py-2">${escapeHtml(vacante.estado || "Activo")}</span></td>
+        <td class="text-muted">${escapeHtml(formatearFecha(vacante.fecha_publicacion))}</td>
         <td>
           <div class="d-flex align-items-center gap-2">
-            <button class="btn btn-sm btn-outline-info btn-ver" data-id="${vacante.id_vacante}"><i class="bi bi-eye"></i></button>
-            <button class="btn btn-sm btn-outline-warning btn-editar" data-id="${vacante.id_vacante}"><i class="bi bi-pencil"></i></button>
-            <button class="btn btn-sm btn-outline-secondary btn-estado" data-id="${vacante.id_vacante}" data-estado="Pausada"><i class="bi bi-pause-circle"></i></button>
-            <button class="btn btn-sm btn-outline-primary btn-estado" data-id="${vacante.id_vacante}" data-estado="Activo"><i class="bi bi-play-circle"></i></button>
-            <button class="btn btn-sm btn-outline-danger btn-eliminar" data-id="${vacante.id_vacante}"><i class="bi bi-trash"></i></button>
+            <button class="btn btn-sm btn-outline-info btn-ver" data-id="${escapeHtml(vacante.id_vacante)}"><i class="bi bi-eye"></i></button>
+            <button class="btn btn-sm btn-outline-warning btn-editar" data-id="${escapeHtml(vacante.id_vacante)}"><i class="bi bi-pencil"></i></button>
+            <button class="btn btn-sm btn-outline-secondary btn-estado" data-id="${escapeHtml(vacante.id_vacante)}" data-estado="Pausada"><i class="bi bi-pause-circle"></i></button>
+            <button class="btn btn-sm btn-outline-primary btn-estado" data-id="${escapeHtml(vacante.id_vacante)}" data-estado="Activo"><i class="bi bi-play-circle"></i></button>
+            <button class="btn btn-sm btn-outline-danger btn-eliminar" data-id="${escapeHtml(vacante.id_vacante)}"><i class="bi bi-trash"></i></button>
           </div>
         </td>
       </tr>
@@ -387,12 +388,12 @@ onMounted(async () => {
         const vacante = vacantesGlobal.find((item) => String(item.id_vacante) === button.dataset.id);
         if (!vacante) return;
         showAlert(`
-          <strong>${vacante.titulo_puesto}</strong><br>
-          Empresa: ${vacante.nombre_comercial}<br>
-          Categoría: ${vacante.nombre_categoria}<br>
-          Modalidad: ${vacante.modalidad || "N/D"}<br>
-          Estado: ${vacante.estado || "Activo"}<br>
-          Descripción: ${vacante.descripcion_puesto || "Sin descripción"}
+          <strong>${escapeHtml(vacante.titulo_puesto)}</strong><br>
+          Empresa: ${escapeHtml(vacante.nombre_comercial)}<br>
+          Categoría: ${escapeHtml(vacante.nombre_categoria)}<br>
+          Modalidad: ${escapeHtml(vacante.modalidad || "N/D")}<br>
+          Estado: ${escapeHtml(vacante.estado || "Activo")}<br>
+          Descripción: ${escapeHtml(vacante.descripcion_puesto || "Sin descripción")}
         `, "info");
       });
     });

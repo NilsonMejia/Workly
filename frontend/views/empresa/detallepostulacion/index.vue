@@ -235,13 +235,21 @@ onMounted(async () => {
       icon: "bi-dot"
     };
 
-    return `<span class="badge ${config.className} rounded-pill px-3 py-2"><i class="bi ${config.icon} me-2"></i>${config.label}</span>`;
+    return `<span class="badge ${config.className} rounded-pill px-3 py-2"><i class="bi ${config.icon} me-2"></i>${escapeHtml(config.label)}</span>`;
   };
+
+  const escapeHtml = (value) =>
+    String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
 
   const buildInfoItem = (label, value) => `
     <div class="info-item">
-      <div class="info-label">${label}</div>
-      <div class="info-value">${value}</div>
+      <div class="info-label">${escapeHtml(label)}</div>
+      <div class="info-value">${escapeHtml(value)}</div>
     </div>
   `;
 
@@ -262,8 +270,8 @@ onMounted(async () => {
       <li class="timeline-item">
         <div class="timeline-dot"><i class="bi ${step.icon}"></i></div>
         <div>
-          <div class="fw-semibold">${step.label}</div>
-          <div class="text-muted small">${step.detail}</div>
+          <div class="fw-semibold">${escapeHtml(step.label)}</div>
+          <div class="text-muted small">${escapeHtml(step.detail)}</div>
         </div>
       </li>
     `).join("");
@@ -291,7 +299,7 @@ onMounted(async () => {
         <div class="col-12 col-md-6">${buildInfoItem("Municipio", data.id_municipio_fk || "No definido")}</div>
         <div class="col-12">
           <div class="info-label mb-2">Resumen profesional</div>
-          <div class="text-box">${data.resumen_profesional || "Sin resumen profesional por ahora."}</div>
+          <div class="text-box">${escapeHtml(data.resumen_profesional || "Sin resumen profesional por ahora.")}</div>
         </div>
       </div>
     `;
@@ -306,7 +314,7 @@ onMounted(async () => {
         <div class="col-12 col-md-6">${buildInfoItem("Empresa", data.nombre_comercial || "No definida")}</div>
         <div class="col-12">
           <div class="info-label mb-2">Descripcion del puesto</div>
-          <div class="text-box">${data.descripcion_puesto || "La vacante no tiene descripcion disponible."}</div>
+          <div class="text-box">${escapeHtml(data.descripcion_puesto || "La vacante no tiene descripcion disponible.")}</div>
         </div>
       </div>
     `;

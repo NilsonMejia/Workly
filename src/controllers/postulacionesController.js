@@ -51,7 +51,8 @@ export const obtenerPostulacionesPorVacante = async (req, res) => {
 
 export const crearPostulacion = async (req, res) => {
   try {
-    const { id_usuario_fk, id_vacante_fk, id_estado_fk } = req.body;
+    const { id_vacante_fk, id_estado_fk = 1 } = req.body;
+    const id_usuario_fk = req.user.id;
     const yaExiste = await existePostulacion(id_usuario_fk, id_vacante_fk);
 
     if (yaExiste) {
@@ -101,6 +102,16 @@ export const crearPostulacion = async (req, res) => {
 export const eliminarPostulacion = async (req, res) => {
   try {
     const { id } = req.params;
+    const postulacion = await getPostulacionById(id);
+
+    if (!postulacion) {
+      return res.status(404).json({ mensaje: "Postulacion no encontrada" });
+    }
+
+    if (Number(postulacion.id_usuario_fk) !== Number(req.user.id)) {
+      return res.status(403).json({ mensaje: "No puedes eliminar una postulacion de otro usuario" });
+    }
+
     const postulacionEliminada = await deletePostulacion(id);
 
     if (!postulacionEliminada) {

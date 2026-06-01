@@ -30,6 +30,10 @@ import resenasPostulantesRoutes from "./routes/resenasPostulantesRoutes.js";
 
 dotenv.config();
 
+if (!process.env.JWT_SECRET) {
+  throw new Error("JWT_SECRET es obligatorio. Configuralo en el archivo .env antes de iniciar el servidor.");
+}
+
 const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -39,8 +43,31 @@ const frontendDistDir = path.join(frontendDir, "dist");
 const frontendViewsDir = path.join(frontendDir, "views");
 const frontendAssetsDir = path.join(frontendDir, "assets");
 const isProduction = process.env.NODE_ENV === "production";
+const parseOrigins = (value) =>
+  String(value || "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean);
 
-app.use(cors());
+const allowedOrigins = parseOrigins(process.env.CORS_ORIGINS);
+const devOrigins = [
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  "http://localhost:3000",
+  "http://127.0.0.1:3000"
+];
+const corsWhitelist = new Set(isProduction ? allowedOrigins : [...devOrigins, ...allowedOrigins]);
+const corsOptions = {
+  origin(origin, callback) {
+    if (!origin || corsWhitelist.has(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error("Origen no permitido por CORS"));
+  }
+};
+
+app.use(cors(corsOptions));
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
