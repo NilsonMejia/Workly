@@ -9,6 +9,8 @@ export const loginAdminTemporal = async (req, res) => {
       });
     }
 
+    //hola mundo
+
     const { usuario, clave } = req.body;
     const usuarioNormalizado = (usuario || "").trim().toLowerCase();
 
