@@ -2,7 +2,7 @@
   <div class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
         <div class="container-fluid px-4 px-lg-5">
-            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.html">
+            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.vue">
                 <i class="bi bi-briefcase-fill brand-icon"></i>
                 <div class="lh-sm ms-2">
                     <span class="brand-text">Workly</span>
@@ -11,18 +11,18 @@
             </a>
             <div class="collapse navbar-collapse show">
                 <div class="navbar-nav mx-auto mt-3 mt-lg-0 gap-1">
-                    <a href="../publicarvacante/index.html" class="nav-link-custom"><i class="bi bi-plus-circle me-1"></i> Publicar</a>
-                    <a href="../misvacantes/index.html" class="nav-link-custom"><i class="bi bi-briefcase me-1"></i> Mis vacantes</a>
-                    <a href="../postulaciones/index.html" class="nav-link-custom"><i class="bi bi-people me-1"></i> Postulaciones</a>
-                    <a href="../foro/index.html" class="nav-link-custom"><i class="bi bi-chat-dots me-1"></i> Foro</a>
-                    <a href="../resenaempresa/index.html" class="nav-link-custom active"><i class="bi bi-star me-1"></i> Resenas</a>
+                    <a href="../publicarvacante/index.vue" class="nav-link-custom"><i class="bi bi-plus-circle me-1"></i> Publicar</a>
+                    <a href="../misvacantes/index.vue" class="nav-link-custom"><i class="bi bi-briefcase me-1"></i> Mis vacantes</a>
+                    <a href="../postulaciones/index.vue" class="nav-link-custom"><i class="bi bi-people me-1"></i> Postulaciones</a>
+                    <a href="../foro/index.vue" class="nav-link-custom"><i class="bi bi-chat-dots me-1"></i> Foro</a>
+                    <a href="../resenaempresa/index.vue" class="nav-link-custom active"><i class="bi bi-star me-1"></i> Resenas</a>
                 </div>
                 <div class="d-flex align-items-center justify-content-center gap-4 mt-3 mt-lg-0">
-                    <a href="../notificaciones/index.html" class="text-white position-relative d-inline-block">
+                    <a href="../notificaciones/index.vue" class="text-white position-relative d-inline-block">
                         <i class="bi bi-bell-fill fs-3"></i>
                         <span class="notification-badge">0</span>
                     </a>
-                    <a href="../perfil/index.html" class="text-white d-inline-block">
+                    <a href="../perfil/index.vue" class="text-white d-inline-block">
                         <i class="bi bi-person-circle fs-2"></i>
                     </a>
                 </div>

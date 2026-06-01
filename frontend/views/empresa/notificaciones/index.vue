@@ -2,7 +2,7 @@
   <div class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-custom py-3">
         <div class="container-fluid px-4 px-lg-5">
-          <a class="navbar-brand text-white fw-bold fs-3 d-flex align-items-center gap-2" href="../principal/index.html">
+          <a class="navbar-brand text-white fw-bold fs-3 d-flex align-items-center gap-2" href="../principal/index.vue">
             <i class="bi bi-briefcase-fill"></i>
             <span>Workly</span>
           </a>
@@ -13,18 +13,18 @@
 
           <div class="collapse navbar-collapse" id="navbarContent">
             <div class="navbar-nav mx-auto gap-2 mt-3 mt-lg-0">
-              <a href="../principal/index.html" class="nav-link-custom">Dashboard</a>
-              <a href="../publicarvacante/index.html" class="nav-link-custom">Publicar</a>
-              <a href="../misvacantes/index.html" class="nav-link-custom">Vacantes</a>
-              <a href="../postulaciones/index.html" class="nav-link-custom">Postulaciones</a>
-              <a href="../foro/index.html" class="nav-link-custom">Foro</a>
+              <a href="../principal/index.vue" class="nav-link-custom">Dashboard</a>
+              <a href="../publicarvacante/index.vue" class="nav-link-custom">Publicar</a>
+              <a href="../misvacantes/index.vue" class="nav-link-custom">Vacantes</a>
+              <a href="../postulaciones/index.vue" class="nav-link-custom">Postulaciones</a>
+              <a href="../foro/index.vue" class="nav-link-custom">Foro</a>
             </div>
             <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-              <a href="../notificaciones/index.html" class="text-white position-relative text-decoration-none">
+              <a href="../notificaciones/index.vue" class="text-white position-relative text-decoration-none">
                 <i class="bi bi-bell-fill fs-4"></i>
                 <span class="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
               </a>
-              <a href="../perfil/index.html" class="text-white text-decoration-none">
+              <a href="../perfil/index.vue" class="text-white text-decoration-none">
                 <i class="bi bi-building fs-4"></i>
               </a>
             </div>
@@ -143,13 +143,13 @@
                     </div>
                   </div>
                   <div class="d-grid gap-2">
-                    <a href="../postulaciones/index.html" class="btn btn-light border rounded-4 text-start">
+                    <a href="../postulaciones/index.vue" class="btn btn-light border rounded-4 text-start">
                       <i class="bi bi-people me-2"></i>Revisar candidatos
                     </a>
-                    <a href="../misvacantes/index.html" class="btn btn-light border rounded-4 text-start">
+                    <a href="../misvacantes/index.vue" class="btn btn-light border rounded-4 text-start">
                       <i class="bi bi-briefcase me-2"></i>Ver vacantes activas
                     </a>
-                    <a href="../publicarvacante/index.html" class="btn btn-light border rounded-4 text-start">
+                    <a href="../publicarvacante/index.vue" class="btn btn-light border rounded-4 text-start">
                       <i class="bi bi-plus-circle me-2"></i>Publicar nueva vacante
                     </a>
                   </div>

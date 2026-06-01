@@ -2,7 +2,7 @@
   <div class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
         <div class="container-fluid px-4 px-lg-5">
-            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../paginainicial/index.html">
+            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../paginainicial/index.vue">
                 <i class="bi bi-briefcase-fill brand-icon"></i>
                 <div class="lh-sm ms-2">
                     <span class="brand-text">Workly</span>
@@ -10,7 +10,7 @@
                 </div>
             </a>
             <div class="d-flex gap-3 mt-3 mt-lg-0 align-items-center">
-                <a href="../registro/index.html" class="btn btn-light fw-semibold px-4">Registrarse</a>
+                <a href="../registro/index.vue" class="btn btn-light fw-semibold px-4">Registrarse</a>
             </div>
         </div>
     </nav>
@@ -61,7 +61,7 @@
 
                         <div class="text-center mt-4">
                             <span class="text-secondary">¿Aún no tienes cuenta?</span>
-                            <a href="../registro/index.html" class="fw-bold text-decoration-none ms-1" style="color: var(--primary-deep);" id="linkRegistro">
+                            <a href="../registro/index.vue" class="fw-bold text-decoration-none ms-1" style="color: var(--primary-deep);" id="linkRegistro">
                                 Regístrate ahora <i class="bi bi-arrow-right"></i>
                             </a>
                         </div>
@@ -196,12 +196,12 @@ onMounted(async () => {
       saveSession(data.token, data.tipo, data.data);
 
       const destinos = {
-        usuario: "../../usuario/principal/index.html",
-        empresa: "../../empresa/principal/index.html",
-        admin: "../../admin/principal/index.html"
+        usuario: "../../usuario/principal/index.vue",
+        empresa: "../../empresa/principal/index.vue",
+        admin: "../../admin/principal/index.vue"
       };
 
-      window.location.href = destinos[data.tipo] || "../../public/paginainicial/index.html";
+      window.location.href = destinos[data.tipo] || "../../public/paginainicial/index.vue";
     } catch (error) {
       showAlert(error.message);
     }

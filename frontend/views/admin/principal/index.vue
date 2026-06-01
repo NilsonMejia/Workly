@@ -2,20 +2,20 @@
   <div>
     <nav class="navbar navbar-expand-lg py-3 sticky-top">
             <div class="container-fluid px-4">
-                <a class="navbar-brand fw-bold text-white fs-3 d-flex align-items-center" href="./index.html">
+                <a class="navbar-brand fw-bold text-white fs-3 d-flex align-items-center" href="./index.vue">
                     <i class="bi bi-briefcase-fill me-2"></i> Workly
                 </a>
                 <div class="collapse navbar-collapse" id="navContent">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-1">
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="./index.html">Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionusuarios/index.html">Usuarios</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionempresas/index.html">Empresas</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionvacantes/index.html">Vacantes</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../estadisticas/index.html">Estadísticas</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../moderacion/index.html">Moderación</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom" href="./index.vue">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionusuarios/index.vue">Usuarios</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionempresas/index.vue">Empresas</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionvacantes/index.vue">Vacantes</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../estadisticas/index.vue">Estadísticas</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../moderacion/index.vue">Moderación</a></li>
                     </ul>
                     <div class="profile-wrapper ms-lg-3 d-flex align-items-center gap-3">
-                        <a href="./index.html" class="text-white position-relative text-decoration-none">
+                        <a href="./index.vue" class="text-white position-relative text-decoration-none">
                             <i class="bi bi-bell-fill fs-4"></i>
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
                         </a>
@@ -31,12 +31,12 @@
                     <div class="bento-card p-3 h-100">
                         <h6 class="text-muted fw-bold mb-4 ps-2 small text-uppercase">Menú Admin</h6>
                         <div class="d-flex flex-column">
-                            <a href="./index.html" class="btn-menu-side active"><i class="bi bi-grid-fill me-2"></i> Dashboard</a>
-                            <a href="../gestionusuarios/index.html" class="btn-menu-side text-nowrap"><i class="bi bi-people-fill me-2"></i> Gestión de Usuarios</a>
-                            <a href="../gestionempresas/index.html" class="btn-menu-side text-nowrap"><i class="bi bi-building me-2"></i> Gestión de Empresas</a>
-                            <a href="../gestionvacantes/index.html" class="btn-menu-side text-nowrap"><i class="bi bi-file-earmark-text me-2"></i> Gestión de Vacantes</a>
-                            <a href="../estadisticas/index.html" class="btn-menu-side"><i class="bi bi-bar-chart-fill me-2"></i> Estadísticas del Sistema</a>
-                            <a href="../moderacion/index.html" class="btn-menu-side"><i class="bi bi-shield-lock-fill me-2"></i> Moderación de Contenido</a>
+                            <a href="./index.vue" class="btn-menu-side active"><i class="bi bi-grid-fill me-2"></i> Dashboard</a>
+                            <a href="../gestionusuarios/index.vue" class="btn-menu-side text-nowrap"><i class="bi bi-people-fill me-2"></i> Gestión de Usuarios</a>
+                            <a href="../gestionempresas/index.vue" class="btn-menu-side text-nowrap"><i class="bi bi-building me-2"></i> Gestión de Empresas</a>
+                            <a href="../gestionvacantes/index.vue" class="btn-menu-side text-nowrap"><i class="bi bi-file-earmark-text me-2"></i> Gestión de Vacantes</a>
+                            <a href="../estadisticas/index.vue" class="btn-menu-side"><i class="bi bi-bar-chart-fill me-2"></i> Estadísticas del Sistema</a>
+                            <a href="../moderacion/index.vue" class="btn-menu-side"><i class="bi bi-shield-lock-fill me-2"></i> Moderación de Contenido</a>
                         </div>
                     </div>
                 </aside>
@@ -102,10 +102,10 @@
                             <div class="vstack gap-4">
                                 <div class="bento-card p-4">
                                     <h6 class="fw-bold text-center mb-3">Accesos rápidos</h6>
-                                    <a class="btn-quick-access" href="../gestionusuarios/index.html">Usuarios</a>
-                                    <a class="btn-quick-access" href="../gestionempresas/index.html">Empresas</a>
-                                    <a class="btn-quick-access" href="../gestionvacantes/index.html">Vacantes</a>
-                                    <a class="btn-quick-access" href="../moderacion/index.html">Moderación</a>
+                                    <a class="btn-quick-access" href="../gestionusuarios/index.vue">Usuarios</a>
+                                    <a class="btn-quick-access" href="../gestionempresas/index.vue">Empresas</a>
+                                    <a class="btn-quick-access" href="../gestionvacantes/index.vue">Vacantes</a>
+                                    <a class="btn-quick-access" href="../moderacion/index.vue">Moderación</a>
                                 </div>
 
                                 <div class="bento-card p-4">
@@ -288,7 +288,7 @@ onMounted(async () => {
         if (typeof clearSession === "function") {
           clearSession();
         }
-        window.location.href = "../../public/login/index.html";
+        window.location.href = "../../public/login/index.vue";
         return;
       }
 

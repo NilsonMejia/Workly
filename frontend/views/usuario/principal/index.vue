@@ -4,7 +4,7 @@
         <nav class="navbar navbar-expand-lg py-3 navbar-custom">
             <div class="container-fluid px-4 px-lg-5">
                 <a class="navbar-brand d-flex align-items-center text-decoration-none"
-                    href="../../public/paginainicial/index.html">
+                    href="../../public/paginainicial/index.vue">
                     <i class="bi bi-briefcase-fill brand-icon"></i>
                     <div class="lh-sm ms-2">
                         <span class="brand-text">Workly</span>
@@ -19,26 +19,26 @@
 
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <div class="navbar-nav mx-auto mt-3 mt-lg-0 gap-2">
-                        <a href="../buscarempleo/index.html" class="nav-link-custom text-decoration-none px-3 py-2">
+                        <a href="../buscarempleo/index.vue" class="nav-link-custom text-decoration-none px-3 py-2">
                             <i class="bi bi-search me-1"></i> Buscar empleo
                         </a>
-                        <a href="../recursos/index.html" class="nav-link-custom text-decoration-none px-3 py-2">
+                        <a href="../recursos/index.vue" class="nav-link-custom text-decoration-none px-3 py-2">
                             <i class="bi bi-journal-bookmark-fill me-1"></i> Recursos
                         </a>
-                        <a href="../valoracionempresa/index.html" class="nav-link-custom text-decoration-none px-3 py-2">
+                        <a href="../valoracionempresa/index.vue" class="nav-link-custom text-decoration-none px-3 py-2">
                             <i class="bi bi-star-fill me-1"></i> Valoraciones
                         </a>
-                        <a href="../miperfil/index.html" class="nav-link-custom text-decoration-none px-3 py-2">
+                        <a href="../miperfil/index.vue" class="nav-link-custom text-decoration-none px-3 py-2">
                             <i class="bi bi-person-badge me-1"></i> Mi Perfil
                         </a>
                     </div>
 
                     <div class="d-flex align-items-center justify-content-center gap-4 mt-3 mt-lg-0">
-                        <a href="../notificaciones/index.html" class="text-white position-relative d-inline-block">
+                        <a href="../notificaciones/index.vue" class="text-white position-relative d-inline-block">
                             <i class="bi bi-bell-fill fs-3"></i>
                             <span class="notification-badge">5</span>
                         </a>
-                        <a href="../miperfil/index.html" class="text-white d-inline-block">
+                        <a href="../miperfil/index.vue" class="text-white d-inline-block">
                             <i class="bi bi-person-circle fs-2"></i>
                         </a>
                     </div>
@@ -231,7 +231,7 @@
                         <h2 class="fw-bold mb-0" style="color: #121826;">
                             <i class="bi bi-star-fill me-2" style="color: #ffc107;"></i>Empleos Destacados
                         </h2>
-                        <a href="../buscarempleo/index.html" class="text-decoration-none fw-semibold"
+                        <a href="../buscarempleo/index.vue" class="text-decoration-none fw-semibold"
                             style="color: var(--primary-deep);">
                             Ver todos <i class="bi bi-arrow-right"></i>
                         </a>
@@ -261,7 +261,7 @@
                                         <h6 class="fw-bold">Cómo destacar tu CV</h6>
                                         <p class="text-secondary small mb-2">Aprende a crear un currículum que capture la
                                             atención de los reclutadores.</p>
-                                        <a href="../recursos/index.html" class="text-decoration-none fw-semibold small"
+                                        <a href="../recursos/index.vue" class="text-decoration-none fw-semibold small"
                                             style="color: var(--primary-deep);">
                                             Leer más <i class="bi bi-arrow-right"></i>
                                         </a>
@@ -279,7 +279,7 @@
                                         <h6 class="fw-bold">Preparación para entrevistas</h6>
                                         <p class="text-secondary small mb-2">Consejos prácticos para enfrentar entrevistas
                                             técnicas y de RRHH.</p>
-                                        <a href="../recursos/index.html" class="text-decoration-none fw-semibold small"
+                                        <a href="../recursos/index.vue" class="text-decoration-none fw-semibold small"
                                             style="color: var(--primary-deep);">
                                             Leer más <i class="bi bi-arrow-right"></i>
                                         </a>
@@ -434,7 +434,7 @@ onMounted(async () => {
           </div>
         </div>
         <div class="mt-auto pt-3 border-top">
-          <a href="../detalleempleo/index.html?id=${vacante.id_vacante}" class="btn text-white w-100 rounded-pill fw-medium py-2" style="background-color: var(--primary-deep); box-shadow: 0 4px 10px rgba(63, 81, 181, 0.2);">
+          <a href="../detalleempleo/index.vue?id=${vacante.id_vacante}" class="btn text-white w-100 rounded-pill fw-medium py-2" style="background-color: var(--primary-deep); box-shadow: 0 4px 10px rgba(63, 81, 181, 0.2);">
             Ver vacante <i class="bi bi-arrow-right-short ms-1 fs-5 align-middle"></i>
           </a>
         </div>
@@ -586,13 +586,13 @@ onMounted(async () => {
   const irABusqueda = () => {
     const query = inputBusquedaRapida?.value.trim();
     if (!query) {
-      window.location.href = "../buscarempleo/index.html";
+      window.location.href = "../buscarempleo/index.vue";
       return;
     }
 
     btnBusquedaRapida?.setAttribute("disabled", "true");
     btnBusquedaRapida.innerHTML = `Buscando <span class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>`;
-    window.location.href = `../buscarempleo/index.html?q=${encodeURIComponent(query)}`;
+    window.location.href = `../buscarempleo/index.vue?q=${encodeURIComponent(query)}`;
   };
 
   document.addEventListener("DOMContentLoaded", () => {

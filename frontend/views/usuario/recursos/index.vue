@@ -3,7 +3,7 @@
     <!-- ========== NAVBAR MEJORADO ========== -->
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
         <div class="container-fluid px-4 px-lg-5">
-            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../../public/paginainicial/index.html">
+            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../../public/paginainicial/index.vue">
                 <i class="bi bi-briefcase-fill brand-icon"></i>
                 <div class="lh-sm ms-2">
                     <span class="brand-text">Workly</span>
@@ -17,26 +17,26 @@
 
             <div class="collapse navbar-collapse" id="navbarContent">
                 <div class="navbar-nav mx-auto mt-3 mt-lg-0 gap-2">
-                    <a href="../buscarempleo/index.html" class="nav-link-custom text-decoration-none px-3 py-2">
+                    <a href="../buscarempleo/index.vue" class="nav-link-custom text-decoration-none px-3 py-2">
                         <i class="bi bi-search me-1"></i> Búsqueda
                     </a>
-                    <a href="../recursos/index.html" class="nav-link-custom active text-decoration-none px-3 py-2">
+                    <a href="../recursos/index.vue" class="nav-link-custom active text-decoration-none px-3 py-2">
                         <i class="bi bi-journal-bookmark-fill me-1"></i> Recursos
                     </a>
-                    <a href="../valoracionempresa/index.html" class="nav-link-custom text-decoration-none px-3 py-2">
+                    <a href="../valoracionempresa/index.vue" class="nav-link-custom text-decoration-none px-3 py-2">
                         <i class="bi bi-star-fill me-1"></i> Valoraciones
                     </a>
-                    <a href="../miperfil/index.html" class="nav-link-custom text-decoration-none px-3 py-2">
+                    <a href="../miperfil/index.vue" class="nav-link-custom text-decoration-none px-3 py-2">
                         <i class="bi bi-person-badge me-1"></i> Mi Perfil
                     </a>
                 </div>
 
                 <div class="d-flex align-items-center justify-content-center gap-4 mt-3 mt-lg-0">
-                    <a href="../notificaciones/index.html" class="text-white position-relative d-inline-block">
+                    <a href="../notificaciones/index.vue" class="text-white position-relative d-inline-block">
                         <i class="bi bi-bell-fill fs-3"></i>
                         <span class="notification-badge">5</span>
                     </a>
-                    <a href="../miperfil/index.html" class="text-white d-inline-block">
+                    <a href="../miperfil/index.vue" class="text-white d-inline-block">
                         <i class="bi bi-person-circle fs-2"></i>
                     </a>
                 </div>

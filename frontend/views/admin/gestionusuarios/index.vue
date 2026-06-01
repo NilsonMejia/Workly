@@ -2,7 +2,7 @@
   <div>
     <nav class="navbar navbar-expand-lg py-3 sticky-top">
             <div class="container-fluid px-4">
-                <a class="navbar-brand fw-bold text-white fs-3 d-flex align-items-center" href="../principal/index.html">
+                <a class="navbar-brand fw-bold text-white fs-3 d-flex align-items-center" href="../principal/index.vue">
                     <i class="bi bi-briefcase-fill me-2"></i> Workly
                 </a>
 
@@ -12,11 +12,11 @@
 
                 <div class="collapse navbar-collapse" id="navContent">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-1">
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../principal/index.html">Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="./index.html">Usuarios</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionempresas/index.html">Empresas</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionvacantes/index.html">Vacantes</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../estadisticas/index.html">Estadísticas</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../principal/index.vue">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom" href="./index.vue">Usuarios</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionempresas/index.vue">Empresas</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionvacantes/index.vue">Vacantes</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../estadisticas/index.vue">Estadísticas</a></li>
                     </ul>
                     <div class="profile-wrapper ms-lg-3">
                         <i class="bi bi-person-circle fs-2 text-white" style="cursor: pointer;"></i>
@@ -33,22 +33,22 @@
                     <div class="bento-card p-3 h-100">
                         <h6 class="text-muted fw-bold mb-4 ps-2 small text-uppercase">Menú Admin</h6>
                         <div class="d-flex flex-column">
-                            <a href="../principal/index.html" class="btn-menu-side">
+                            <a href="../principal/index.vue" class="btn-menu-side">
                                 <i class="bi bi-grid-fill me-2"></i> Dashboard
                             </a>
-                            <a href="./index.html" class="btn-menu-side active">
+                            <a href="./index.vue" class="btn-menu-side active">
                                 <i class="bi bi-people-fill me-2"></i> Gestión de Usuarios
                             </a>
-                            <a href="../gestionempresas/index.html" class="btn-menu-side">
+                            <a href="../gestionempresas/index.vue" class="btn-menu-side">
                                 <i class="bi bi-building me-2"></i> Gestión de Empresas
                             </a>
-                            <a href="../gestionvacantes/index.html" class="btn-menu-side">
+                            <a href="../gestionvacantes/index.vue" class="btn-menu-side">
                                 <i class="bi bi-file-earmark-text me-2"></i> Gestión de Vacantes
                             </a>
-                            <a href="../estadisticas/index.html" class="btn-menu-side">
+                            <a href="../estadisticas/index.vue" class="btn-menu-side">
                                 <i class="bi bi-bar-chart-fill me-2"></i> Estadísticas del Sistema
                             </a>
-                            <a href="../moderacion/index.html" class="btn-menu-side">
+                            <a href="../moderacion/index.vue" class="btn-menu-side">
                                 <i class="bi bi-shield-lock-fill me-2"></i> Moderación de Contenido
                             </a>
                         </div>
@@ -309,7 +309,7 @@ onMounted(async () => {
         if (typeof clearSession === "function") {
           clearSession();
         }
-        window.location.href = "../../public/login/index.html";
+        window.location.href = "../../public/login/index.vue";
         return;
       }
 
@@ -346,7 +346,7 @@ onMounted(async () => {
         if (typeof clearSession === "function") {
           clearSession();
         }
-        window.location.href = "../../public/login/index.html";
+        window.location.href = "../../public/login/index.vue";
         return;
       }
 

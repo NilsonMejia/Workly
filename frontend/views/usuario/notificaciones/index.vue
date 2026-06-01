@@ -2,7 +2,7 @@
   <div class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-custom py-3">
         <div class="container-fluid px-4 px-lg-5">
-          <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.html">
+          <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.vue">
             <i class="bi bi-briefcase-fill text-white fs-2"></i>
             <div class="lh-sm ms-2">
               <span class="text-white fw-bold fs-3">Workly</span>
@@ -16,17 +16,17 @@
 
           <div class="collapse navbar-collapse" id="navbarContent">
             <div class="navbar-nav mx-auto gap-2 mt-3 mt-lg-0">
-              <a href="../buscarempleo/index.html" class="nav-link-custom">Buscar empleo</a>
-              <a href="../recursos/index.html" class="nav-link-custom">Recursos</a>
-              <a href="../valoracionempresa/index.html" class="nav-link-custom">Valoraciones</a>
-              <a href="../miperfil/index.html" class="nav-link-custom">Mi perfil</a>
+              <a href="../buscarempleo/index.vue" class="nav-link-custom">Buscar empleo</a>
+              <a href="../recursos/index.vue" class="nav-link-custom">Recursos</a>
+              <a href="../valoracionempresa/index.vue" class="nav-link-custom">Valoraciones</a>
+              <a href="../miperfil/index.vue" class="nav-link-custom">Mi perfil</a>
             </div>
             <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-              <a href="../notificaciones/index.html" class="text-white position-relative text-decoration-none">
+              <a href="../notificaciones/index.vue" class="text-white position-relative text-decoration-none">
                 <i class="bi bi-bell-fill fs-4"></i>
                 <span class="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
               </a>
-              <a href="../miperfil/index.html" class="text-white text-decoration-none">
+              <a href="../miperfil/index.vue" class="text-white text-decoration-none">
                 <i class="bi bi-person-circle fs-4"></i>
               </a>
             </div>
@@ -145,13 +145,13 @@
                     </div>
                   </div>
                   <div class="d-grid gap-2">
-                    <a href="../buscarempleo/index.html" class="btn btn-light border rounded-4 text-start">
+                    <a href="../buscarempleo/index.vue" class="btn btn-light border rounded-4 text-start">
                       <i class="bi bi-search me-2"></i>Explorar vacantes
                     </a>
-                    <a href="../valoracionempresa/index.html" class="btn btn-light border rounded-4 text-start">
+                    <a href="../valoracionempresa/index.vue" class="btn btn-light border rounded-4 text-start">
                       <i class="bi bi-star me-2"></i>Ver valoraciones
                     </a>
-                    <a href="../miperfil/index.html" class="btn btn-light border rounded-4 text-start">
+                    <a href="../miperfil/index.vue" class="btn btn-light border rounded-4 text-start">
                       <i class="bi bi-person-badge me-2"></i>Actualizar perfil
                     </a>
                   </div>

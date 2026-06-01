@@ -2,7 +2,7 @@
   <div class="d-flex flex-column min-vh-100 recursos-body">
     <nav class="navbar navbar-expand-lg py-3 recursos-nav">
             <div class="container-fluid px-4 px-lg-5">
-                <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.html">
+                <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.vue">
                     <i class="bi bi-briefcase-fill brand-icon"></i>
                     <div class="lh-sm ms-2">
                         <span class="brand-text">Workly</span>
@@ -16,20 +16,20 @@
 
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <div class="navbar-nav mx-auto gap-2 mt-3 mt-lg-0">
-                        <a href="../publicarvacante/index.html" class="nav-link-custom">Publicar</a>
-                        <a href="../misvacantes/index.html" class="nav-link-custom">Mis vacantes</a>
-                        <a href="../postulaciones/index.html" class="nav-link-custom">Postulaciones</a>
-                        <a href="../foro/index.html" class="nav-link-custom">Foro</a>
-                        <a href="../resenaempresa/index.html" class="nav-link-custom">Reseñas</a>
-                        <a href="../recursos/index.html" class="nav-link-custom active">Recursos</a>
+                        <a href="../publicarvacante/index.vue" class="nav-link-custom">Publicar</a>
+                        <a href="../misvacantes/index.vue" class="nav-link-custom">Mis vacantes</a>
+                        <a href="../postulaciones/index.vue" class="nav-link-custom">Postulaciones</a>
+                        <a href="../foro/index.vue" class="nav-link-custom">Foro</a>
+                        <a href="../resenaempresa/index.vue" class="nav-link-custom">Reseñas</a>
+                        <a href="../recursos/index.vue" class="nav-link-custom active">Recursos</a>
                     </div>
 
                     <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-                        <a href="../notificaciones/index.html" class="text-white position-relative text-decoration-none">
+                        <a href="../notificaciones/index.vue" class="text-white position-relative text-decoration-none">
                             <i class="bi bi-bell-fill fs-4"></i>
                             <span class="notification-badge badge rounded-pill bg-danger">0</span>
                         </a>
-                        <a href="../perfil/index.html" class="text-white text-decoration-none">
+                        <a href="../perfil/index.vue" class="text-white text-decoration-none">
                             <i class="bi bi-person-circle fs-4"></i>
                         </a>
                     </div>
@@ -363,8 +363,6 @@ onMounted(() => {
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
-
-@import url("./style.css");
 
 :root {
   --nav-bg: #04154b;

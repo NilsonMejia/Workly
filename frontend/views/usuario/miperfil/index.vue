@@ -2,7 +2,7 @@
   <div class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-custom py-3">
             <div class="container-fluid px-4 px-lg-5">
-                <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.html">
+                <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.vue">
                     <i class="bi bi-briefcase-fill brand-icon"></i>
                     <div class="lh-sm ms-2">
                         <span class="brand-text">Workly</span>
@@ -14,17 +14,17 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <div class="navbar-nav mx-auto gap-2 mt-3 mt-lg-0">
-                        <a href="../buscarempleo/index.html" class="nav-link-custom"><i class="bi bi-search me-1"></i> Buscar empleo</a>
-                        <a href="../recursos/index.html" class="nav-link-custom"><i class="bi bi-journal-bookmark-fill me-1"></i> Recursos</a>
-                        <a href="../valoracionempresa/index.html" class="nav-link-custom"><i class="bi bi-star-fill me-1"></i> Valoraciones</a>
-                        <a href="../miperfil/index.html" class="nav-link-custom active"><i class="bi bi-person-badge me-1"></i> Mi Perfil</a>
+                        <a href="../buscarempleo/index.vue" class="nav-link-custom"><i class="bi bi-search me-1"></i> Buscar empleo</a>
+                        <a href="../recursos/index.vue" class="nav-link-custom"><i class="bi bi-journal-bookmark-fill me-1"></i> Recursos</a>
+                        <a href="../valoracionempresa/index.vue" class="nav-link-custom"><i class="bi bi-star-fill me-1"></i> Valoraciones</a>
+                        <a href="../miperfil/index.vue" class="nav-link-custom active"><i class="bi bi-person-badge me-1"></i> Mi Perfil</a>
                     </div>
                     <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-                        <a href="../notificaciones/index.html" class="text-white position-relative text-decoration-none">
+                        <a href="../notificaciones/index.vue" class="text-white position-relative text-decoration-none">
                             <i class="bi bi-bell-fill fs-3"></i>
                             <span class="notification-badge">0</span>
                         </a>
-                        <a href="../miperfil/index.html" class="text-white text-decoration-none">
+                        <a href="../miperfil/index.vue" class="text-white text-decoration-none">
                             <i class="bi bi-person-circle fs-2"></i>
                         </a>
                     </div>
@@ -169,7 +169,7 @@ onMounted(async () => {
   let fotoPerfilBase64 = "";
   let municipiosCache = [];
 
-  const LOGIN_PATH = resolveViewPath("public/login/index.html");
+  const LOGIN_PATH = resolveViewPath("public/login/index.vue");
   const DEFAULT_PROFILE_IMAGE = "https://placehold.co/240x240/eef2ff/3f51b5?text=Perfil";
 
   const authHeaders = () => ({
@@ -288,7 +288,7 @@ onMounted(async () => {
       const hr = cardRoot.querySelector("hr");
       hr?.insertAdjacentHTML("afterend", `
         <div class="d-grid gap-3 mb-4" id="quickActionsPerfil">
-          <a class="text-decoration-none text-dark border rounded-4 p-3" href="../notificaciones/index.html">
+          <a class="text-decoration-none text-dark border rounded-4 p-3" href="../notificaciones/index.vue">
             <div class="d-flex align-items-center justify-content-between gap-3">
               <div>
                 <div class="text-uppercase small fw-bold text-secondary">Acceso rapido</div>
@@ -297,7 +297,7 @@ onMounted(async () => {
               <i class="bi bi-bell fs-4 text-primary"></i>
             </div>
           </a>
-          <a class="text-decoration-none text-dark border rounded-4 p-3" href="../buscarempleo/index.html">
+          <a class="text-decoration-none text-dark border rounded-4 p-3" href="../buscarempleo/index.vue">
             <div class="d-flex align-items-center justify-content-between gap-3">
               <div>
                 <div class="text-uppercase small fw-bold text-secondary">Acceso rapido</div>
@@ -357,7 +357,7 @@ onMounted(async () => {
     }
 
     root.innerHTML = items.slice(0, 4).map((item) => `
-      <a class="text-decoration-none text-dark border rounded-4 p-3" href="../detalleempleo/index.html?id=${item.id_vacante}">
+      <a class="text-decoration-none text-dark border rounded-4 p-3" href="../detalleempleo/index.vue?id=${item.id_vacante}">
         <div class="fw-semibold">${item.titulo_puesto}</div>
         <div class="small text-muted">${item.nombre_comercial || "Empresa"} · ${item.nombre_municipio || "El Salvador"}</div>
         <div class="small text-primary mt-1">${formatearSalario(item.salario_offrecido)}</div>
@@ -378,7 +378,7 @@ onMounted(async () => {
     }
 
     root.innerHTML = items.slice(0, 4).map((item) => `
-      <a class="text-decoration-none text-dark border rounded-4 p-3" href="../detalleempleo/index.html?id=${item.id_vacante}">
+      <a class="text-decoration-none text-dark border rounded-4 p-3" href="../detalleempleo/index.vue?id=${item.id_vacante}">
         <div class="fw-semibold">${item.titulo_puesto}</div>
         <div class="small text-muted">${item.nombre_comercial || "Empresa"}</div>
         <div class="small mt-1"><span class="badge text-bg-light">${item.nombre_estado || "En proceso"}</span></div>

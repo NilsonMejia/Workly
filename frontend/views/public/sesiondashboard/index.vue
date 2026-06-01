@@ -2,7 +2,7 @@
   <div class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
         <div class="container-fluid px-4 px-lg-5">
-            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../paginainicial/index.html">
+            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../paginainicial/index.vue">
                 <i class="bi bi-briefcase-fill brand-icon"></i>
                 <div class="lh-sm ms-2">
                     <span class="brand-text">Workly</span>
@@ -147,26 +147,26 @@ onMounted(() => {
     const tipo = getTipo();
 
     if (!token || !tipo) {
-      window.location.href = "../login/index.html";
+      window.location.href = "../login/index.vue";
       return;
     }
 
     if (tipo === "usuario") {
-      window.location.href = "../../usuario/principal/index.html";
+      window.location.href = "../../usuario/principal/index.vue";
       return;
     }
 
     if (tipo === "empresa") {
-      window.location.href = "../../empresa/principal/index.html";
+      window.location.href = "../../empresa/principal/index.vue";
       return;
     }
 
     if (tipo === "admin") {
-      window.location.href = "../../admin/principal/index.html";
+      window.location.href = "../../admin/principal/index.vue";
       return;
     }
 
-    window.location.href = "../login/index.html";
+    window.location.href = "../login/index.vue";
   };
 
   btnContinuar.addEventListener("click", redirigir);
