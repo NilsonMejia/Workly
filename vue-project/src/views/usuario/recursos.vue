@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="d-flex flex-column min-vh-100 resources-dashboard-wrapper">
     <!-- ========== NAVBAR ========== -->
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
@@ -7,7 +7,7 @@
           <i class="bi bi-briefcase-fill brand-icon"></i>
           <div class="lh-sm ms-2">
             <span class="brand-text">Workly</span>
-            <span class="brand-sub">Tu búsqueda de trabajo profesional</span>
+            <span class="brand-sub">Tu bÃºsqueda de trabajo profesional</span>
           </div>
         </a>
 
@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarContent">
           <div class="navbar-nav mx-auto mt-3 mt-lg-0 gap-2">
             <a href="#" class="nav-link-custom text-decoration-none px-3 py-2">
-              <i class="bi bi-search me-1"></i> Búsqueda
+              <i class="bi bi-search me-1"></i> BÃºsqueda
             </a>
             <a href="#" class="nav-link-custom active text-decoration-none px-3 py-2">
               <i class="bi bi-journal-bookmark-fill me-1"></i> Recursos
@@ -57,7 +57,7 @@
             </div>
             <div>
               <h4 class="fw-bold mb-1" style="color: #121826;">Recursos y consejos de carrera</h4>
-              <p class="text-secondary mb-0">Impulsa tu desarrollo profesional con guías, plantillas y artículos seleccionados</p>
+              <p class="text-secondary mb-0">Impulsa tu desarrollo profesional con guÃ­as, plantillas y artÃ­culos seleccionados</p>
             </div>
           </div>
 
@@ -72,11 +72,11 @@
               <div class="col-12 col-md-4">
                 <div class="resource-card">
                   <div class="resource-img">
-                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" alt="Entrevista técnica">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" alt="Entrevista tÃ©cnica">
                   </div>
-                  <h6 class="fw-bold mb-2">Guía completa para entrevistas técnicas</h6>
-                  <p class="text-secondary small mb-4">Aprende a prepararte para entrevistas técnicas con consejos prácticos, preguntas comunes y ejercicios.</p>
-                  <button class="btn btn-outline-primary-deep w-100 mt-auto">Leer más <i class="bi bi-arrow-right ms-1"></i></button>
+                  <h6 class="fw-bold mb-2">GuÃ­a completa para entrevistas tÃ©cnicas</h6>
+                  <p class="text-secondary small mb-4">Aprende a prepararte para entrevistas tÃ©cnicas con consejos prÃ¡cticos, preguntas comunes y ejercicios.</p>
+                  <button class="btn btn-outline-primary-deep w-100 mt-auto">Leer mÃ¡s <i class="bi bi-arrow-right ms-1"></i></button>
                 </div>
               </div>
 
@@ -86,8 +86,8 @@
                     <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80" alt="Habilidades blandas">
                   </div>
                   <h6 class="fw-bold mb-2">Habilidades blandas para profesionales tech</h6>
-                  <p class="text-secondary small mb-4">Desarrolla comunicación, trabajo en equipo y liderazgo que complementen tus conocimientos técnicos.</p>
-                  <button class="btn btn-outline-primary-deep w-100 mt-auto">Leer más <i class="bi bi-arrow-right ms-1"></i></button>
+                  <p class="text-secondary small mb-4">Desarrolla comunicaciÃ³n, trabajo en equipo y liderazgo que complementen tus conocimientos tÃ©cnicos.</p>
+                  <button class="btn btn-outline-primary-deep w-100 mt-auto">Leer mÃ¡s <i class="bi bi-arrow-right ms-1"></i></button>
                 </div>
               </div>
 
@@ -97,27 +97,27 @@
                     <img src="https://img.salamancartvaldia.es/simg/2022-05/Paginas-web.png" alt="Plantillas CV">
                   </div>
                   <h6 class="fw-bold mb-2">10 plantillas de CV optimizadas para 2026</h6>
-                  <p class="text-secondary small mb-4">Descarga plantillas modernas diseñadas para destacar tus habilidades y pasar los filtros ATS.</p>
-                  <button class="btn btn-outline-primary-deep w-100 mt-auto">Leer más <i class="bi bi-arrow-right ms-1"></i></button>
+                  <p class="text-secondary small mb-4">Descarga plantillas modernas diseÃ±adas para destacar tus habilidades y pasar los filtros ATS.</p>
+                  <button class="btn btn-outline-primary-deep w-100 mt-auto">Leer mÃ¡s <i class="bi bi-arrow-right ms-1"></i></button>
                 </div>
               </div>
 
             </div>
           </section>
 
-          <!-- Explorar por categoría -->
+          <!-- Explorar por categorÃ­a -->
           <section class="mb-5">
             <div class="section-title">
               <i class="bi bi-grid-3x3-gap-fill"></i>
-              <span>Explora por categoría</span>
+              <span>Explora por categorÃ­a</span>
             </div>
             <div class="row g-4">
               
               <div class="col-6 col-md-6 col-lg-3">
                 <div class="category-card">
                   <i class="bi bi-file-earmark-text-fill category-icon"></i>
-                  <h6 class="fw-bold mb-2">CV y Carta de Presentación</h6>
-                  <p class="text-secondary small mb-3">Guías y plantillas profesionales</p>
+                  <h6 class="fw-bold mb-2">CV y Carta de PresentaciÃ³n</h6>
+                  <p class="text-secondary small mb-3">GuÃ­as y plantillas profesionales</p>
                   <button class="btn btn-link text-decoration-none fw-semibold btn-explore" style="color: var(--primary-deep);">
                     Explorar <i class="bi bi-chevron-right"></i>
                   </button>
@@ -128,7 +128,7 @@
                 <div class="category-card">
                   <i class="bi bi-chat-dots-fill category-icon"></i>
                   <h6 class="fw-bold mb-2">Entrevistas</h6>
-                  <p class="text-secondary small mb-3">Prepárate para brillar</p>
+                  <p class="text-secondary small mb-3">PrepÃ¡rate para brillar</p>
                   <button class="btn btn-link text-decoration-none fw-semibold btn-explore" style="color: var(--primary-deep);">
                     Explorar <i class="bi bi-chevron-right"></i>
                   </button>
@@ -149,7 +149,7 @@
               <div class="col-6 col-md-6 col-lg-3">
                 <div class="category-card">
                   <i class="bi bi-pc-display-horizontal category-icon"></i>
-                  <h6 class="fw-bold mb-2">Habilidades técnicas</h6>
+                  <h6 class="fw-bold mb-2">Habilidades tÃ©cnicas</h6>
                   <p class="text-secondary small mb-3">Mejora tus competencias</p>
                   <button class="btn btn-link text-decoration-none fw-semibold btn-explore" style="color: var(--primary-deep);">
                     Explorar <i class="bi bi-chevron-right"></i>
@@ -160,11 +160,11 @@
             </div>
           </section>
 
-          <!-- Artículo reciente destacado -->
+          <!-- ArtÃ­culo reciente destacado -->
           <section>
             <div class="section-title">
               <i class="bi bi-newspaper"></i>
-              <span>Artículo reciente</span>
+              <span>ArtÃ­culo reciente</span>
             </div>
             
             <div class="featured-article">
@@ -179,14 +179,14 @@
                     <span class="badge rounded-pill px-3 py-2 font-badge-trends">Tendencias</span>
                     <span class="text-secondary small"><i class="bi bi-calendar3 me-1"></i>22/02/2026</span>
                   </div>
-                  <h5 class="fw-bold mb-3" style="color: #121826;">Cómo la IA está transformando el mercado laboral en 2026</h5>
+                  <h5 class="fw-bold mb-3" style="color: #121826;">CÃ³mo la IA estÃ¡ transformando el mercado laboral en 2026</h5>
                   <p class="text-secondary mb-4" style="max-width: 90%;">
-                    Descubre cómo la inteligencia artificial está cambiando las habilidades demandadas por las empresas 
-                    y cómo puedes prepararte para los trabajos del futuro en este entorno cada vez más automatizado.
+                    Descubre cÃ³mo la inteligencia artificial estÃ¡ cambiando las habilidades demandadas por las empresas 
+                    y cÃ³mo puedes prepararte para los trabajos del futuro en este entorno cada vez mÃ¡s automatizado.
                   </p>
                   <div>
                     <button class="btn btn-primary-deep px-4 py-2 fw-semibold">
-                      Leer artículo completo <i class="bi bi-arrow-right ms-1"></i>
+                      Leer artÃ­culo completo <i class="bi bi-arrow-right ms-1"></i>
                     </button>
                   </div>
                 </div>
@@ -204,8 +204,8 @@
         <div class="d-flex flex-wrap justify-content-center gap-4 gap-md-5">
           <a href="#"><i class="bi bi-question-circle me-1"></i>Ayuda</a>
           <a href="#"><i class="bi bi-shield-lock me-1"></i>Privacidad</a>
-          <a href="#">Términos</a>
-          <span class="text-white opacity-75">💼 Workly 2026 · Conectando talento</span>
+          <a href="#">TÃ©rminos</a>
+          <span class="text-white opacity-75">ðŸ’¼ Workly 2026 Â· Conectando talento</span>
         </div>
       </div>
     </footer>
@@ -213,12 +213,12 @@
 </template>
 
 <script setup>
-import { requireAuth, logout } from "../../../assets/js/shared/auth.js";
+import { requireAuth, logout } from "../../services/api.js";
 
-// Protección de la ruta para el rol usuario
+// ProtecciÃ³n de la ruta para el rol usuario
 requireAuth(["usuario"]);
 
-// Manejador del cierre de sesión
+// Manejador del cierre de sesiÃ³n
 const handleLogout = () => {
   logout();
 };
@@ -361,7 +361,7 @@ const handleLogout = () => {
   transform: scale(1.03);
 }
 
-/* Categorías */
+/* CategorÃ­as */
 .category-card {
   background: white;
   border-radius: 24px;
@@ -388,7 +388,7 @@ const handleLogout = () => {
   transform: translateX(3px);
 }
 
-/* Artículo destacado */
+/* ArtÃ­culo destacado */
 .featured-article {
   background: white;
   border-radius: 28px;
@@ -444,7 +444,7 @@ const handleLogout = () => {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-/* Títulos de sección */
+/* TÃ­tulos de secciÃ³n */
 .section-title {
   font-weight: 700;
   color: #121826;

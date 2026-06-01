@@ -194,8 +194,8 @@ const redirigir = () => {
   }
 
   const destinos = {
-    usuario: "/dashboard",
-    empresa: "/dashboard",
+    usuario: "/usuario/principal",
+    empresa: "/empresa/principal",
     admin: "/admin/principal"
   };
 

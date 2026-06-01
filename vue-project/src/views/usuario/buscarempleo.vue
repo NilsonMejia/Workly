@@ -1,12 +1,12 @@
-<template>
+﻿<template>
   <div class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
         <div class="container-fluid px-4 px-lg-5">
-            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../../public/paginainicial/index.html">
+            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="/">
                 <i class="bi bi-briefcase-fill brand-icon"></i>
                 <div class="lh-sm ms-2">
                     <span class="brand-text">Workly</span>
-                    <span class="brand-sub">Tu búsqueda de trabajo profesional</span>
+                    <span class="brand-sub">Tu bÃºsqueda de trabajo profesional</span>
                 </div>
             </a>
 
@@ -16,26 +16,26 @@
 
             <div class="collapse navbar-collapse" id="navbarContent">
                 <div class="navbar-nav mx-auto mt-3 mt-lg-0 gap-2">
-                    <a href="../buscarempleo/index.html" class="nav-link-custom active text-decoration-none px-3 py-2">
-                        <i class="bi bi-search me-1"></i> Búsqueda
+                    <a href="/usuario/buscar-empleo" class="nav-link-custom active text-decoration-none px-3 py-2">
+                        <i class="bi bi-search me-1"></i> BÃºsqueda
                     </a>
-                    <a href="../recursos/index.html" class="nav-link-custom text-decoration-none px-3 py-2">
+                    <a href="/usuario/recursos" class="nav-link-custom text-decoration-none px-3 py-2">
                         <i class="bi bi-journal-bookmark-fill me-1"></i> Recursos
                     </a>
-                    <a href="../valoracionempresa/index.html" class="nav-link-custom text-decoration-none px-3 py-2">
+                    <a href="/usuario/valoraciones-empresa" class="nav-link-custom text-decoration-none px-3 py-2">
                         <i class="bi bi-star-fill me-1"></i> Valoraciones
                     </a>
-                    <a href="../miperfil/index.html" class="nav-link-custom text-decoration-none px-3 py-2">
+                    <a href="/usuario/mi-perfil" class="nav-link-custom text-decoration-none px-3 py-2">
                         <i class="bi bi-person-badge me-1"></i> Mi Perfil
                     </a>
                 </div>
 
                 <div class="d-flex align-items-center justify-content-center gap-4 mt-3 mt-lg-0">
-                    <a href="../notificaciones/index.html" class="position-relative cursor-pointer text-decoration-none">
+                    <a href="/usuario/notificaciones" class="position-relative cursor-pointer text-decoration-none">
                         <i class="bi bi-bell-fill fs-3 text-white"></i>
                         <span class="notification-badge">5</span>
                     </a>
-                    <a href="../miperfil/index.html" class="text-white"><i class="bi bi-person-circle fs-2"></i></a>
+                    <a href="/usuario/mi-perfil" class="text-white"><i class="bi bi-person-circle fs-2"></i></a>
                 </div>
             </div>
         </div>
@@ -75,7 +75,7 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFecha">
-                                        <i class="bi bi-calendar3 me-2"></i> Fecha de publicación
+                                        <i class="bi bi-calendar3 me-2"></i> Fecha de publicaciÃ³n
                                     </button>
                                 </h2>
                                 <div id="collapseFecha" class="accordion-collapse collapse show" data-bs-parent="#accordionFiltros">
@@ -86,15 +86,15 @@
                                         </div>
                                         <div class="form-check mb-2">
                                             <input class="form-check-input" type="radio" v-model="filtros.fecha" value="fecha2" id="fecha2">
-                                            <label class="form-check-label text-secondary small fw-medium" for="fecha2">Últimas 24 horas</label>
+                                            <label class="form-check-label text-secondary small fw-medium" for="fecha2">Ãšltimas 24 horas</label>
                                         </div>
                                         <div class="form-check mb-2">
                                             <input class="form-check-input" type="radio" v-model="filtros.fecha" value="fecha3" id="fecha3">
-                                            <label class="form-check-label text-secondary small fw-medium" for="fecha3">Última semana</label>
+                                            <label class="form-check-label text-secondary small fw-medium" for="fecha3">Ãšltima semana</label>
                                         </div>
                                         <div class="form-check mb-2">
                                             <input class="form-check-input" type="radio" v-model="filtros.fecha" value="fecha4" id="fecha4">
-                                            <label class="form-check-label text-secondary small fw-medium" for="fecha4">Último mes</label>
+                                            <label class="form-check-label text-secondary small fw-medium" for="fecha4">Ãšltimo mes</label>
                                         </div>
                                     </div>
                                 </div>
@@ -210,7 +210,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3 text-md-end mt-4 mt-md-0 vacante-footer">
-                                    <a :href="'../detalleempleo/index.html?id=' + vacante.id_vacante" class="btn px-4 py-2 fw-semibold w-100 w-md-auto text-white" style="background-color: var(--primary-deep); border-radius: 30px;">
+                                    <a :href="'/usuario/detalle-empleo?id=' + vacante.id_vacante" class="btn px-4 py-2 fw-semibold w-100 w-md-auto text-white" style="background-color: var(--primary-deep); border-radius: 30px;">
                                         Ver detalles <i class="bi bi-arrow-right ms-1"></i>
                                     </a>
                                 </div>
@@ -244,7 +244,7 @@
         <div id="toastFiltros" class="toast align-items-center text-white border-0 rounded-4 shadow mb-2" role="alert" style="background-color: var(--primary-deep);">
             <div class="d-flex">
                 <div class="toast-body fs-6 py-3 fw-semibold">
-                    <i class="bi bi-funnel-fill me-2 fs-5"></i> ¡Filtros aplicados correctamente!
+                    <i class="bi bi-funnel-fill me-2 fs-5"></i> Â¡Filtros aplicados correctamente!
                 </div>
                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
             </div>
@@ -256,8 +256,8 @@
             <div class="d-flex flex-wrap justify-content-center gap-4 gap-md-5">
                 <a href="#"><i class="bi bi-question-circle me-1"></i>Ayuda</a>
                 <a href="#"><i class="bi bi-shield-lock me-1"></i>Privacidad</a>
-                <a href="#">Términos</a>
-                <span class="text-white opacity-75">💼 Workly 2026 · Conectando talento</span>
+                <a href="#">TÃ©rminos</a>
+                <span class="text-white opacity-75">ðŸ’¼ Workly 2026 Â· Conectando talento</span>
             </div>
         </div>
     </footer>
@@ -265,7 +265,7 @@
 </template>
 
 <script>
-import { API_URL } from "../../../assets/js/shared/config.js";
+import { API_URL } from "../../services/api.js";
 
 const PAGE_SIZE = 6;
 

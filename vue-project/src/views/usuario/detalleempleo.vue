@@ -1,12 +1,12 @@
-<template>
+﻿<template>
   <div class="d-flex flex-column min-vh-100 body-bg-custom">
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
       <div class="container-fluid px-4 px-lg-5">
-        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../../public/paginainicial/index.html">
+        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="/">
           <i class="bi bi-briefcase-fill brand-icon"></i>
           <div class="lh-sm ms-2">
             <span class="brand-text">Workly</span>
-            <span class="brand-sub">Tu búsqueda de trabajo profesional</span>
+            <span class="brand-sub">Tu bÃºsqueda de trabajo profesional</span>
           </div>
         </a>
 
@@ -16,26 +16,26 @@
 
         <div class="collapse navbar-collapse" id="navbarContent">
           <div class="navbar-nav mx-auto mt-3 mt-lg-0 gap-2">
-            <a href="../buscarempleo/index.html" class="nav-link-custom text-decoration-none px-3 py-2">
-              <i class="bi bi-search me-1"></i> Búsqueda
+            <a href="/usuario/buscar-empleo" class="nav-link-custom text-decoration-none px-3 py-2">
+              <i class="bi bi-search me-1"></i> BÃºsqueda
             </a>
-            <a href="../recursos/index.html" class="nav-link-custom text-decoration-none px-3 py-2">
+            <a href="/usuario/recursos" class="nav-link-custom text-decoration-none px-3 py-2">
               <i class="bi bi-journal-bookmark-fill me-1"></i> Recursos
             </a>
-            <a href="../valoracionempresa/index.html" class="nav-link-custom text-decoration-none px-3 py-2">
+            <a href="/usuario/valoraciones-empresa" class="nav-link-custom text-decoration-none px-3 py-2">
               <i class="bi bi-star-fill me-1"></i> Valoraciones
             </a>
-            <a href="../miperfil/index.html" class="nav-link-custom text-decoration-none px-3 py-2">
+            <a href="/usuario/mi-perfil" class="nav-link-custom text-decoration-none px-3 py-2">
               <i class="bi bi-person-badge me-1"></i> Mi Perfil
             </a>
           </div>
 
           <div class="d-flex align-items-center justify-content-center gap-4 mt-3 mt-lg-0">
-            <a href="../notificaciones/index.html" class="text-white position-relative d-inline-block">
+            <a href="/usuario/notificaciones" class="text-white position-relative d-inline-block">
               <i class="bi bi-bell-fill fs-3"></i>
               <span class="notification-badge">5</span>
             </a>
-            <a href="../miperfil/index.html" class="text-white d-inline-block">
+            <a href="/usuario/mi-perfil" class="text-white d-inline-block">
               <i class="bi bi-person-circle fs-2"></i>
             </a>
           </div>
@@ -93,24 +93,24 @@
 
           <div class="row g-5">
             <div class="col-12 col-lg-8">
-              <h5 class="fw-bold mb-3" style="color: #121826;">📋 Descripción del puesto</h5>
+              <h5 class="fw-bold mb-3" style="color: #121826;">ðŸ“‹ DescripciÃ³n del puesto</h5>
               <p id="vacanteDescripcion" class="text-secondary mb-5 lh-lg descripcion-box" style="text-align: justify;"></p>
 
-              <h5 class="fw-bold mb-3" style="color: #121826;">✅ Responsabilidades</h5>
+              <h5 class="fw-bold mb-3" style="color: #121826;">âœ… Responsabilidades</h5>
               <ul id="listaResponsabilidades" class="text-secondary mb-5 lh-lg" style="list-style-type: none; padding-left: 0;">
                 <li class="mb-2">
                   <i class="bi bi-check-circle-fill me-2" style="color: var(--primary-deep);"></i>Cargando responsabilidades...
                 </li>
               </ul>
 
-              <h5 class="fw-bold mb-3" style="color: #121826;">🎓 Requisitos</h5>
+              <h5 class="fw-bold mb-3" style="color: #121826;">ðŸŽ“ Requisitos</h5>
               <ul id="listaRequisitos" class="text-secondary mb-5 lh-lg" style="list-style-type: none; padding-left: 0;">
                 <li class="mb-2">
                   <i class="bi bi-check-circle-fill me-2" style="color: var(--primary-deep);"></i>Cargando requisitos...
                 </li>
               </ul>
 
-              <h5 class="fw-bold mb-4 mt-5" style="color: #121826;">🔍 Empleos similares</h5>
+              <h5 class="fw-bold mb-4 mt-5" style="color: #121826;">ðŸ” Empleos similares</h5>
               <div class="row g-4">
                 <div class="col-12 col-md-4">
                   <div class="similar-job-card d-flex flex-column">
@@ -196,7 +196,7 @@
                   </div>
 
                   <div class="mb-3">
-                    <span class="d-block small fw-bold text-dark detalle-label">Educación</span>
+                    <span class="d-block small fw-bold text-dark detalle-label">EducaciÃ³n</span>
                     <span id="detalle-educacion" class="text-secondary small detalle-value">Cargando...</span>
                   </div>
 
@@ -211,7 +211,7 @@
                   </div>
 
                   <div class="mb-0">
-                    <span class="d-block small fw-bold text-dark detalle-label">Fecha de publicación</span>
+                    <span class="d-block small fw-bold text-dark detalle-label">Fecha de publicaciÃ³n</span>
                     <span id="detalle-fecha" class="text-secondary small detalle-value">Cargando...</span>
                   </div>
                 </div>
@@ -227,8 +227,8 @@
         <div class="d-flex flex-wrap justify-content-center gap-4 gap-md-5">
           <a href="#"><i class="bi bi-question-circle me-1"></i>Ayuda</a>
           <a href="#"><i class="bi bi-shield-lock me-1"></i>Privacidad</a>
-          <a href="#">Términos</a>
-          <span class="text-white opacity-75">💼 Workly 2026 · Conectando talento</span>
+          <a href="#">TÃ©rminos</a>
+          <span class="text-white opacity-75">ðŸ’¼ Workly 2026 Â· Conectando talento</span>
         </div>
       </div>
     </footer>
@@ -241,7 +241,7 @@
             <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body px-4 py-4 text-center">
-            <p class="text-secondary small mb-4">Envía esta oportunidad a un amigo o colega.</p>
+            <p class="text-secondary small mb-4">EnvÃ­a esta oportunidad a un amigo o colega.</p>
             <div class="d-flex justify-content-center gap-3 mb-4">
               <button class="btn btn-light rounded-circle p-3 shadow-sm" style="width: 50px; height: 50px;">
                 <i class="bi bi-linkedin fs-4" style="color: #0077b5;"></i>
@@ -282,7 +282,7 @@
       <div id="toastPostulado" class="toast align-items-center text-white border-0 rounded-4 shadow" role="alert" style="background-color: var(--primary-deep);">
         <div class="d-flex">
           <div class="toast-body fs-6 py-3 fw-semibold">
-            <i class="bi bi-send-check-fill me-2 fs-5"></i> ¡Tu postulación fue enviada con éxito!
+            <i class="bi bi-send-check-fill me-2 fs-5"></i> Â¡Tu postulaciÃ³n fue enviada con Ã©xito!
           </div>
           <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
         </div>
@@ -293,8 +293,8 @@
 
 <script setup>
 import { onMounted } from "vue";
-import { API_URL, getToken, getUsuario } from "../../../assets/js/shared/config.js";
-import { requireAuth } from "../../../assets/js/shared/auth.js";
+import { API_URL, getToken, getUsuario } from "../../services/api.js";
+import { requireAuth } from "../../services/api.js";
 
 onMounted(() => {
   requireAuth(["usuario"]);
@@ -321,7 +321,7 @@ onMounted(() => {
 
   const formatLista = (texto) => {
     if (!texto || texto.trim() === "") {
-      return "<li><i class='bi bi-check-circle-fill me-2' style='color: var(--primary-deep);'></i>Información no detallada.</li>";
+      return "<li><i class='bi bi-check-circle-fill me-2' style='color: var(--primary-deep);'></i>InformaciÃ³n no detallada.</li>";
     }
     return texto
       .split(/\n|[.;]\s+/)
@@ -340,8 +340,8 @@ onMounted(() => {
     const texto = `${vacante.titulo_puesto || ""} ${vacante.descripcion_puesto || ""} ${vacante.requisitos || ""}`.toLowerCase();
     if (texto.includes("medio tiempo") || texto.includes("part time")) return "Medio tiempo";
     if (texto.includes("freelance") || texto.includes("por proyecto")) return "Freelance";
-    if (texto.includes("practica") || texto.includes("pasantia") || texto.includes("becario")) return "Prácticas";
-    return vacante.modalidad ? `Tiempo completo · ${vacante.modalidad}` : "Tiempo completo";
+    if (texto.includes("practica") || texto.includes("pasantia") || texto.includes("becario")) return "PrÃ¡cticas";
+    return vacante.modalidad ? `Tiempo completo Â· ${vacante.modalidad}` : "Tiempo completo";
   };
 
   const inferirEducacion = (vacante) => {
@@ -353,8 +353,8 @@ onMounted(() => {
   const inferirIdiomas = (vacante) => {
     const texto = `${vacante.requisitos || ""} ${vacante.descripcion_puesto || ""}`.toLowerCase();
     const idiomas = [];
-    if (texto.includes("ingles") || texto.includes("inglés")) idiomas.push("Inglés");
-    if (texto.includes("espanol") || texto.includes("español")) idiomas.push("Español");
+    if (texto.includes("ingles") || texto.includes("inglÃ©s")) idiomas.push("InglÃ©s");
+    if (texto.includes("espanol") || texto.includes("espaÃ±ol")) idiomas.push("EspaÃ±ol");
     return idiomas.length ? idiomas.join(", ") : "No especificados";
   };
 
@@ -411,7 +411,7 @@ onMounted(() => {
               <li class="mb-1"><i class="bi bi-bar-chart-steps me-2"></i>${item.experiencia_nivel || "No especificado"}</li>
               <li class="fw-bold"><i class="bi bi-cash me-2"></i>${formatSalary(item.salario_offrecido)}</li>
             </ul>
-            <a class="btn btn-outline-primary w-100 mt-auto rounded-pill py-2 fw-semibold" style="border-color: var(--primary-deep); color: var(--primary-deep);" href="../detalleempleo/index.html?id=${item.id_vacante}">
+            <a class="btn btn-outline-primary w-100 mt-auto rounded-pill py-2 fw-semibold" style="border-color: var(--primary-deep); color: var(--primary-deep);" href="/usuario/detalle-empleo?id=${item.id_vacante}">
               Ver detalles
             </a>
           </div>
@@ -471,7 +471,7 @@ onMounted(() => {
       if (elemSalario) elemSalario.textContent = formatSalary(vacante.salario_offrecido);
 
       const elemDesc = document.getElementById("vacanteDescripcion");
-      if (elemDesc) elemDesc.textContent = vacante.descripcion_puesto || "Sin descripción disponible.";
+      if (elemDesc) elemDesc.textContent = vacante.descripcion_puesto || "Sin descripciÃ³n disponible.";
 
       const elemResp = document.getElementById("listaResponsabilidades");
       if (elemResp) elemResp.innerHTML = formatLista(vacante.responsabilidades || vacante.descripcion_puesto);
@@ -481,7 +481,7 @@ onMounted(() => {
 
       const contenedorRequisitos = document.getElementById("detalle-requisitos");
       if (contenedorRequisitos) {
-          contenedorRequisitos.innerHTML = `<p><i class="bi bi-check-circle-fill text-primary me-2"></i> ${vacante.descripcion_puesto || "Información no detallada."}</p>`;
+          contenedorRequisitos.innerHTML = `<p><i class="bi bi-check-circle-fill text-primary me-2"></i> ${vacante.descripcion_puesto || "InformaciÃ³n no detallada."}</p>`;
       }
 
       const elemFecha = document.getElementById("vacanteFecha");
@@ -495,7 +495,7 @@ onMounted(() => {
       if (elemBadges) {
           elemBadges.innerHTML = `
             <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold">${vacante.modalidad || "Presencial"}</span>
-            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold">${vacante.nombre_categoria || "Categoría general"}</span>
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold">${vacante.nombre_categoria || "CategorÃ­a general"}</span>
             <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold">ID: #VAC-${vacante.id_vacante}</span>
           `;
       }
@@ -523,7 +523,7 @@ onMounted(() => {
         empresaButton.innerHTML = `Ver perfil de ${nombreEmpresa}`;
         
         empresaButton.addEventListener("click", () => {
-          window.location.href = `../valoracionempresa/index.html?id_empresa=${vacante.id_empresa}`;
+          window.location.href = `/usuario/valoraciones-empresa?id_empresa=${vacante.id_empresa}`;
         }, { once: true });
       }
 
@@ -534,14 +534,14 @@ onMounted(() => {
       
     } catch (error) {
       console.error(error);
-      showAlert(error.message || "Error de conexión al cargar la vacante.");
+      showAlert(error.message || "Error de conexiÃ³n al cargar la vacante.");
     }
   };
 
   const realizarPostulacion = async (idVacante) => {
     try {
       const usuario = getUsuario();
-      if (!usuario?.id_usuario) throw new Error("No se encontró una sesión válida para postular.");
+      if (!usuario?.id_usuario) throw new Error("No se encontrÃ³ una sesiÃ³n vÃ¡lida para postular.");
 
       const response = await fetch(`${API_URL}/postulaciones`, {
         method: "POST",
@@ -556,7 +556,7 @@ onMounted(() => {
       setTimeout(cargarDetalle, 800);
     } catch (error) {
       console.error(error);
-      showAlert(error.message || "No se pudo registrar la postulación.");
+      showAlert(error.message || "No se pudo registrar la postulaciÃ³n.");
     }
   };
 
@@ -779,7 +779,7 @@ onMounted(() => {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-/* Estilo para los íconos de acción */
+/* Estilo para los Ã­conos de acciÃ³n */
 .action-icon {
   color: #5f6b7a;
   transition: color 0.2s;
@@ -789,7 +789,7 @@ onMounted(() => {
   color: #3f51b5;
 }
 
-/* Mejora de listas para los items cargados dinámicamente */
+/* Mejora de listas para los items cargados dinÃ¡micamente */
 #listaResponsabilidades li,
 #listaRequisitos li {
   display: flex;

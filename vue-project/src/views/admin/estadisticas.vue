@@ -255,7 +255,7 @@ const showAlert = (message, type = 'danger') => {
 // Limpiar sesiÃ³n y redirigir al login
 const clearSession = () => {
   localStorage.removeItem('token')
-  window.location.href = '../../public/login/index.html'
+  window.location.href = '/login'
 }
 
 // Calcular altura de barra (mÃ¡ximo 220px, mÃ­nimo 30px)

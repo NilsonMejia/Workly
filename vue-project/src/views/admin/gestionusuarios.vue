@@ -265,7 +265,7 @@ const authHeaders = () => ({
 
 const redirectToLogin = () => {
   if (typeof clearSession === 'function') clearSession()
-  window.location.href = '../../public/login/index.html'
+  window.location.href = '/login'
 }
 
 // ========== API Calls ==========

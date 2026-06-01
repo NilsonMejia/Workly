@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="d-flex flex-column min-vh-100 main-dashboard-wrapper">
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
       <div class="container-fluid px-4 px-lg-5">
@@ -6,7 +6,7 @@
           <i class="bi bi-briefcase-fill brand-icon"></i>
           <div class="lh-sm ms-2">
             <span class="brand-text">Workly</span>
-            <span class="brand-sub">Tu búsqueda de trabajo profesional</span>
+            <span class="brand-sub">Tu bÃºsqueda de trabajo profesional</span>
           </div>
         </a>
 
@@ -48,7 +48,7 @@
 
         <div class="welcome-banner d-flex align-items-center justify-content-between">
           <div>
-            <h2>👋 ¡Bienvenido, <span>{{ nombreUsuario Visible }}</span>!</h2>
+            <h2>ðŸ‘‹ Â¡Bienvenido, <span>{{ nombreUsuarioVisible }}</span>!</h2>
             <p>Hoy hay 342 nuevas vacantes para ti</p>
           </div>
           <div class="d-none d-md-block">
@@ -87,7 +87,7 @@
         <section class="mb-5">
           <div class="d-flex align-items-center mb-3">
             <i class="bi bi-sliders2 fs-4 me-2" style="color: var(--primary-deep);"></i>
-            <h5 class="fw-bold mb-0" style="color: #121826;">Personaliza tu búsqueda</h5>
+            <h5 class="fw-bold mb-0" style="color: #121826;">Personaliza tu bÃºsqueda</h5>
             <span class="badge bg-light text-dark ms-3 px-3 py-2 rounded-pill">Filtros avanzados</span>
           </div>
 
@@ -101,7 +101,7 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="filter-label"><i class="bi bi-geo-alt"></i> Ubicación</div>
+                <div class="filter-label"><i class="bi bi-geo-alt"></i> UbicaciÃ³n</div>
                 <div class="input-group">
                   <span class="input-group-text bg-transparent border-0 ps-0"><i class="bi bi-pin-map"></i></span>
                   <input type="text" v-model="filtros.ubicacion" class="form-control-custom w-100" placeholder="Ciudad, estado o remoto">
@@ -117,17 +117,17 @@
                   <option value="Tiempo completo">Tiempo completo</option>
                   <option value="Medio tiempo">Medio tiempo</option>
                   <option value="Freelance">Freelance</option>
-                  <option value="Prácticas">Prácticas</option>
+                  <option value="PrÃ¡cticas">PrÃ¡cticas</option>
                 </select>
               </div>
               <div class="col-md-6">
                 <div class="filter-label"><i class="bi bi-bar-chart-steps"></i> Nivel de experiencia</div>
                 <select v-model="filtros.experiencia" class="form-select-custom w-100">
                   <option value="Todos los niveles">Todos los niveles</option>
-                  <option value="Prácticas / Becario">Prácticas / Becario</option>
-                  <option value="Junior">Junior (0-2 años)</option>
-                  <option value="Semi-Senior">Semi-Senior (2-5 años)</option>
-                  <option value="Senior">Senior (5+ años)</option>
+                  <option value="PrÃ¡cticas / Becario">PrÃ¡cticas / Becario</option>
+                  <option value="Junior">Junior (0-2 aÃ±os)</option>
+                  <option value="Semi-Senior">Semi-Senior (2-5 aÃ±os)</option>
+                  <option value="Senior">Senior (5+ aÃ±os)</option>
                 </select>
               </div>
             </div>
@@ -138,7 +138,7 @@
                 <div class="row g-2">
                   <div class="col-6">
                     <select v-model="filtros.salarioMin" class="form-select-custom w-100">
-                      <option value="Mínimo">Mínimo</option>
+                      <option value="MÃ­nimo">MÃ­nimo</option>
                       <option value="500">$500</option>
                       <option value="800">$800</option>
                       <option value="1000">$1000</option>
@@ -146,7 +146,7 @@
                   </div>
                   <div class="col-6">
                     <select v-model="filtros.salarioMax" class="form-select-custom w-100">
-                      <option value="Máximo">Máximo</option>
+                      <option value="MÃ¡ximo">MÃ¡ximo</option>
                       <option value="1000">$1000</option>
                       <option value="1500">$1500</option>
                       <option value="2000">$2000</option>
@@ -167,7 +167,7 @@
                   </div>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="filtroHibrido" value="Hibrido" v-model="filtros.modalidades">
-                    <label class="form-check-label" for="filtroHibrido">Híbrido</label>
+                    <label class="form-check-label" for="filtroHibrido">HÃ­brido</label>
                   </div>
                 </div>
               </div>
@@ -187,7 +187,7 @@
         <section v-if="mostrarResultados" ref="seccionResultadosRef" class="mb-5">
           <div class="d-flex align-items-center mb-4">
             <h4 class="fw-bold mb-0" style="color: #121826;">
-              <i class="bi bi-card-checklist me-2" style="color: var(--primary-deep);"></i>Resultados de tu búsqueda
+              <i class="bi bi-card-checklist me-2" style="color: var(--primary-deep);"></i>Resultados de tu bÃºsqueda
             </h4>
             <span class="badge bg-primary ms-3 rounded-pill">{{ resultadosVacantes.length }} encontrados</span>
           </div>
@@ -233,7 +233,7 @@
                     </div>
                   </div>
                   <div class="mt-auto pt-3 border-top">
-                    <a :href="`../detalleempleo/index.html?id=${vacante.id_vacante}`" class="btn text-white w-100 rounded-pill fw-medium py-2" style="background-color: var(--primary-deep); box-shadow: 0 4px 10px rgba(63, 81, 181, 0.2);">
+                    <a :href="`/usuario/detalle-empleo?id=${vacante.id_vacante}`" class="btn text-white w-100 rounded-pill fw-medium py-2" style="background-color: var(--primary-deep); box-shadow: 0 4px 10px rgba(63, 81, 181, 0.2);">
                       Ver vacante <i class="bi bi-arrow-right-short ms-1 fs-5 align-middle"></i>
                     </a>
                   </div>
@@ -274,7 +274,7 @@
                 <i class="bi bi-file-earmark-text-fill fs-1 mb-2" style="color: var(--primary-deep);"></i>
                 <h3 class="fw-bold mb-0">75,820</h3>
                 <p class="text-secondary mb-0">Contrataciones</p>
-                <small class="text-success"><i class="bi bi-check-circle"></i> este año</small>
+                <small class="text-success"><i class="bi bi-check-circle"></i> este aÃ±o</small>
               </div>
             </div>
           </div>
@@ -328,7 +328,7 @@
                     </div>
                   </div>
                   <div class="mt-auto pt-3 border-top">
-                    <a :href="`../detalleempleo/index.html?id=${vacante.id_vacante}`" class="btn text-white w-100 rounded-pill fw-medium py-2" style="background-color: var(--primary-deep); box-shadow: 0 4px 10px rgba(63, 81, 181, 0.2);">
+                    <a :href="`/usuario/detalle-empleo?id=${vacante.id_vacante}`" class="btn text-white w-100 rounded-pill fw-medium py-2" style="background-color: var(--primary-deep); box-shadow: 0 4px 10px rgba(63, 81, 181, 0.2);">
                       Ver vacante <i class="bi bi-arrow-right-short ms-1 fs-5 align-middle"></i>
                     </a>
                   </div>
@@ -350,10 +350,10 @@
                     <i class="bi bi-file-earmark-text fs-2" style="color: var(--primary-deep);"></i>
                   </div>
                   <div>
-                    <h6 class="fw-bold">Cómo destacar tu CV</h6>
-                    <p class="text-secondary small mb-2">Aprende a crear un currículum que capture la atención de los reclutadores.</p>
+                    <h6 class="fw-bold">CÃ³mo destacar tu CV</h6>
+                    <p class="text-secondary small mb-2">Aprende a crear un currÃ­culum que capture la atenciÃ³n de los reclutadores.</p>
                     <a href="#" class="text-decoration-none fw-semibold small" style="color: var(--primary-deep);">
-                      Leer más <i class="bi bi-arrow-right"></i>
+                      Leer mÃ¡s <i class="bi bi-arrow-right"></i>
                     </a>
                   </div>
                 </div>
@@ -366,10 +366,10 @@
                     <i class="bi bi-camera-video fs-2" style="color: var(--primary-deep);"></i>
                   </div>
                   <div>
-                    <h6 class="fw-bold">Preparación para entrevistas</h6>
-                    <p class="text-secondary small mb-2">Consejos prácticos para enfrentar entrevistas técnicas y de RRHH.</p>
+                    <h6 class="fw-bold">PreparaciÃ³n para entrevistas</h6>
+                    <p class="text-secondary small mb-2">Consejos prÃ¡cticos para enfrentar entrevistas tÃ©cnicas y de RRHH.</p>
                     <a href="#" class="text-decoration-none fw-semibold small" style="color: var(--primary-deep);">
-                      Leer más <i class="bi bi-arrow-right"></i>
+                      Leer mÃ¡s <i class="bi bi-arrow-right"></i>
                     </a>
                   </div>
                 </div>
@@ -438,8 +438,8 @@
         <div class="d-flex flex-wrap justify-content-center gap-4 gap-md-5">
           <a href="#"><i class="bi bi-question-circle me-1"></i>Ayuda</a>
           <a href="#"><i class="bi bi-shield-lock me-1"></i>Privacidad</a>
-          <a href="#">Términos</a>
-          <span class="text-white opacity-75">💼 Workly 2026 · Conectando talento</span>
+          <a href="#">TÃ©rminos</a>
+          <span class="text-white opacity-75">ðŸ’¼ Workly 2026 Â· Conectando talento</span>
         </div>
       </div>
     </footer>
@@ -448,13 +448,13 @@
 
 <script setup>
 import { ref, reactive, computed, onMounted, nextTick } from 'vue';
-import { API_URL, getUsuario } from "../../../assets/js/shared/config.js";
-import { requireAuth } from "../../../assets/js/shared/auth.js";
+import { API_URL, getUsuario } from "../../services/api.js";
+import { requireAuth } from "../../services/api.js";
 
-// Ejecutar protección de ruta de autenticación
+// Ejecutar protecciÃ³n de ruta de autenticaciÃ³n
 requireAuth(["usuario"]);
 
-// Elementos Reactivos de Búsqueda Rápida
+// Elementos Reactivos de BÃºsqueda RÃ¡pida
 const inputBusquedaRapida = ref("");
 const buscandoRapido = ref(false);
 
@@ -471,14 +471,14 @@ const mostrarResultados = ref(false);
 // Referencia del DOM para el scroll suave
 const seccionResultadosRef = ref(null);
 
-// Inicialización de Filtros Avanzados
+// InicializaciÃ³n de Filtros Avanzados
 const filtros = reactive({
   palabra: "",
   ubicacion: "",
   tipo: "Todos los tipos",
   experiencia: "Todos los niveles",
-  salarioMin: "Mínimo",
-  salarioMax: "Máximo",
+  salarioMin: "MÃ­nimo",
+  salarioMax: "MÃ¡ximo",
   modalidades: []
 });
 
@@ -528,7 +528,7 @@ const cargarEmpleosDestacados = async () => {
   }
 };
 
-// Construcción de Query Params para Endpoint de Filtros
+// ConstrucciÃ³n de Query Params para Endpoint de Filtros
 const construirFiltros = () => {
   const params = new URLSearchParams();
 
@@ -558,7 +558,7 @@ const construirFiltros = () => {
   return params;
 };
 
-// Acción: Aplicar Filtros Avanzados y Buscar
+// AcciÃ³n: Aplicar Filtros Avanzados y Buscar
 const buscarConFiltros = async () => {
   mostrarResultados.value = true;
   filtrandoCargando.value = true;
@@ -594,29 +594,29 @@ const buscarConFiltros = async () => {
   }
 };
 
-// Acción: Limpiar Filtros Formularios
+// AcciÃ³n: Limpiar Filtros Formularios
 const limpiarFiltros = () => {
   filtros.palabra = "";
   filtros.ubicacion = "";
   filtros.tipo = "Todos los tipos";
   filtros.experiencia = "Todos los niveles";
-  filtros.salarioMin = "Mínimo";
-  filtros.salarioMax = "Máximo";
+  filtros.salarioMin = "MÃ­nimo";
+  filtros.salarioMax = "MÃ¡ximo";
   filtros.modalidades = [];
   mostrarResultados.value = false;
   resultadosVacantes.value = [];
 };
 
-// Acción: Redirección mediante Búsqueda Rápida
+// AcciÃ³n: RedirecciÃ³n mediante BÃºsqueda RÃ¡pida
 const irABusqueda = () => {
   const query = inputBusquedaRapida.value.trim();
   if (!query) {
-    window.location.href = "../buscarempleo/index.html";
+    window.location.href = "/usuario/buscar-empleo";
     return;
   }
 
   buscandoRapido.value = true;
-  window.location.href = `../buscarempleo/index.html?q=${encodeURIComponent(query)}`;
+  window.location.href = `/usuario/buscar-empleo?q=${encodeURIComponent(query)}`;
 };
 
 // Ciclo de Vida: Montado del Componente

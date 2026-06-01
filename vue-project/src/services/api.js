@@ -83,7 +83,25 @@ export const normalizeAppRedirect = (redirect, fallback = '/') => {
     '/views/admin/gestionempresas/index.html': '/admin/empresas',
     '/views/admin/gestionvacantes/index.html': '/admin/vacantes',
     '/views/admin/estadisticas/index.html': '/admin/estadisticas',
-    '/views/admin/moderacion/index.html': '/admin/moderacion'
+    '/views/admin/moderacion/index.html': '/admin/moderacion',
+    '/views/usuario/principal/index.html': '/usuario/principal',
+    '/views/usuario/buscarempleo/index.html': '/usuario/buscar-empleo',
+    '/views/usuario/detalleempleo/index.html': '/usuario/detalle-empleo',
+    '/views/usuario/miperfil/index.html': '/usuario/mi-perfil',
+    '/views/usuario/notificaciones/index.html': '/usuario/notificaciones',
+    '/views/usuario/recursos/index.html': '/usuario/recursos',
+    '/views/usuario/valoracionempresa/index.html': '/usuario/valoraciones-empresa',
+    '/views/usuario/valoracionesempresa/index.html': '/usuario/valoraciones-empresa',
+    '/views/empresa/principal/index.html': '/empresa/principal',
+    '/views/empresa/misvacantes/index.html': '/empresa/mis-vacantes',
+    '/views/empresa/publicarvacante/index.html': '/empresa/publicar-vacante',
+    '/views/empresa/postulaciones/index.html': '/empresa/postulaciones',
+    '/views/empresa/detallepostulacion/index.html': '/empresa/detalle-postulacion',
+    '/views/empresa/perfil/index.html': '/empresa/perfil',
+    '/views/empresa/notificaciones/index.html': '/empresa/notificaciones',
+    '/views/empresa/recursos/index.html': '/empresa/recursos',
+    '/views/empresa/foro/index.html': '/empresa/foro',
+    '/views/empresa/resenaempresa/index.html': '/empresa/resena-empresa'
   };
 
   return `${routes[pathname] || pathname || fallback}${query}`;

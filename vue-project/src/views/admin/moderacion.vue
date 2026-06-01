@@ -358,7 +358,7 @@ const authHeaders = () => ({
 
 const redirectToLogin = () => {
   clearSession()
-  window.location.href = '../../public/login/index.html'
+  window.location.href = '/login'
 }
 
 const formatearFecha = (fecha) => {

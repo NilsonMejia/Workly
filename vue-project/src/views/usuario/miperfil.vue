@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="d-flex flex-column min-vh-100 body-profile">
     <nav class="navbar navbar-expand-lg navbar-custom py-3">
       <div class="container-fluid px-4 px-lg-5">
@@ -6,7 +6,7 @@
           <i class="bi bi-briefcase-fill brand-icon"></i>
           <div class="lh-sm ms-2">
             <span class="brand-text">Workly</span>
-            <span class="brand-sub">Tu búsqueda de trabajo profesional</span>
+            <span class="brand-sub">Tu bÃºsqueda de trabajo profesional</span>
           </div>
         </a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
@@ -41,7 +41,7 @@
               <div class="text-center">
                 <img :src="form.foto_perfil || DEFAULT_PROFILE_IMAGE" class="profile-avatar mb-3" alt="Foto de perfil">
                 <h1 class="h4 fw-bold mb-1">{{ nombreCompletoDisplay }}</h1>
-                <p class="text-muted mb-3">{{ form.titulo_profesional || 'Actualiza tu información profesional' }}</p>
+                <p class="text-muted mb-3">{{ form.titulo_profesional || 'Actualiza tu informaciÃ³n profesional' }}</p>
                 <label for="foto_perfil_input" class="btn btn-outline-primary rounded-pill px-4 cursor-pointer">
                   <i class="bi bi-camera me-2"></i>Cambiar foto
                 </label>
@@ -54,11 +54,11 @@
                   <div class="text-muted">{{ form.correo_electronico || '--' }}</div>
                 </div>
                 <div>
-                  <div class="section-title mb-1">Teléfono</div>
+                  <div class="section-title mb-1">TelÃ©fono</div>
                   <div class="text-muted">{{ form.telefono || '--' }}</div>
                 </div>
                 <div>
-                  <div class="section-title mb-1">Ubicación</div>
+                  <div class="section-title mb-1">UbicaciÃ³n</div>
                   <div class="text-muted">{{ ubicacionDisplay }}</div>
                 </div>
               </div>
@@ -68,7 +68,7 @@
                 <a class="text-decoration-none text-dark border rounded-4 p-3" href="#">
                   <div class="d-flex align-items-center justify-content-between gap-3">
                     <div>
-                      <div class="text-uppercase small fw-bold text-secondary">Acceso rápido</div>
+                      <div class="text-uppercase small fw-bold text-secondary">Acceso rÃ¡pido</div>
                       <div class="fw-semibold">Ver notificaciones</div>
                     </div>
                     <i class="bi bi-bell fs-4 text-primary"></i>
@@ -77,7 +77,7 @@
                 <a class="text-decoration-none text-dark border rounded-4 p-3" href="#">
                   <div class="d-flex align-items-center justify-content-between gap-3">
                     <div>
-                      <div class="text-uppercase small fw-bold text-secondary">Acceso rápido</div>
+                      <div class="text-uppercase small fw-bold text-secondary">Acceso rÃ¡pido</div>
                       <div class="fw-semibold">Buscar nuevas vacantes</div>
                     </div>
                     <i class="bi bi-search fs-4 text-primary"></i>
@@ -92,7 +92,7 @@
               <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3 mb-4">
                 <div>
                   <h2 class="h3 fw-bold mb-1">Mi perfil profesional</h2>
-                  <p class="text-muted mb-0">Edita tus datos y mantén tu perfil listo para postular.</p>
+                  <p class="text-muted mb-0">Edita tus datos y mantÃ©n tu perfil listo para postular.</p>
                 </div>
                 <button class="btn btn-primary rounded-pill px-4" :disabled="guardando" @click="guardarPerfil">
                   <span v-if="guardando" class="spinner-border spinner-border-sm me-2"></span>
@@ -120,11 +120,11 @@
                   <input id="correo_electronico" v-model="form.correo_electronico" class="form-control form-control-lg rounded-4" type="email" disabled>
                 </div>
                 <div class="col-12 col-md-6">
-                  <label class="form-label fw-semibold" for="telefono">Teléfono</label>
+                  <label class="form-label fw-semibold" for="telefono">TelÃ©fono</label>
                   <input id="telefono" v-model="form.telefono" class="form-control form-control-lg rounded-4" placeholder="Ej. 7777-8888" required>
                 </div>
                 <div class="col-12 col-md-6">
-                  <label class="form-label fw-semibold" for="titulo_profesional">Título profesional</label>
+                  <label class="form-label fw-semibold" for="titulo_profesional">TÃ­tulo profesional</label>
                   <input id="titulo_profesional" v-model="form.titulo_profesional" class="form-control form-control-lg rounded-4" placeholder="Ej. Desarrollador Full Stack">
                 </div>
                 <div class="col-12 col-md-6">
@@ -134,12 +134,12 @@
                     <option v-for="muni in municipiosCache" :key="muni.id_municipio" :value="muni.id_municipio">
                       {{ muni.nombre_municipio }}{{ muni.nombre_departamento ? ` - ${muni.nombre_departamento}` : '' }}
                     </option>
-                    <option v-if="municipioNoCatalogo" :value="form.id_municipio_fk">Municipio actual no disponible en catálogo</option>
+                    <option v-if="municipioNoCatalogo" :value="form.id_municipio_fk">Municipio actual no disponible en catÃ¡logo</option>
                   </select>
                 </div>
                 <div class="col-12">
-                  <label class="form-label fw-semibold" for="direccion">Dirección</label>
-                  <input id="direccion" v-model="form.direccion" class="form-control form-control-lg rounded-4" placeholder="Dirección completa">
+                  <label class="form-label fw-semibold" for="direccion">DirecciÃ³n</label>
+                  <input id="direccion" v-model="form.direccion" class="form-control form-control-lg rounded-4" placeholder="DirecciÃ³n completa">
                 </div>
                 <div class="col-12 col-md-6">
                   <label class="form-label fw-semibold" for="sitio_web">Sitio web / Portafolio</label>
@@ -153,8 +153,8 @@
                 <div class="col-12">
                   <label class="form-label fw-semibold" for="habilidades_input">Habilidades</label>
                   <div class="input-group mb-2">
-                    <input id="habilidades_input" v-model="nuevaHabilidad" @keydown.enter.prevent="agregarHabilidad" class="form-control form-control-lg rounded-start-4" placeholder="Ej. JavaScript, Node.js (Presiona Enter o Añadir)">
-                    <button class="btn btn-outline-primary rounded-end-4 px-3" type="button" @click="agregarHabilidad">Añadir</button>
+                    <input id="habilidades_input" v-model="nuevaHabilidad" @keydown.enter.prevent="agregarHabilidad" class="form-control form-control-lg rounded-start-4" placeholder="Ej. JavaScript, Node.js (Presiona Enter o AÃ±adir)">
+                    <button class="btn btn-outline-primary rounded-end-4 px-3" type="button" @click="agregarHabilidad">AÃ±adir</button>
                   </div>
                   <div id="contenedorHabilidades" class="mt-2">
                     <div v-for="(hab, index) in form.habilidades" :key="index" class="habilidad-item">
@@ -166,11 +166,11 @@
 
                 <div class="col-12">
                   <label class="form-label fw-semibold" for="experiencia_input">Experiencia laboral</label>
-                  <textarea id="experiencia_input" v-model="textareaExperiencia" class="form-control form-control-lg rounded-4" rows="5" placeholder="Una línea por experiencia. Ej. Desarrollador Frontend | TechSolutions | 2022-2024 | React y APIs"></textarea>
+                  <textarea id="experiencia_input" v-model="textareaExperiencia" class="form-control form-control-lg rounded-4" rows="5" placeholder="Una lÃ­nea por experiencia. Ej. Desarrollador Frontend | TechSolutions | 2022-2024 | React y APIs"></textarea>
                 </div>
                 <div class="col-12">
-                  <label class="form-label fw-semibold" for="educacion_input">Educación</label>
-                  <textarea id="educacion_input" v-model="textareaEducacion" class="form-control form-control-lg rounded-4" rows="4" placeholder="Una línea por estudio. Ej. Ingeniería en Sistemas | UES | 2018-2023"></textarea>
+                  <label class="form-label fw-semibold" for="educacion_input">EducaciÃ³n</label>
+                  <textarea id="educacion_input" v-model="textareaEducacion" class="form-control form-control-lg rounded-4" rows="4" placeholder="Una lÃ­nea por estudio. Ej. IngenierÃ­a en Sistemas | UES | 2018-2023"></textarea>
                 </div>
               </form>
 
@@ -181,15 +181,15 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
                       <div>
                         <h3 class="h5 fw-bold mb-1">Empleos guardados</h3>
-                        <p class="text-muted small mb-0">Vacantes que apartaste para revisar después.</p>
+                        <p class="text-muted small mb-0">Vacantes que apartaste para revisar despuÃ©s.</p>
                       </div>
                       <span class="badge text-bg-light rounded-pill">{{ actividades.guardados.length }}</span>
                     </div>
                     <div class="d-grid gap-3">
-                      <p v-if="!actividades.guardados.length" class="text-muted mb-0">Todavía no has guardado vacantes.</p>
+                      <p v-if="!actividades.guardados.length" class="text-muted mb-0">TodavÃ­a no has guardado vacantes.</p>
                       <a v-for="item in actividades.guardados.slice(0, 4)" :key="item.id_vacante" class="text-decoration-none text-dark border rounded-4 p-3" href="#">
                         <div class="fw-semibold">{{ item.titulo_puesto }}</div>
-                        <div class="small text-muted">{{ item.nombre_comercial || 'Empresa' }} · {{ item.nombre_municipio || 'El Salvador' }}</div>
+                        <div class="small text-muted">{{ item.nombre_comercial || 'Empresa' }} Â· {{ item.nombre_municipio || 'El Salvador' }}</div>
                         <div class="small text-primary mt-1">{{ formatearSalario(item.salario_offrecido) }}</div>
                       </a>
                     </div>
@@ -200,12 +200,12 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
                       <div>
                         <h3 class="h5 fw-bold mb-1">Mis postulaciones</h3>
-                        <p class="text-muted small mb-0">Seguimiento rápido de tu actividad reciente.</p>
+                        <p class="text-muted small mb-0">Seguimiento rÃ¡pido de tu actividad reciente.</p>
                       </div>
                       <span class="badge text-bg-light rounded-pill">{{ actividades.postulaciones.length }}</span>
                     </div>
                     <div class="d-grid gap-3">
-                      <p v-if="!actividades.postulaciones.length" class="text-muted mb-0">Aún no tienes postulaciones registradas.</p>
+                      <p v-if="!actividades.postulaciones.length" class="text-muted mb-0">AÃºn no tienes postulaciones registradas.</p>
                       <a v-for="item in actividades.postulaciones.slice(0, 4)" :key="item.id_vacante" class="text-decoration-none text-dark border rounded-4 p-3" href="#">
                         <div class="fw-semibold">{{ item.titulo_puesto }}</div>
                         <div class="small text-muted">{{ item.nombre_comercial || 'Empresa' }}</div>
@@ -225,7 +225,7 @@
 
     <footer class="footer-custom py-4 mt-auto text-center text-white-50">
       <div class="container">
-        <span>Workly 2026 · Tu perfil es tu mejor vitrina profesional</span>
+        <span>Workly 2026 Â· Tu perfil es tu mejor vitrina profesional</span>
       </div>
     </footer>
   </div>
@@ -240,9 +240,9 @@ import {
   resolveViewPath,
   buildPendingVerificationPath,
   normalizeAppRedirect
-} from "../../../assets/js/shared/config.js";
+} from "../../services/api.js";
 
-// Constantes estáticas
+// Constantes estÃ¡ticas
 const LOGIN_PATH = resolveViewPath("public/login/index.html");
 const DEFAULT_PROFILE_IMAGE = "https://placehold.co/240x240/eef2ff/3f51b5?text=Perfil";
 
@@ -306,7 +306,7 @@ const authHeaders = () => ({
   Authorization: `Bearer ${getToken()}`
 });
 
-// Gestión de Alertas
+// GestiÃ³n de Alertas
 const showAlert = (message, type = "danger") => {
   alerta.mensaje = message;
   alerta.tipo = type;
@@ -345,7 +345,7 @@ const formatearSalario = (salario) => {
 const normalizarImagen = (value) =>
   typeof value === "string" && /^data:image\/[a-zA-Z0-9.+-]+;base64,/.test(value) ? value : "";
 
-// Redirección Auth
+// RedirecciÃ³n Auth
 const redirigirPorAuth = (data = {}, status = 401) => {
   if (status === 403 && data?.code === "EMAIL_NO_VERIFICADO") {
     const fallback = buildPendingVerificationPath({
@@ -367,15 +367,15 @@ const fetchJson = async (url, options = {}) => {
 
   if (response.status === 401 || response.status === 403) {
     redirigirPorAuth(data, response.status);
-    throw new Error(data?.mensaje || "Tu sesión ya no es válida.");
+    throw new Error(data?.mensaje || "Tu sesiÃ³n ya no es vÃ¡lida.");
   }
   if (!response.ok) {
-    throw new Error(data?.mensaje || `Error en la solicitud (Código ${response.status}).`);
+    throw new Error(data?.mensaje || `Error en la solicitud (CÃ³digo ${response.status}).`);
   }
   return data;
 };
 
-// Sincronización con LocalStorage
+// SincronizaciÃ³n con LocalStorage
 const syncUsuarioStorage = (perfil) => {
   const usuarioActual = JSON.parse(localStorage.getItem("usuario") || "{}");
   localStorage.setItem("usuario", JSON.stringify({
@@ -438,7 +438,7 @@ const procesarImagen = async (event) => {
   if (!file) return;
 
   if (!file.type.startsWith("image/")) {
-    showAlert("Selecciona una imagen válida.");
+    showAlert("Selecciona una imagen vÃ¡lida.");
     event.target.value = "";
     return;
   }
@@ -471,9 +471,9 @@ const validarUrl = (value) => {
 
 const validarFormulario = () => {
   if (!form.nombres?.trim() || !form.apellidos?.trim()) throw new Error("Los nombres y apellidos son obligatorios.");
-  if (!/^[0-9+\-\s]{8,20}$/.test(form.telefono?.trim())) throw new Error("Ingresa un número de teléfono válido.");
-  if (!form.id_municipio_fk || Number.isNaN(Number(form.id_municipio_fk))) throw new Error("Selecciona un municipio válido.");
-  if (!validarUrl(form.sitio_web?.trim())) throw new Error("Ingresa un sitio web válido que comience con http:// o https://.");
+  if (!/^[0-9+\-\s]{8,20}$/.test(form.telefono?.trim())) throw new Error("Ingresa un nÃºmero de telÃ©fono vÃ¡lido.");
+  if (!form.id_municipio_fk || Number.isNaN(Number(form.id_municipio_fk))) throw new Error("Selecciona un municipio vÃ¡lido.");
+  if (!validarUrl(form.sitio_web?.trim())) throw new Error("Ingresa un sitio web vÃ¡lido que comience con http:// o https://.");
 };
 
 const guardarPerfil = async () => {
@@ -511,7 +511,7 @@ const guardarPerfil = async () => {
     const perfilActualizado = responseData?.data || responseData;
     aplicarPerfilAlFormulario(perfilActualizado);
     syncUsuarioStorage(perfilActualizado);
-    showAlert(responseData?.mensaje || "Perfil actualizado con éxito.", "success");
+    showAlert(responseData?.mensaje || "Perfil actualizado con Ã©xito.", "success");
   } catch (error) {
     showAlert(error.message || "No se pudo guardar el perfil");
   } finally {
@@ -627,7 +627,7 @@ onMounted(async () => {
   cursor: pointer;
 }
 
-/* Estilo dinámico de habilidades unificado */
+/* Estilo dinÃ¡mico de habilidades unificado */
 .habilidad-item {
   display: inline-flex;
   justify-content: space-between;
