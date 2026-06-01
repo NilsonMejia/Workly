@@ -10,8 +10,42 @@ const initializeDatabase = async () => {
   console.log("🔄 Initializing database schemas...");
 
   try {
+    // Ensure core tables exist so subsequent ALTER/INSERT operations don't fail
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS Usuarios (
+        id_usuario INT NOT NULL AUTO_INCREMENT,
+        nombres VARCHAR(100) NOT NULL,
+        apellidos VARCHAR(100) NOT NULL,
+        correo_electronico VARCHAR(150) NOT NULL,
+        contrasena VARCHAR(255) NOT NULL,
+        telefono VARCHAR(20),
+        id_municipio_fk INT NULL,
+        resumen_profesional TEXT,
+        email_verificado TINYINT(1) NOT NULL DEFAULT 0,
+        PRIMARY KEY (id_usuario),
+        UNIQUE KEY uq_usuarios_correo (correo_electronico)
+      ) ENGINE=InnoDB;
+    `);
+
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS Empresas (
+        id_empresa INT NOT NULL AUTO_INCREMENT,
+        nombre_comercial VARCHAR(150) NOT NULL,
+        razon_social VARCHAR(150),
+        sitio_web VARCHAR(100),
+        descripcion_empresa TEXT,
+        id_municipio_fk INT NULL,
+        correo_electronico VARCHAR(150) NULL,
+        contrasena VARCHAR(255) NULL,
+        email_verificado TINYINT(1) NOT NULL DEFAULT 0,
+        PRIMARY KEY (id_empresa),
+        UNIQUE KEY uq_empresas_correo (correo_electronico)
+      ) ENGINE=InnoDB;
+    `);
+
+    // Ensure email verification columns (no-op if already present)
     await ensureEmailVerificationSchema();
-    console.log("✅ Email verification columns ready");
+    console.log("✅ Core tables and email verification schema ensured");
 
     // Email Verification Schema
     await pool.query(`

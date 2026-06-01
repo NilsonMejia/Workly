@@ -227,13 +227,58 @@ onMounted(async () => {
 
   let tipoRegistro = "usuario";
 
-  const showAlert = (message, type = "danger") => {
+  const escapeHtml = (value) =>
+    String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  const showAlert = (message, type = "danger", allowHtml = false) => {
     alertContainer.innerHTML = `
       <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-        ${message}
+        ${allowHtml ? message : escapeHtml(message)}
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
       </div>
     `;
+  };
+
+  const buildValidationMessage = (data) => {
+    if (!Array.isArray(data?.errores) || data.errores.length === 0) {
+      return data?.mensaje || "No se pudo completar el registro.";
+    }
+
+    const detalles = data.errores
+      .map((error) => error.msg)
+      .filter(Boolean)
+      .map((message) => `<li>${escapeHtml(message)}</li>`)
+      .join("");
+
+    return `<strong>${escapeHtml(data.mensaje || "Errores de validacion")}</strong><ul class="mb-0 mt-2">${detalles}</ul>`;
+  };
+
+  const assertRequired = (value, message) => {
+    if (!String(value || "").trim()) {
+      throw new Error(message);
+    }
+  };
+
+  const assertEmail = (value, message) => {
+    const email = String(value || "").trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      throw new Error(message);
+    }
+  };
+
+  const assertPassword = (password, confirmacion, tipo) => {
+    if (password !== confirmacion) {
+      throw new Error(`Las contrasenas de ${tipo} no coinciden.`);
+    }
+
+    if (String(password || "").length < 6) {
+      throw new Error("La contrasena debe tener al menos 6 caracteres.");
+    }
   };
 
   const activarTab = (tipo) => {
@@ -297,6 +342,17 @@ onMounted(async () => {
     if (tipoRegistro === "usuario") {
       const pass = document.getElementById("passUsuario").value;
       const conf = document.getElementById("passConfUsuario").value;
+      const idMunicipio = Number(document.getElementById("municipioUsuario").value);
+
+      assertRequired(document.getElementById("nombreUsuario").value, "Los nombres son obligatorios.");
+      assertRequired(document.getElementById("apellidosUsuario").value, "Los apellidos son obligatorios.");
+      assertEmail(document.getElementById("emailUsuario").value, "Ingresa un correo electronico valido.");
+      assertRequired(document.getElementById("telefonoUsuario").value, "El telefono es obligatorio.");
+      assertPassword(pass, conf, "usuario");
+      if (!Number.isInteger(idMunicipio) || idMunicipio <= 0) {
+        throw new Error("Selecciona un municipio.");
+      }
+      assertRequired(document.getElementById("resumenProfesional").value, "El resumen profesional es obligatorio.");
 
       if (pass !== conf) {
         throw new Error("Las contraseñas de usuario no coinciden.");
@@ -312,7 +368,7 @@ onMounted(async () => {
           correo_electronico: document.getElementById("emailUsuario").value.trim().toLowerCase(),
           telefono: document.getElementById("telefonoUsuario").value.trim(),
           contrasena: pass,
-          id_municipio_fk: Number(document.getElementById("municipioUsuario").value),
+          id_municipio_fk: idMunicipio,
           resumen_profesional: document.getElementById("resumenProfesional").value.trim()
         }
       };
@@ -320,6 +376,15 @@ onMounted(async () => {
 
     const pass = document.getElementById("passEmpresa").value;
     const conf = document.getElementById("passConfEmpresa").value;
+    const idMunicipio = Number(document.getElementById("municipioEmpresa").value);
+
+    assertRequired(document.getElementById("nombreComercial").value, "El nombre comercial es obligatorio.");
+    assertRequired(document.getElementById("razonSocial").value, "La razon social es obligatoria.");
+    assertEmail(document.getElementById("emailEmpresa").value, "Ingresa un correo corporativo valido.");
+    assertPassword(pass, conf, "empresa");
+    if (!Number.isInteger(idMunicipio) || idMunicipio <= 0) {
+      throw new Error("Selecciona un municipio.");
+    }
 
     if (pass !== conf) {
       throw new Error("Las contraseñas de empresa no coinciden.");
@@ -335,7 +400,7 @@ onMounted(async () => {
         correo_electronico: document.getElementById("emailEmpresa").value.trim().toLowerCase(),
         telefono: document.getElementById("telefonoEmpresa").value.trim(),
         contrasena: pass,
-        id_municipio_fk: Number(document.getElementById("municipioEmpresa").value),
+        id_municipio_fk: idMunicipio,
         descripcion_empresa: document.getElementById("descEmpresa").value.trim()
       }
     };
@@ -356,14 +421,15 @@ onMounted(async () => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.mensaje || "No se pudo completar el registro.");
+        showAlert(buildValidationMessage(data), "danger", Array.isArray(data?.errores));
+        return;
       }
 
       const mensaje = data.advertencia
         ? `${data.mensaje}<br><small>${data.advertencia}</small>`
         : data.mensaje;
 
-      showAlert(mensaje, data.advertencia ? "warning" : "success");
+      showAlert(mensaje, data.advertencia ? "warning" : "success", Boolean(data.advertencia));
 
       const fallbackPath = buildPendingVerificationPath({
         email: data.email || payload.email,
