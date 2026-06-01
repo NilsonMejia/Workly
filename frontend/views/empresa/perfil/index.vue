@@ -43,6 +43,9 @@
                                 <i class="bi bi-camera me-2"></i>Cambiar logo
                             </label>
                             <input id="logo_empresa_input" type="file" accept="image/*" class="d-none">
+                            <button type="button" class="btn btn-outline-danger rounded-pill px-4 mt-3" @click="logout">
+                                <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesion
+                            </button>
                         </div>
                         <hr class="my-4">
                         <div class="d-grid gap-3">
@@ -161,7 +164,12 @@
 <script setup>
 import { onMounted } from "vue";
 import { API_URL, getToken } from "../../../assets/js/shared/config.js";
-import { requireAuth } from "../../../assets/js/shared/auth.js";
+import { requireAuth, logout } from "../../../assets/js/shared/auth.js";
+import {
+  deleteCompanyForumDraft,
+  getCompanyForumDrafts,
+  getCompanyForumPosts
+} from "../../../assets/js/shared/empresaForum.js";
 
 onMounted(async () => {
   requireAuth(["empresa"]);
@@ -235,6 +243,85 @@ onMounted(async () => {
       rootBeneficios.innerHTML = (perfil.beneficios || []).length
         ? perfil.beneficios.map((item) => `<div class="border rounded-4 p-3">${item}</div>`).join("")
         : `<p class="text-muted mb-0">Aun no has definido beneficios.</p>`;
+    }
+  };
+
+  const ensureForumLayout = () => {
+    if (document.getElementById("perfilBorradoresForo")) return;
+
+    const panel = document.querySelector(".surface-card.p-4.p-lg-5");
+    panel?.insertAdjacentHTML("beforeend", `
+      <hr class="my-5">
+      <div class="row g-4">
+        <div class="col-12 col-lg-6">
+          <div class="border rounded-4 p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h3 class="h5 fw-bold mb-1">Borradores guardados</h3>
+                <p class="text-muted small mb-0">Publicaciones pendientes del foro.</p>
+              </div>
+              <span class="badge text-bg-light rounded-pill" id="contadorBorradoresForo">0</span>
+            </div>
+            <div class="d-grid gap-3" id="perfilBorradoresForo"></div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="border rounded-4 p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h3 class="h5 fw-bold mb-1">Temas guardados</h3>
+                <p class="text-muted small mb-0">Elementos del foro marcados para revisar.</p>
+              </div>
+              <span class="badge text-bg-light rounded-pill" id="contadorTemasGuardados">0</span>
+            </div>
+            <div class="d-grid gap-3" id="perfilTemasGuardados"></div>
+          </div>
+        </div>
+      </div>
+    `);
+  };
+
+  const renderForumProfileData = () => {
+    const draftsRoot = document.getElementById("perfilBorradoresForo");
+    const savedRoot = document.getElementById("perfilTemasGuardados");
+    const draftsCounter = document.getElementById("contadorBorradoresForo");
+    const savedCounter = document.getElementById("contadorTemasGuardados");
+    const drafts = getCompanyForumDrafts();
+    const savedPosts = getCompanyForumPosts().filter((post) => post.saved);
+
+    if (draftsCounter) draftsCounter.textContent = String(drafts.length);
+    if (savedCounter) savedCounter.textContent = String(savedPosts.length);
+
+    if (draftsRoot) {
+      draftsRoot.innerHTML = drafts.length
+        ? drafts.slice(0, 4).map((draft) => `
+            <div class="border rounded-4 p-3">
+              <div class="fw-semibold">${draft.title}</div>
+              <div class="small text-muted mb-2">${draft.category}</div>
+              <button type="button" class="btn btn-sm btn-outline-danger rounded-pill" data-delete-draft="${draft.id}">
+                <i class="bi bi-trash3 me-1"></i>Eliminar
+              </button>
+            </div>
+          `).join("")
+        : `<p class="text-muted mb-0">Aun no tienes borradores guardados.</p>`;
+
+      draftsRoot.querySelectorAll("[data-delete-draft]").forEach((button) => {
+        button.addEventListener("click", () => {
+          deleteCompanyForumDraft(button.dataset.deleteDraft);
+          renderForumProfileData();
+        });
+      });
+    }
+
+    if (savedRoot) {
+      savedRoot.innerHTML = savedPosts.length
+        ? savedPosts.slice(0, 4).map((post) => `
+            <a class="text-decoration-none text-dark border rounded-4 p-3" href="../foro">
+              <div class="fw-semibold">${post.title}</div>
+              <div class="small text-muted">${post.companyName} · ${post.category}</div>
+            </a>
+          `).join("")
+        : `<p class="text-muted mb-0">Aun no has guardado temas del foro.</p>`;
     }
   };
 
@@ -359,8 +446,10 @@ onMounted(async () => {
   });
 
   const init = async () => {
+    ensureForumLayout();
     await cargarMunicipios();
     await cargarPerfilEmpresa();
+    renderForumProfileData();
   };
 
   init().catch((error) => {

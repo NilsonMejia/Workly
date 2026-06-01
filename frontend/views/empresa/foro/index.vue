@@ -278,6 +278,7 @@ import {
   createCompanyForumPost,
   getCompanyForumPosts,
   incrementCompanyForumMetric,
+  saveCompanyForumDraft,
   saveCompanyForumPosts,
   toggleCompanyForumSave
 } from "../../../assets/js/shared/empresaForum.js";
@@ -699,6 +700,20 @@ onMounted(async () => {
     });
 
     btnGuardarTema?.addEventListener("click", () => {
+      const content = composerTextarea?.value.trim();
+      if (!content) {
+        showToast("info", "Escribe un tema antes de guardarlo como borrador.");
+        composerTextarea?.focus();
+        return;
+      }
+
+      saveCompanyForumDraft({
+        companyName: getCompanyName(),
+        authorInitials: getCompanyInitials(),
+        content,
+        category: getSelectedComposerCategory()
+      });
+      composerTextarea.value = "";
       showToast("success", "Borrador guardado correctamente.");
     });
 

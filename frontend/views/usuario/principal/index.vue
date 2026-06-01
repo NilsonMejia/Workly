@@ -24,6 +24,9 @@
                         <a href="../recursos" class="nav-link-custom text-decoration-none px-3 py-2">
                             <i class="bi bi-journal-bookmark-fill me-1"></i> Recursos
                         </a>
+                        <a href="../foro" class="nav-link-custom text-decoration-none px-3 py-2">
+                            <i class="bi bi-chat-dots me-1"></i> Foro
+                        </a>
                         <a href="../valoracionempresa" class="nav-link-custom text-decoration-none px-3 py-2">
                             <i class="bi bi-star-fill me-1"></i> Valoraciones
                         </a>

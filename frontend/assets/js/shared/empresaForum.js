@@ -1,4 +1,5 @@
 const STORAGE_KEY = "workly_empresa_forum_posts";
+const DRAFTS_KEY = "workly_empresa_forum_drafts";
 
 const DEFAULT_POSTS = [
   {
@@ -170,4 +171,42 @@ export const addCompanyForumComment = (postId, author, content) => {
 
   saveCompanyForumPosts(nextPosts);
   return nextPosts.find((post) => post.id === postId) || null;
+};
+
+export const getCompanyForumDrafts = () => {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(DRAFTS_KEY) || "[]");
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+};
+
+export const saveCompanyForumDraft = ({
+  companyName,
+  authorInitials,
+  content,
+  category
+}) => {
+  const cleanContent = String(content || "").trim();
+  if (!cleanContent) return null;
+
+  const draft = {
+    id: `draft-${Date.now()}`,
+    companyName: companyName || "Empresa",
+    authorInitials: authorInitials || getInitials(companyName),
+    title: buildTitle(cleanContent),
+    content: cleanContent,
+    category: category || "General",
+    createdAt: new Date().toISOString()
+  };
+
+  localStorage.setItem(DRAFTS_KEY, JSON.stringify([draft, ...getCompanyForumDrafts()]));
+  return draft;
+};
+
+export const deleteCompanyForumDraft = (draftId) => {
+  const nextDrafts = getCompanyForumDrafts().filter((draft) => draft.id !== draftId);
+  localStorage.setItem(DRAFTS_KEY, JSON.stringify(nextDrafts));
+  return nextDrafts;
 };

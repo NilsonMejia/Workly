@@ -11,6 +11,8 @@
                         <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionusuarios">Usuarios</a></li>
                         <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionempresas">Empresas</a></li>
                         <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionvacantes">Vacantes</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../recursos">Recursos</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../foro">Foro</a></li>
                         <li class="nav-item"><a class="nav-link nav-link-custom" href="../estadisticas">Estadísticas</a></li>
                         <li class="nav-item"><a class="nav-link nav-link-custom" href="../moderacion">Moderación</a></li>
                     </ul>
@@ -19,7 +21,9 @@
                             <i class="bi bi-bell-fill fs-4"></i>
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
                         </a>
-                        <i class="bi bi-person-circle fs-2 text-white" style="cursor: pointer;"></i>
+                        <button type="button" class="btn btn-outline-light btn-sm rounded-pill" id="btnLogoutAdmin">
+                            <i class="bi bi-box-arrow-right me-1"></i>Salir
+                        </button>
                     </div>
                 </div>
             </div>
@@ -142,7 +146,7 @@
 <script setup>
 import { onMounted } from "vue";
 import { API_URL, clearSession, getToken, navigateTo } from "../../../assets/js/shared/config.js";
-import { requireAuth } from "../../../assets/js/shared/auth.js";
+import { requireAuth, logout } from "../../../assets/js/shared/auth.js";
 
 onMounted(async () => {
   requireAuth(["admin"]);
@@ -161,6 +165,7 @@ onMounted(async () => {
   const chartDashboard = document.getElementById("chartDashboard");
   const actividadReciente = document.getElementById("actividadReciente");
   const ultimasVacantesBox = document.getElementById("ultimasVacantesBox");
+  document.getElementById("btnLogoutAdmin")?.addEventListener("click", logout);
 
 
   const showAlert = (message, type = "danger") => {

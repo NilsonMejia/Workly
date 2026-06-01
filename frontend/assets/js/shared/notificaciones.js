@@ -46,7 +46,7 @@ const fetchResumen = async () => {
   }
 };
 
-const initNotificationsBell = async () => {
+export const initNotificationsBell = async () => {
   const token = getToken();
 
   if (!token) {

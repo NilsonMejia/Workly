@@ -271,6 +271,11 @@ onMounted(async () => {
     resumenEstado.textContent = data.cambios_estado ?? 0;
     resumenSistema.textContent = data.sistema ?? 0;
     resumenTotal.textContent = data.total ?? 0;
+    document.querySelectorAll(".notification-badge").forEach((badge) => {
+      const count = Number(data.no_leidas || 0);
+      badge.textContent = count > 99 ? "99+" : String(count);
+      badge.style.display = count > 0 ? "inline-flex" : "none";
+    });
   };
 
   const getTypeLabel = (value) => {

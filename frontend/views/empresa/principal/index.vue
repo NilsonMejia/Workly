@@ -78,7 +78,7 @@
                         <div class="bg-light rounded-4 p-3 d-inline-flex mb-3">
                             <i class="bi bi-eye-fill fs-1" style="color: var(--primary-deep);"></i>
                         </div>
-                        <h2 class="fw-bold mb-1 counter" data-target="1850">0</h2>
+                        <h2 class="fw-bold mb-1" id="totalVisualizaciones">0</h2>
                         <p class="text-secondary small fw-medium mb-0">Vistas totales</p>
                         <small class="text-success"><i class="bi bi-arrow-up-short"></i> +12% esta semana</small>
                     </div>
@@ -378,6 +378,7 @@ import {
   createCompanyForumPost,
   getCompanyForumPosts,
   incrementCompanyForumMetric,
+  saveCompanyForumDraft,
   toggleCompanyForumSave
 } from "../../../assets/js/shared/empresaForum.js";
 
@@ -390,6 +391,7 @@ onMounted(async () => {
   const alertContainer = document.getElementById("alertContainer");
   const totalVacantes = document.getElementById("totalVacantes");
   const totalPostulaciones = document.getElementById("totalPostulaciones");
+  const totalVisualizaciones = document.getElementById("totalVisualizaciones");
   const textoVacantesResumen = document.getElementById("textoVacantesResumen");
   const textoPostulacionesResumen = document.getElementById("textoPostulacionesResumen");
   
@@ -660,10 +662,16 @@ onMounted(async () => {
   const updateMetrics = () => {
     const totalVacantesValue = dashboardData.metricas?.total_vacantes ?? 0;
     const totalPostulacionesValue = dashboardData.metricas?.total_postulaciones ?? 0;
-    
-    const promedio = Number(dashboardData.metricas?.promedio_valoracion || 0).toFixed(1);
-    const numResenas = dashboardData.metricas?.total_valoraciones || 0;
+    const totalVisualizacionesValue = Number(dashboardData.metricas?.total_visualizaciones || 0) ||
+      getCompanyForumPosts().reduce((acc, post) => acc + Number(post.views || 0), 0);
+    const resenasEmpresa = Array.isArray(resenas.value) ? resenas.value : [];
+    const promedioDesdeResenas = resenasEmpresa.length
+      ? resenasEmpresa.reduce((acc, item) => acc + Number(item.puntuacion || 0), 0) / resenasEmpresa.length
+      : 0;
+    const promedio = Number(dashboardData.metricas?.promedio_valoracion || promedioDesdeResenas || 0).toFixed(1);
+    const numResenas = dashboardData.metricas?.total_valoraciones ?? resenasEmpresa.length;
 
+    if (totalVisualizaciones) totalVisualizaciones.textContent = String(totalVisualizacionesValue);
     if (totalVacantes) totalVacantes.textContent = String(totalVacantesValue);
     if (totalPostulaciones) totalPostulaciones.textContent = String(totalPostulacionesValue);
     if (textoVacantesResumen) {
@@ -761,6 +769,21 @@ onMounted(async () => {
     });
 
     btnGuardarPub?.addEventListener("click", () => {
+      const content = textareaPublicacion?.value.trim();
+      if (!content) {
+        showAlert("Escribe una publicacion antes de guardarla como borrador.", "warning");
+        textareaPublicacion?.focus();
+        return;
+      }
+
+      const activeCategory = document.querySelector(".badge-category.active")?.textContent?.trim() || "Vacante";
+      saveCompanyForumDraft({
+        companyName: getCompanyDisplayName(),
+        authorInitials: getCompanyInitials(),
+        content,
+        category: activeCategory
+      });
+      textareaPublicacion.value = "";
       showToast("toastGuardado", "Borrador guardado correctamente.");
     });
 

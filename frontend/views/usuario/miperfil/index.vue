@@ -16,6 +16,7 @@
                     <div class="navbar-nav mx-auto gap-2 mt-3 mt-lg-0">
                         <a href="../buscarempleo" class="nav-link-custom"><i class="bi bi-search me-1"></i> Buscar empleo</a>
                         <a href="../recursos" class="nav-link-custom"><i class="bi bi-journal-bookmark-fill me-1"></i> Recursos</a>
+                        <a href="../foro" class="nav-link-custom"><i class="bi bi-chat-dots me-1"></i> Foro</a>
                         <a href="../valoracionempresa" class="nav-link-custom"><i class="bi bi-star-fill me-1"></i> Valoraciones</a>
                         <a href="../miperfil" class="nav-link-custom active"><i class="bi bi-person-badge me-1"></i> Mi Perfil</a>
                     </div>
@@ -45,6 +46,9 @@
                                     <i class="bi bi-camera me-2"></i>Cambiar foto
                                 </label>
                                 <input id="foto_perfil_input" type="file" accept="image/*" class="d-none">
+                                <button type="button" class="btn btn-outline-danger rounded-pill px-4 mt-3" @click="logout">
+                                    <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesion
+                                </button>
                             </div>
                             <hr class="my-4">
                             <div class="d-grid gap-3">
@@ -153,7 +157,7 @@ import {
   normalizeAppRedirect,
   navigateTo
 } from "../../../assets/js/shared/config.js";
-import { requireAuth } from "../../../assets/js/shared/auth.js";
+import { requireAuth, logout } from "../../../assets/js/shared/auth.js";
 
 onMounted(async () => {
   requireAuth(["usuario"]);

@@ -262,6 +262,7 @@
 <script setup>
 import { onMounted } from "vue";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
+import { getResourcesForAudience } from "../../../assets/js/shared/adminResources.js";
 
 onMounted(() => {
   requireAuth(["empresa"]);
@@ -285,6 +286,30 @@ onMounted(() => {
       .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase()
       .trim();
+
+  const renderRecursosAdmin = () => {
+    const existentes = new Set([...gridRecursos.querySelectorAll(".recurso-item")].map((item) => item.dataset.id));
+    getResourcesForAudience("empresa").forEach((resource) => {
+      if (existentes.has(resource.id)) return;
+
+      gridRecursos.insertAdjacentHTML("afterbegin", `
+        <div class="col-12 col-md-6 recurso-item" data-id="${resource.id}" data-categoria="${resource.categoria}" data-titulo="${resource.titulo}">
+          <article class="resource-card">
+            <span class="resource-format">${resource.formato}</span>
+            <h3>${resource.titulo}</h3>
+            <p>${resource.descripcion || "Recurso publicado por administracion."}</p>
+            <div class="resource-meta">
+              <span class="tag">${resource.categoria}</span>
+              <span class="tag soft">Admin</span>
+            </div>
+            <div class="resource-actions">
+              <button class="btn btn-primary rounded-pill btn-recurso" data-accion="Abriendo ${resource.titulo}">Ver</button>
+            </div>
+          </article>
+        </div>
+      `);
+    });
+  };
 
   const obtenerRecursos = () => [...document.querySelectorAll(".recurso-item")];
 
@@ -329,6 +354,8 @@ onMounted(() => {
     toastTexto.innerHTML = `<i class="bi bi-info-circle-fill me-2"></i>${mensaje}`;
     toast.show();
   };
+
+  renderRecursosAdmin();
 
   btnBuscar?.addEventListener("click", aplicarFiltros);
   inputBuscar?.addEventListener("keydown", (event) => {

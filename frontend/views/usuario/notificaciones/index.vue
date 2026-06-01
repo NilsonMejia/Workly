@@ -18,6 +18,7 @@
             <div class="navbar-nav mx-auto gap-2 mt-3 mt-lg-0">
               <a href="../buscarempleo" class="nav-link-custom">Buscar empleo</a>
               <a href="../recursos" class="nav-link-custom">Recursos</a>
+              <a href="../foro" class="nav-link-custom">Foro</a>
               <a href="../valoracionempresa" class="nav-link-custom">Valoraciones</a>
               <a href="../miperfil" class="nav-link-custom">Mi perfil</a>
             </div>

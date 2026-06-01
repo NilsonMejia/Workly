@@ -22,6 +22,9 @@
                     <a href="../recursos" class="nav-link-custom active text-decoration-none px-3 py-2">
                         <i class="bi bi-journal-bookmark-fill me-1"></i> Recursos
                     </a>
+                    <a href="../foro" class="nav-link-custom text-decoration-none px-3 py-2">
+                        <i class="bi bi-chat-dots me-1"></i> Foro
+                    </a>
                     <a href="../valoracionempresa" class="nav-link-custom text-decoration-none px-3 py-2">
                         <i class="bi bi-star-fill me-1"></i> Valoraciones
                     </a>
@@ -213,9 +216,36 @@
 <script setup>
 import { onMounted } from "vue";
 import { requireAuth, logout } from "../../../assets/js/shared/auth.js";
+import { getResourcesForAudience } from "../../../assets/js/shared/adminResources.js";
 
 onMounted(() => {
   requireAuth(["usuario"]);
+
+  const mainCard = document.querySelector(".main-card");
+  const resources = getResourcesForAudience("usuario");
+
+  if (mainCard && resources.length && !document.getElementById("recursosAdminGrid")) {
+    mainCard.insertAdjacentHTML("beforeend", `
+      <section class="mt-5">
+        <div class="section-title">
+          <i class="bi bi-megaphone"></i>
+          <span>Recursos publicados por admin</span>
+        </div>
+        <div class="row g-4" id="recursosAdminGrid">
+          ${resources.map((resource) => `
+            <div class="col-12 col-md-4">
+              <div class="resource-card">
+                <span class="badge rounded-pill align-self-start mb-2" style="background:#e9ecf9;color:var(--primary-deep);">${resource.formato}</span>
+                <h6 class="fw-bold mb-2">${resource.titulo}</h6>
+                <p class="text-secondary small mb-4">${resource.descripcion || "Recurso publicado por administracion."}</p>
+                <button class="btn btn-outline-primary-deep w-100 mt-auto">Ver recurso <i class="bi bi-arrow-right ms-1"></i></button>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </section>
+    `);
+  }
 });
 </script>
 

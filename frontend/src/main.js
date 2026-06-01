@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import App from "./App.vue";
 import { setGlobalRouter } from "../assets/js/shared/config.js";
+import { initNotificationsBell } from "../assets/js/shared/notificaciones.js";
 
 window.bootstrap = bootstrap;
 
@@ -190,6 +191,11 @@ const renderStartupError = (error) => {
 };
 
 router.onError(renderStartupError);
+router.afterEach(() => {
+  window.setTimeout(() => {
+    initNotificationsBell();
+  }, 0);
+});
 
 const app = createApp(App);
 
