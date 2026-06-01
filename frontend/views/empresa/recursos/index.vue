@@ -1,41 +1,6 @@
 <template>
   <div class="d-flex flex-column min-vh-100 recursos-body">
-    <nav class="navbar navbar-expand-lg py-3 recursos-nav">
-            <div class="container-fluid px-4 px-lg-5">
-                <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal">
-                    <i class="bi bi-briefcase-fill brand-icon"></i>
-                    <div class="lh-sm ms-2">
-                        <span class="brand-text">Workly</span>
-                        <span class="brand-sub">Panel de empresa</span>
-                    </div>
-                </a>
-
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarContent">
-                    <div class="navbar-nav mx-auto gap-2 mt-3 mt-lg-0">
-                        <a href="../publicarvacante" class="nav-link-custom">Publicar</a>
-                        <a href="../misvacantes" class="nav-link-custom">Mis vacantes</a>
-                        <a href="../postulaciones" class="nav-link-custom">Postulaciones</a>
-                        <a href="../foro" class="nav-link-custom">Foro</a>
-                        <a href="../resenaempresa" class="nav-link-custom">Reseñas</a>
-                        <a href="../recursos" class="nav-link-custom active">Recursos</a>
-                    </div>
-
-                    <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-                        <a href="../notificaciones" class="text-white position-relative text-decoration-none">
-                            <i class="bi bi-bell-fill fs-4"></i>
-                            <span class="notification-badge badge rounded-pill bg-danger">0</span>
-                        </a>
-                        <a href="../perfil" class="text-white text-decoration-none">
-                            <i class="bi bi-person-circle fs-4"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </nav>
+    <CompanyNavbar active="recursos" />
 
         <main class="flex-grow-1 py-4 py-lg-5">
             <div class="container px-4 px-lg-5">
@@ -260,6 +225,7 @@
 </template>
 
 <script setup>
+import CompanyNavbar from "../../../components/CompanyNavbar.vue";
 import { onMounted } from "vue";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
 import { getResourcesForAudience } from "../../../assets/js/shared/adminResources.js";

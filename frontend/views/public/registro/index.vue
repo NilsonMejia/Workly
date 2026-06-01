@@ -59,7 +59,7 @@
                         <div id="alertContainer"></div>
 
                         <!-- FORMULARIO (id formRegistro conservado) -->
-                        <form id="formRegistro">
+                        <form id="formRegistro" autocomplete="off">
 
                             <!-- CAMPOS USUARIO (id 'camposUsuario' conservado) -->
                             <div id="camposUsuario">
@@ -76,7 +76,7 @@
                                 <div class="row g-3 mt-2">
                                     <div class="col-md-6">
                                         <div class="input-label"><i class="bi bi-envelope"></i> Correo Electrónico</div>
-                                        <input type="email" id="emailUsuario" class="form-control-custom w-100" placeholder="tu@email.com">
+                                        <input type="email" id="emailUsuario" name="emailUsuario" autocomplete="off" class="form-control-custom w-100" placeholder="tu@email.com">
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-label"><i class="bi bi-telephone"></i> Teléfono</div>
@@ -123,7 +123,7 @@
                                 <div class="row g-3 mt-2">
                                     <div class="col-md-6">
                                         <div class="input-label"><i class="bi bi-envelope"></i> Correo Corporativo</div>
-                                        <input type="email" id="emailEmpresa" class="form-control-custom w-100" placeholder="contacto@empresa.com">
+                                        <input type="email" id="emailEmpresa" name="emailEmpresa" autocomplete="off" class="form-control-custom w-100" placeholder="contacto@empresa.com">
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-label"><i class="bi bi-telephone"></i> Teléfono Empresa</div>
@@ -244,8 +244,22 @@ onMounted(async () => {
     tabEmpresa.classList.toggle("active", tipo === "empresa");
   };
 
+  const limpiarCamposCorreo = () => {
+    const emailUsuario = document.getElementById("emailUsuario");
+    const emailEmpresa = document.getElementById("emailEmpresa");
+
+    if (emailUsuario) {
+      emailUsuario.value = "";
+    }
+    if (emailEmpresa) {
+      emailEmpresa.value = "";
+    }
+  };
+
   tabUsuario?.addEventListener("click", () => activarTab("usuario"));
   tabEmpresa?.addEventListener("click", () => activarTab("empresa"));
+
+  limpiarCamposCorreo();
 
   const cargarMunicipios = async () => {
     try {

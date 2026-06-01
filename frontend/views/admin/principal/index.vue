@@ -1,33 +1,6 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg py-3 sticky-top">
-            <div class="container-fluid px-4">
-                <a class="navbar-brand fw-bold text-white fs-3 d-flex align-items-center" href=".">
-                    <i class="bi bi-briefcase-fill me-2"></i> Workly
-                </a>
-                <div class="collapse navbar-collapse" id="navContent">
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-1">
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href=".">Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionusuarios">Usuarios</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionempresas">Empresas</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionvacantes">Vacantes</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../recursos">Recursos</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../foro">Foro</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../estadisticas">Estadísticas</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../moderacion">Moderación</a></li>
-                    </ul>
-                    <div class="profile-wrapper ms-lg-3 d-flex align-items-center gap-3">
-                        <a href="." class="text-white position-relative text-decoration-none">
-                            <i class="bi bi-bell-fill fs-4"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
-                        </a>
-                        <button type="button" class="btn btn-outline-light btn-sm rounded-pill" id="btnLogoutAdmin">
-                            <i class="bi bi-box-arrow-right me-1"></i>Salir
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </nav>
+    <AdminNavbar active="principal" />
 
         <main class="container-fluid px-4 py-4">
             <div class="row g-4">
@@ -144,9 +117,10 @@
 </template>
 
 <script setup>
+import AdminNavbar from "../../../components/AdminNavbar.vue";
 import { onMounted } from "vue";
 import { API_URL, clearSession, getToken, navigateTo } from "../../../assets/js/shared/config.js";
-import { requireAuth, logout } from "../../../assets/js/shared/auth.js";
+import { requireAuth } from "../../../assets/js/shared/auth.js";
 
 onMounted(async () => {
   requireAuth(["admin"]);
@@ -165,9 +139,6 @@ onMounted(async () => {
   const chartDashboard = document.getElementById("chartDashboard");
   const actividadReciente = document.getElementById("actividadReciente");
   const ultimasVacantesBox = document.getElementById("ultimasVacantesBox");
-  document.getElementById("btnLogoutAdmin")?.addEventListener("click", logout);
-
-
   const showAlert = (message, type = "danger") => {
     if (!alertContainer) return;
 

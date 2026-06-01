@@ -1,41 +1,6 @@
 <template>
   <div class="d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-lg navbar-custom py-3">
-        <div class="container-fluid px-4 px-lg-5">
-          <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal">
-            <i class="bi bi-briefcase-fill text-white fs-2"></i>
-            <div class="lh-sm ms-2">
-              <span class="text-white fw-bold fs-3">Workly</span>
-              <span class="d-block text-white-50 small">Tu búsqueda de trabajo profesional</span>
-            </div>
-          </a>
-
-          <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navbarContent">
-            <div class="navbar-nav mx-auto gap-2 mt-3 mt-lg-0">
-              <a href="../buscarempleo" class="nav-link-custom">Buscar empleo</a>
-              <a href="../recursos" class="nav-link-custom">Recursos</a>
-              <a href="../foro" class="nav-link-custom">Foro</a>
-              <a href="../valoracionempresa" class="nav-link-custom">Valoraciones</a>
-              <a href="../miperfil" class="nav-link-custom">Mi perfil</a>
-            </div>
-            <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-              <a href="../notificaciones" class="text-white position-relative text-decoration-none">
-                <i class="bi bi-bell-fill fs-4"></i>
-                <span v-if="resumen.no_leidas > 0" class="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  {{ resumen.no_leidas }}
-                </span>
-              </a>
-              <a href="../miperfil" class="text-white text-decoration-none">
-                <i class="bi bi-person-circle fs-4"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </nav>
+    <UserNavbar active="notificaciones" />
 
       <main class="flex-grow-1 py-4 py-lg-5">
         <div class="container px-4 px-lg-5">
@@ -233,6 +198,7 @@
 </template>
 
 <script setup>
+import UserNavbar from "../../../components/UserNavbar.vue";
 import { ref, onMounted } from "vue";
 import { API_URL, getToken } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";

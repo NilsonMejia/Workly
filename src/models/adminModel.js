@@ -1,10 +1,23 @@
 import { pool } from "../config/db.js";
+import { ensureEmailVerificationSchema } from "./usuarioModel.js";
 
 const vacanteEstados = new Map();
+const usuarioEstados = new Map();
+const empresaEstados = new Map();
 
 const withVacanteEstado = (vacante) => ({
   ...vacante,
   estado: vacanteEstados.get(Number(vacante.id_vacante)) || vacante.estado || "Activo"
+});
+
+const withUsuarioEstado = (usuario) => ({
+  ...usuario,
+  estado: usuarioEstados.get(Number(usuario.id_usuario)) || usuario.estado || "Activo"
+});
+
+const withEmpresaEstado = (empresa) => ({
+  ...empresa,
+  estado: empresaEstados.get(Number(empresa.id_empresa)) || empresa.estado || "Activo"
 });
 
 const getAdminVacanteBaseQuery = () => `
@@ -57,24 +70,95 @@ const getAdminEmpresaById = async (id) => {
     [id]
   );
 
-  return rows[0];
+  return rows[0] ? withEmpresaEstado(rows[0]) : null;
+};
+
+const getAdminUsuarioById = async (id) => {
+  const [rows] = await pool.query(
+    `
+    SELECT
+      u.id_usuario,
+      u.nombres,
+      u.apellidos,
+      u.correo_electronico,
+      u.telefono,
+      u.id_municipio_fk,
+      u.resumen_profesional,
+      COALESCE(u.email_verificado, 0) AS email_verificado,
+      m.nombre_municipio
+    FROM Usuarios u
+    LEFT JOIN Municipios m ON u.id_municipio_fk = m.id_municipio
+    WHERE u.id_usuario = ?
+    `,
+    [id]
+  );
+
+  return rows[0] ? withUsuarioEstado(rows[0]) : null;
 };
 
 export const getAdminUsuarios = async () => {
+  await ensureEmailVerificationSchema();
+
   const [rows] = await pool.query(`
     SELECT
-      id_usuario,
+      u.id_usuario,
+      u.nombres,
+      u.apellidos,
+      u.correo_electronico,
+      u.telefono,
+      u.id_municipio_fk,
+      u.resumen_profesional,
+      COALESCE(u.email_verificado, 0) AS email_verificado,
+      m.nombre_municipio
+    FROM Usuarios u
+    LEFT JOIN Municipios m ON u.id_municipio_fk = m.id_municipio
+    ORDER BY u.id_usuario DESC
+  `);
+
+  return rows.map(withUsuarioEstado);
+};
+
+export const createAdminUsuario = async (usuario) => {
+  await ensureEmailVerificationSchema();
+
+  const {
+    nombres,
+    apellidos,
+    correo_electronico,
+    contrasena,
+    telefono,
+    id_municipio_fk,
+    resumen_profesional
+  } = usuario;
+
+  const [result] = await pool.query(
+    `
+    INSERT INTO Usuarios
+    (
       nombres,
       apellidos,
       correo_electronico,
+      contrasena,
       telefono,
       id_municipio_fk,
-      resumen_profesional
-    FROM Usuarios
-    ORDER BY id_usuario DESC
-  `);
+      resumen_profesional,
+      email_verificado
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, 1)
+    `,
+    [
+      nombres,
+      apellidos,
+      correo_electronico,
+      contrasena,
+      telefono,
+      id_municipio_fk,
+      resumen_profesional || ""
+    ]
+  );
 
-  return rows;
+  usuarioEstados.set(result.insertId, "Activo");
+  return getAdminUsuarioById(result.insertId);
 };
 
 export const getAdminEmpresas = async () => {
@@ -93,7 +177,7 @@ export const getAdminEmpresas = async () => {
     ORDER BY e.id_empresa DESC
   `);
 
-  return rows;
+  return rows.map(withEmpresaEstado);
 };
 
 export const createAdminEmpresa = async (empresa) => {
@@ -132,6 +216,7 @@ export const createAdminEmpresa = async (empresa) => {
     ]
   );
 
+  empresaEstados.set(result.insertId, "Activo");
   return getAdminEmpresaById(result.insertId);
 };
 
@@ -243,6 +328,39 @@ export const updateAdminVacanteEstado = async (id, estado) => {
   return getAdminVacanteById(id);
 };
 
+export const updateAdminUsuarioEstado = async (id, estado) => {
+  const usuario = await getAdminUsuarioById(id);
+
+  if (!usuario) {
+    return null;
+  }
+
+  usuarioEstados.set(Number(id), estado);
+  return getAdminUsuarioById(id);
+};
+
+export const verifyAdminUsuarioEmail = async (id) => {
+  await ensureEmailVerificationSchema();
+
+  await pool.query(
+    "UPDATE Usuarios SET email_verificado = 1 WHERE id_usuario = ?",
+    [id]
+  );
+
+  return getAdminUsuarioById(id);
+};
+
+export const updateAdminEmpresaEstado = async (id, estado) => {
+  const empresa = await getAdminEmpresaById(id);
+
+  if (!empresa) {
+    return null;
+  }
+
+  empresaEstados.set(Number(id), estado);
+  return getAdminEmpresaById(id);
+};
+
 export const deleteAdminUsuario = async (id) => {
   const [rows] = await pool.query(
     `
@@ -271,6 +389,8 @@ export const deleteAdminUsuario = async (id) => {
     [id]
   );
 
+  usuarioEstados.delete(Number(id));
+
   return usuario;
 };
 
@@ -288,6 +408,8 @@ export const deleteAdminEmpresa = async (id) => {
     `,
     [id]
   );
+
+  empresaEstados.delete(Number(id));
 
   return empresa;
 };

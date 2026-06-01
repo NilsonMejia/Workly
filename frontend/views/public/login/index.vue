@@ -30,15 +30,15 @@
 
                         <div id="alertContainer" class="mb-3"></div>
 
-                        <form id="formLogin">
+                        <form id="formLogin" autocomplete="off">
                             <div class="mb-3">
                                 <label class="form-label fw-semibold" for="correo">Correo electrónico</label>
-                                <input type="email" id="correo" class="form-control form-control-custom" placeholder="tu@email.com" required>
+                                <input type="email" id="correo" name="correo" autocomplete="off" class="form-control form-control-custom" placeholder="tu@email.com" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-semibold" for="password">Contraseña</label>
-                                <input type="password" id="password" class="form-control form-control-custom" placeholder="••••••••" required>
+                                <input type="password" id="password" name="password" autocomplete="new-password" class="form-control form-control-custom" placeholder="••••••••" required>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
@@ -94,6 +94,16 @@ onMounted(async () => {
   const alertContainer = document.getElementById("alertContainer");
   const btnReenviarVerificacion = document.getElementById("btnReenviarVerificacion");
   const enlaceRegistro = document.getElementById("linkRegistro");
+  const formLogin = document.getElementById("formLogin");
+  const correoInput = document.getElementById("correo");
+  const passwordInput = document.getElementById("password");
+
+  if (correoInput) {
+    correoInput.value = "";
+  }
+  if (passwordInput) {
+    passwordInput.value = "";
+  }
 
   const showAlert = (message, type = "danger") => {
     if (!alertContainer) return;

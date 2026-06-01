@@ -1,6 +1,9 @@
 import { pool } from "../config/db.js";
+import { ensureEmailVerificationSchema } from "./usuarioModel.js";
 
 export const loginUsuario = async (correo_electronico) => {
+  await ensureEmailVerificationSchema();
+
   const [rows] = await pool.query(
     `
     SELECT
@@ -14,7 +17,7 @@ export const loginUsuario = async (correo_electronico) => {
       resumen_profesional,
       COALESCE(email_verificado, 0) AS email_verificado
     FROM Usuarios
-    WHERE correo_electronico = ?
+    WHERE LOWER(TRIM(correo_electronico)) = LOWER(TRIM(?))
     LIMIT 1
     `,
     [correo_electronico]
@@ -24,6 +27,8 @@ export const loginUsuario = async (correo_electronico) => {
 };
 
 export const loginEmpresa = async (correo_electronico) => {
+  await ensureEmailVerificationSchema();
+
   const [rows] = await pool.query(
     `
     SELECT
@@ -37,7 +42,7 @@ export const loginEmpresa = async (correo_electronico) => {
       contrasena,
       COALESCE(email_verificado, 0) AS email_verificado
     FROM Empresas
-    WHERE correo_electronico = ?
+    WHERE LOWER(TRIM(correo_electronico)) = LOWER(TRIM(?))
     LIMIT 1
     `,
     [correo_electronico]
@@ -47,6 +52,8 @@ export const loginEmpresa = async (correo_electronico) => {
 };
 
 export const registerEmpresaAuth = async (empresa) => {
+  await ensureEmailVerificationSchema();
+
   const {
     nombre_comercial,
     razon_social,
@@ -92,6 +99,8 @@ export const registerEmpresaAuth = async (empresa) => {
 };
 
 export const registerUsuarioAuth = async (usuario) => {
+  await ensureEmailVerificationSchema();
+
   const {
     nombres,
     apellidos,

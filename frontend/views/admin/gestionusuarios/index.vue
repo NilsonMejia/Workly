@@ -1,30 +1,6 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg py-3 sticky-top">
-            <div class="container-fluid px-4">
-                <a class="navbar-brand fw-bold text-white fs-3 d-flex align-items-center" href="../principal">
-                    <i class="bi bi-briefcase-fill me-2"></i> Workly
-                </a>
-
-                <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navContent">
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-1">
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../principal">Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href=".">Usuarios</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionempresas">Empresas</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionvacantes">Vacantes</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../estadisticas">Estadísticas</a></li>
-                    </ul>
-                    <div class="profile-wrapper ms-lg-3">
-                        <i class="bi bi-person-circle fs-2 text-white" style="cursor: pointer;"></i>
-                        <span class="notif-badge"></span>
-                    </div>
-                </div>
-            </div>
-        </nav>
+    <AdminNavbar active="gestionusuarios" />
 
         <main class="container-fluid px-4 py-4">
             <div class="row g-4">
@@ -59,6 +35,15 @@
 
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h4 class="fw-bold m-0" style="color: var(--azul-oscuro)">Gestión de Usuarios</h4>
+                        <button
+                            class="btn btn-primary px-4"
+                            id="btnNuevoUsuario"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalUsuario"
+                            style="background-color: var(--azul-oscuro); border-radius: 10px;"
+                        >
+                            Nuevo usuario
+                        </button>
                     </div>
 
                     <div id="alertContainer" class="mb-3"></div>
@@ -100,12 +85,13 @@
                                         <th>Correo</th>
                                         <th>Teléfono</th>
                                         <th>Municipio</th>
+                                        <th>Verificacion</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tablaUsuarios">
                                     <tr>
-                                        <td colspan="5" class="text-muted">Cargando usuarios...</td>
+                                        <td colspan="6" class="text-muted">Cargando usuarios...</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -160,10 +146,61 @@
                 </div>
             </div>
         </footer>
+
+
+        <div class="modal fade" id="modalUsuario" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: var(--azul-oscuro); color: white;">
+                        <h5 class="modal-title">Nuevo usuario</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formUsuario">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Nombres *</label>
+                                    <input type="text" class="form-control" id="usuarioNombres">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Apellidos *</label>
+                                    <input type="text" class="form-control" id="usuarioApellidos">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Correo *</label>
+                                    <input type="email" class="form-control" id="usuarioCorreo">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Contraseña *</label>
+                                    <input type="password" class="form-control" id="usuarioContrasena">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Teléfono</label>
+                                    <input type="text" class="form-control" id="usuarioTelefono">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Municipio</label>
+                                    <select class="form-select" id="usuarioMunicipio"></select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">Resumen profesional</label>
+                                    <textarea class="form-control" id="usuarioResumen" rows="4"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="btnGuardarUsuario" style="background-color: var(--azul);">Guardar usuario</button>
+                    </div>
+                </div>
+            </div>
+        </div>
   </div>
 </template>
 
 <script setup>
+import AdminNavbar from "../../../components/AdminNavbar.vue";
 import { onMounted } from "vue";
 import { API_URL, getToken, clearSession, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
@@ -175,6 +212,9 @@ onMounted(async () => {
   const tablaUsuarios = document.getElementById("tablaUsuarios");
   const filtroUsuario = document.getElementById("filtroUsuario");
   const btnFiltrar = document.getElementById("btnFiltrar");
+  const btnNuevoUsuario = document.getElementById("btnNuevoUsuario");
+  const btnGuardarUsuario = document.getElementById("btnGuardarUsuario");
+  const selectMunicipio = document.getElementById("usuarioMunicipio");
 
   const resumenTotal = document.getElementById("resumenTotal");
   const resumenTelefono = document.getElementById("resumenTelefono");
@@ -197,6 +237,11 @@ onMounted(async () => {
     Authorization: `Bearer ${getToken()}`,
     "Content-Type": "application/json"
   });
+
+  const redirectToLogin = () => {
+    clearSession();
+    navigateTo("../../public/login");
+  };
 
   const renderResumen = (usuarios) => {
     if (resumenTotal) {
@@ -247,7 +292,7 @@ onMounted(async () => {
     if (!usuarios.length) {
       tablaUsuarios.innerHTML = `
         <tr>
-          <td colspan="5" class="text-muted">No hay usuarios registrados.</td>
+          <td colspan="6" class="text-muted">No hay usuarios registrados.</td>
         </tr>
       `;
       return;
@@ -268,7 +313,21 @@ onMounted(async () => {
         <td>${item.telefono || "N/D"}</td>
         <td>${item.nombre_municipio || item.id_municipio_fk || "N/D"}</td>
         <td>
+          <span class="badge rounded-pill ${Number(item.email_verificado) === 1 ? "bg-success" : "bg-warning text-dark"}">
+            ${Number(item.email_verificado) === 1 ? "Verificado" : "Pendiente"}
+          </span>
+        </td>
+        <td>
           <div class="d-flex align-items-center gap-2">
+            ${Number(item.email_verificado) === 1 ? "" : `
+              <button
+                class="btn btn-sm text-white fw-bold px-3 btn-verificar"
+                data-id="${item.id_usuario}"
+                style="background-color:#198754; border-radius: 6px;"
+              >
+                Verificar
+              </button>
+            `}
             <button
               class="btn btn-sm text-white fw-bold px-3 btn-eliminar"
               data-id="${item.id_usuario}"
@@ -290,6 +349,22 @@ onMounted(async () => {
         }
       });
     });
+    document.querySelectorAll(".btn-verificar").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        await verificarUsuarioEmail(btn.dataset.id);
+      });
+    });
+  };
+
+  const cargarMunicipios = async () => {
+    if (!selectMunicipio) return;
+
+    const response = await fetch(`${API_URL}/catalogos/municipios-agrupados`);
+    const municipios = response.ok ? await response.json() : [];
+
+    selectMunicipio.innerHTML = `<option value="">Selecciona un municipio</option>${municipios.map((item) => `
+      <option value="${item.id_municipio}">${item.nombre_departamento} - ${item.nombre_municipio}</option>
+    `).join("")}`;
   };
 
   const cargarUsuarios = async () => {
@@ -306,10 +381,7 @@ onMounted(async () => {
       }
 
       if (response.status === 401 || response.status === 403) {
-        if (typeof clearSession === "function") {
-          clearSession();
-        }
-        navigateTo("../../public/login");
+        redirectToLogin();
         return;
       }
 
@@ -343,10 +415,7 @@ onMounted(async () => {
       }
 
       if (response.status === 401 || response.status === 403) {
-        if (typeof clearSession === "function") {
-          clearSession();
-        }
-        navigateTo("../../public/login");
+        redirectToLogin();
         return;
       }
 
@@ -360,6 +429,38 @@ onMounted(async () => {
     } catch (error) {
       console.error(error);
       showAlert("Error de conexión con el servidor.");
+    }
+  };
+
+  const verificarUsuarioEmail = async (id) => {
+    try {
+      const response = await fetch(`${API_URL}/admin/usuarios/${id}/verificar-email`, {
+        method: "PATCH",
+        headers: authHeaders()
+      });
+
+      let data = {};
+      try {
+        data = await response.json();
+      } catch {
+        data = {};
+      }
+
+      if (response.status === 401 || response.status === 403) {
+        redirectToLogin();
+        return;
+      }
+
+      if (!response.ok) {
+        showAlert(data.mensaje || "No se pudo verificar el usuario.");
+        return;
+      }
+
+      showAlert("Usuario verificado. Ya puede iniciar sesion.", "success");
+      await cargarUsuarios();
+    } catch (error) {
+      console.error(error);
+      showAlert("Error de conexion con el servidor.");
     }
   };
 
@@ -383,7 +484,66 @@ onMounted(async () => {
     renderActividad(filtrados);
   };
 
+  const limpiarFormulario = () => {
+    document.getElementById("formUsuario")?.reset();
+  };
+
+  const guardarUsuario = async () => {
+    const payload = {
+      nombres: document.getElementById("usuarioNombres").value.trim(),
+      apellidos: document.getElementById("usuarioApellidos").value.trim(),
+      correo_electronico: document.getElementById("usuarioCorreo").value.trim(),
+      contrasena: document.getElementById("usuarioContrasena").value.trim(),
+      telefono: document.getElementById("usuarioTelefono").value.trim(),
+      id_municipio_fk: document.getElementById("usuarioMunicipio").value,
+      resumen_profesional: document.getElementById("usuarioResumen").value.trim()
+    };
+
+    if (!payload.nombres || !payload.apellidos || !payload.correo_electronico || !payload.contrasena) {
+      showAlert("Completa nombres, apellidos, correo y contraseña.", "warning");
+      return;
+    }
+
+    if (payload.contrasena.length < 6) {
+      showAlert("La contraseña debe tener al menos 6 caracteres.", "warning");
+      return;
+    }
+
+    if (payload.correo_electronico.toLowerCase() === "admin@workly.com") {
+      showAlert("Ese correo esta reservado para el administrador del sistema.", "warning");
+      return;
+    }
+
+    const response = await fetch(`${API_URL}/admin/usuarios`, {
+      method: "POST",
+      headers: authHeaders(),
+      body: JSON.stringify(payload)
+    });
+
+    let data = {};
+    try {
+      data = await response.json();
+    } catch {}
+
+    if (response.status === 401 || response.status === 403) {
+      redirectToLogin();
+      return;
+    }
+
+    if (!response.ok) {
+      showAlert(data.mensaje || "No se pudo crear el usuario.");
+      return;
+    }
+
+    showAlert("Usuario creado correctamente.", "success");
+    window.bootstrap?.Modal.getInstance(document.getElementById("modalUsuario"))?.hide();
+    limpiarFormulario();
+    await cargarUsuarios();
+  };
+
   btnFiltrar?.addEventListener("click", aplicarFiltro);
+  btnNuevoUsuario?.addEventListener("click", limpiarFormulario);
+  btnGuardarUsuario?.addEventListener("click", guardarUsuario);
 
   filtroUsuario?.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
@@ -391,6 +551,7 @@ onMounted(async () => {
     }
   });
 
+  await cargarMunicipios();
   cargarUsuarios();
 });
 </script>

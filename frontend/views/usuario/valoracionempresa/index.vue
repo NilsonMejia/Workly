@@ -1,36 +1,6 @@
 <template>
   <div class="d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-lg navbar-custom py-3">
-            <div class="container-fluid px-4 px-lg-5">
-                <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal">
-                    <i class="bi bi-briefcase-fill brand-icon"></i>
-                    <div class="lh-sm ms-2">
-                        <span class="brand-text">Workly</span>
-                        <span class="brand-sub">Tu busqueda de trabajo profesional</span>
-                    </div>
-                </a>
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                    <div class="collapse navbar-collapse" id="navbarContent">
-                    <div class="navbar-nav mx-auto gap-2 mt-3 mt-lg-0">
-                        <a href="../buscarempleo" class="nav-link-custom"><i class="bi bi-search me-1"></i> Buscar empleo</a>
-                        <a href="../recursos" class="nav-link-custom"><i class="bi bi-journal-bookmark-fill me-1"></i> Recursos</a>
-                        <a href="../valoracionempresa" class="nav-link-custom active"><i class="bi bi-star-fill me-1"></i> Valoraciones</a>
-                        <a href="../miperfil" class="nav-link-custom"><i class="bi bi-person-badge me-1"></i> Mi Perfil</a>
-                    </div>
-                    <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-                        <a href="../notificaciones" class="text-white position-relative text-decoration-none">
-                            <i class="bi bi-bell-fill fs-3"></i>
-                            <span class="notification-badge">0</span>
-                        </a>
-                        <a href="../miperfil" class="text-white text-decoration-none">
-                            <i class="bi bi-person-circle fs-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </nav>
+    <UserNavbar active="valoracionempresa" />
 
         <main class="flex-grow-1 py-4">
             <div class="container px-4 px-lg-5">
@@ -100,6 +70,7 @@
 </template>
 
 <script setup>
+import UserNavbar from "../../../components/UserNavbar.vue";
 import { onMounted } from "vue";
 import { API_URL, getToken } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
@@ -319,7 +290,7 @@ onMounted(async () => {
     return Number(empresas[0]?.id_empresa);
   };
 
-  const cargarEmpresas = async () => {
+  const cargarEmpresas = async (preferredId = null) => {
     const response = await fetch(`${API_URL}/valoraciones/empresas`, {
       headers: authHeaders()
     });
@@ -332,7 +303,7 @@ onMounted(async () => {
 
     empresas = data;
 
-    const initialId = getPreferredEmpresaId();
+    const initialId = Number(preferredId) || getPreferredEmpresaId();
     if (initialId) {
       await seleccionarEmpresa(initialId, false);
     }
@@ -381,9 +352,10 @@ onMounted(async () => {
         throw new Error("Escribe un comentario antes de enviar.");
       }
 
+      const selectedEmpresaId = Number(empresaSeleccionada.id_empresa);
       const isEditing = Boolean(miValoracion?.id_valoracion);
       const endpoint = isEditing
-        ? `${API_URL}/valoraciones/empresa/${empresaSeleccionada.id_empresa}`
+        ? `${API_URL}/valoraciones/empresa/${selectedEmpresaId}`
         : `${API_URL}/valoraciones`;
 
       const response = await fetch(endpoint, {
@@ -393,7 +365,7 @@ onMounted(async () => {
           ...authHeaders()
         },
         body: JSON.stringify({
-          id_empresa_fk: Number(empresaSeleccionada.id_empresa),
+          id_empresa_fk: selectedEmpresaId,
           puntuacion: Number(inputPuntuacion.value),
           comentario: inputComentario.value.trim()
         })
@@ -406,8 +378,7 @@ onMounted(async () => {
       }
 
       showAlert(data.mensaje, "success");
-      await cargarEmpresas();
-      await seleccionarEmpresa(Number(empresaSeleccionada.id_empresa));
+      await cargarEmpresas(selectedEmpresaId);
     } catch (error) {
       console.error(error);
       showAlert(error.message || "No se pudo enviar la valoración");

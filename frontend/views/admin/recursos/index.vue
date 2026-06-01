@@ -1,19 +1,6 @@
 <template>
   <div class="min-vh-100">
-    <nav class="navbar navbar-expand-lg py-3 admin-nav">
-      <div class="container-fluid px-4">
-        <a class="navbar-brand fw-bold text-white fs-3" href="../principal"><i class="bi bi-briefcase-fill me-2"></i>Workly</a>
-        <div class="navbar-nav mx-auto gap-2">
-          <a class="nav-link nav-link-custom" href="../principal">Dashboard</a>
-          <a class="nav-link nav-link-custom active" href="../recursos">Recursos</a>
-          <a class="nav-link nav-link-custom" href="../foro">Foro</a>
-          <a class="nav-link nav-link-custom" href="../moderacion">Moderacion</a>
-        </div>
-        <button type="button" class="btn btn-outline-light rounded-pill" @click="logout">
-          <i class="bi bi-box-arrow-right me-1"></i>Salir
-        </button>
-      </div>
-    </nav>
+    <AdminNavbar active="recursos" />
 
     <main class="container px-4 py-4">
       <div class="row g-4">
@@ -78,8 +65,9 @@
 </template>
 
 <script setup>
+import AdminNavbar from "../../../components/AdminNavbar.vue";
 import { onMounted } from "vue";
-import { requireAuth, logout } from "../../../assets/js/shared/auth.js";
+import { requireAuth } from "../../../assets/js/shared/auth.js";
 import { deleteAdminResource, getAdminResources, saveAdminResource } from "../../../assets/js/shared/adminResources.js";
 
 onMounted(() => {

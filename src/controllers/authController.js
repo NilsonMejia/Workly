@@ -147,7 +147,9 @@ export const iniciarSesion = async (req, res) => {
       return res.status(401).json({ mensaje: "Contrasena incorrecta" });
     }
 
-    if (!Boolean(persona.email_verificado)) {
+    const emailVerificado = Boolean(persona.email_verificado);
+
+    if (!emailVerificado) {
       return res.status(403).json({
         mensaje: "Debes verificar tu email antes de iniciar sesion",
         code: "EMAIL_NO_VERIFICADO",
@@ -161,7 +163,7 @@ export const iniciarSesion = async (req, res) => {
     const token = generarToken({
       id: idValue,
       tipo: tipoIdentificado,
-      email_verificado: true
+      email_verificado: emailVerificado
     });
 
     const { contrasena: _, ...datosSinPassword } = persona;
@@ -172,7 +174,7 @@ export const iniciarSesion = async (req, res) => {
       tipo: tipoIdentificado,
       data: {
         ...datosSinPassword,
-        email_verificado: true
+        email_verificado: emailVerificado
       }
     });
   } catch (error) {
@@ -184,6 +186,12 @@ export const iniciarSesion = async (req, res) => {
 export const registrarUsuario = async (req, res) => {
   try {
     const correo_electronico = normalizarCorreo(req.body.correo_electronico);
+
+    if (correo_electronico === ADMIN_EMAIL) {
+      return res.status(409).json({
+        mensaje: "Ese correo esta reservado para el administrador del sistema"
+      });
+    }
 
     if (await correoYaExisteEnSistema(correo_electronico)) {
       return res.status(409).json({
@@ -237,6 +245,12 @@ export const registrarUsuario = async (req, res) => {
 export const registrarEmpresa = async (req, res) => {
   try {
     const correo_electronico = normalizarCorreo(req.body.correo_electronico);
+
+    if (correo_electronico === ADMIN_EMAIL) {
+      return res.status(409).json({
+        mensaje: "Ese correo esta reservado para el administrador del sistema"
+      });
+    }
 
     if (await correoYaExisteEnSistema(correo_electronico)) {
       return res.status(409).json({

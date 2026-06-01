@@ -4,11 +4,15 @@
  */
 
 import { pool } from "./config/db.js";
+import { ensureEmailVerificationSchema } from "./models/usuarioModel.js";
 
 const initializeDatabase = async () => {
   console.log("🔄 Initializing database schemas...");
 
   try {
+    await ensureEmailVerificationSchema();
+    console.log("✅ Email verification columns ready");
+
     // Email Verification Schema
     await pool.query(`
       CREATE TABLE IF NOT EXISTS Email_Verification (

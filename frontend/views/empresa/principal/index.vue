@@ -1,50 +1,6 @@
 <template>
   <div class="d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-lg py-3 navbar-custom">
-        <div class="container-fluid px-4 px-lg-5">
-            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal">
-                <i class="bi bi-briefcase-fill brand-icon"></i>
-                <div class="lh-sm ms-2">
-                    <span class="brand-text">Workly</span>
-                    <span class="brand-sub">Panel de Empresa</span>
-                </div>
-            </a>
-
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarContent">
-                <div class="navbar-nav mx-auto mt-3 mt-lg-0 gap-1">
-                    <a href="../publicarvacante" class="nav-link-custom text-decoration-none">
-                        <i class="bi bi-plus-circle me-1"></i> Publicar
-                    </a>
-                    <a href="../misvacantes" class="nav-link-custom text-decoration-none">
-                        <i class="bi bi-briefcase me-1"></i> Mis vacantes
-                    </a>
-                    <a href="../postulaciones" class="nav-link-custom text-decoration-none">
-                        <i class="bi bi-people me-1"></i> Postulaciones
-                    </a>
-                    <a href="../foro" class="nav-link-custom text-decoration-none">
-                        <i class="bi bi-chat-dots me-1"></i> Foro
-                    </a>
-                    <a href="../resenaempresa" class="nav-link-custom text-decoration-none">
-                        <i class="bi bi-star me-1"></i> Reseñas
-                    </a>
-                </div>
-
-                <div class="d-flex align-items-center justify-content-center gap-4 mt-3 mt-lg-0">
-                    <a href="../notificaciones" class="text-white position-relative d-inline-block">
-                        <i class="bi bi-bell-fill fs-3"></i>
-                        <span class="notification-badge">2</span>
-                    </a>
-                    <a href="../perfil" class="text-white d-inline-block">
-                        <i class="bi bi-person-circle fs-2"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <CompanyNavbar active="principal" />
 
     <main class="flex-grow-1 py-4">
         <div class="container-fluid px-4 px-lg-5">
@@ -153,7 +109,7 @@
                     </div>
 
                     <div class="d-flex align-items-center justify-content-between mb-4 mt-2">
-                        <h5 class="fw-bold mb-0" style="color: #121826;"><i class="bi bi-star-fill text-warning me-2"></i>Reseñas recientes de candidatos</h5>
+                        <h5 class="fw-bold mb-0" style="color: #121826;"><i class="bi bi-star-fill text-warning me-2"></i>Reseñas recientes sobre tu empresa</h5>
                         <a href="../resenaempresa" class="text-decoration-none fw-semibold" style="color: var(--primary-deep);">
                             Ver todas <i class="bi bi-arrow-right"></i>
                         </a>
@@ -370,6 +326,7 @@
 </template>
 
 <script setup>
+import CompanyNavbar from "../../../components/CompanyNavbar.vue";
 import { ref, onMounted } from "vue";
 import { API_URL, getToken, getUsuario, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
@@ -811,16 +768,20 @@ onMounted(async () => {
     };
   };
 
-  // NUEVO: CONSUMO DE API PARA LAS RESEÑAS
+  // CONSUMO DE API PARA LAS RESEÑAS RECIBIDAS POR LA EMPRESA
   const cargarResenas = async () => {
     try {
-        const response = await fetch(`${API_URL}/valoraciones/empresa`, {
+        const response = await fetch(`${API_URL}/empresa/resenas-postulantes`, {
             headers: { Authorization: `Bearer ${getToken()}` }
         });
         if (response.ok) {
             const data = await response.json();
-            // Aseguramos que sea un arreglo sin importar cómo lo envíe el backend
-            resenas.value = Array.isArray(data) ? data : (data.valoraciones || []);
+            resenas.value = Array.isArray(data.valoraciones_empresa) ? data.valoraciones_empresa : [];
+            dashboardData.metricas = {
+              ...(dashboardData.metricas || {}),
+              promedio_valoracion: data.resumen_empresa?.promedio ?? dashboardData.metricas?.promedio_valoracion,
+              total_valoraciones: data.resumen_empresa?.total_valoraciones ?? dashboardData.metricas?.total_valoraciones
+            };
         }
     } catch (error) {
         console.error("Error al cargar las reseñas dinámicas:", error);
@@ -831,7 +792,7 @@ onMounted(async () => {
     bindEvents();
     renderForumFeed();
     await fetchDashboard();
-    await cargarResenas(); // Llamamos a las reseñas reales
+    await cargarResenas();
     updateMetrics();
     renderSidebarVacantes();
     renderSidebarPostulaciones();

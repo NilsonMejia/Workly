@@ -1,1 +1,0 @@
-import{j as a,i,n as e,c as o,s as l}from"./index-DiwRWjIu.js";const t=l("public/login"),u=(s=[])=>{const r=a(),n=i();return!r||!n?(e(t),!1):s.length>0&&!s.includes(n)?(o(),e(t),!1):!0},g=()=>{o(),e(t)};export{g as l,u as r};

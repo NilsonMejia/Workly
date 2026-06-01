@@ -6,31 +6,7 @@
             </div>
         </div>
 
-        <nav class="navbar navbar-expand-lg py-3 sticky-top">
-            <div class="container-fluid px-4">
-                <a class="navbar-brand fw-bold text-white fs-3 d-flex align-items-center" href="../principal">
-                    <i class="bi bi-briefcase-fill me-2"></i> Workly
-                </a>
-
-                <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navContent">
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-1">
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../principal">Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionusuarios">Usuarios</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../gestionempresas">Empresas</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href=".">Vacantes</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" href="../estadisticas">Estadísticas</a></li>
-                    </ul>
-                    <div class="profile-wrapper ms-lg-3">
-                        <i class="bi bi-person-circle fs-2 text-white" style="cursor: pointer;" id="userProfile"></i>
-                        <span class="notif-badge"></span>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <AdminNavbar active="gestionvacantes" />
 
         <main class="container-fluid px-4 py-4">
             <div id="alertContainer" class="mb-3"></div>
@@ -251,6 +227,7 @@
 </template>
 
 <script setup>
+import AdminNavbar from "../../../components/AdminNavbar.vue";
 import { onMounted } from "vue";
 import { API_URL, getToken, clearSession, navigateTo } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";

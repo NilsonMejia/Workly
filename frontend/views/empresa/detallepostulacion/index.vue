@@ -1,36 +1,6 @@
 <template>
   <div class="d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-lg navbar-custom py-3">
-        <div class="container-fluid px-4 px-lg-5">
-          <a class="navbar-brand text-white fw-bold fs-3 d-flex align-items-center gap-2" href="../principal">
-            <i class="bi bi-briefcase-fill"></i>
-            <span>Workly</span>
-          </a>
-
-          <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navbarContent">
-            <div class="navbar-nav mx-auto gap-2 mt-3 mt-lg-0">
-              <a href="../principal" class="nav-link-custom">Dashboard</a>
-              <a href="../postulaciones" class="nav-link-custom active">Postulaciones</a>
-              <a href="../misvacantes" class="nav-link-custom">Vacantes</a>
-              <a href="../foro" class="nav-link-custom">Foro</a>
-            </div>
-            <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-              <a href="../notificaciones" class="text-white position-relative text-decoration-none">
-                <i class="bi bi-bell-fill fs-4"></i>
-                <span class="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
-              </a>
-              <a href="../perfil" class="text-white text-decoration-none">
-                <i class="bi bi-building fs-4"></i>
-              </a>
-              <button class="btn btn-light btn-sm rounded-pill px-3 fw-semibold" id="btnLogout">Cerrar sesion</button>
-            </div>
-          </div>
-        </div>
-      </nav>
+    <CompanyNavbar active="postulaciones" />
 
       <main class="flex-grow-1 py-4 py-lg-5">
         <div class="container px-4 px-lg-5">
@@ -173,6 +143,7 @@
 </template>
 
 <script setup>
+import CompanyNavbar from "../../../components/CompanyNavbar.vue";
 import { onMounted } from "vue";
 import { API_URL, getToken } from "../../../assets/js/shared/config.js";
 import { requireAuth, logout } from "../../../assets/js/shared/auth.js";

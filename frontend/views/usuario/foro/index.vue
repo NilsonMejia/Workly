@@ -1,34 +1,6 @@
 <template>
   <div class="d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-lg py-3 navbar-custom">
-      <div class="container-fluid px-4 px-lg-5">
-        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal">
-          <i class="bi bi-briefcase-fill brand-icon"></i>
-          <div class="lh-sm ms-2">
-            <span class="brand-text">Workly</span>
-            <span class="brand-sub">Comunidad profesional</span>
-          </div>
-        </a>
-        <div class="collapse navbar-collapse show">
-          <div class="navbar-nav mx-auto gap-2 mt-3 mt-lg-0">
-            <a href="../buscarempleo" class="nav-link-custom">Buscar empleo</a>
-            <a href="../recursos" class="nav-link-custom">Recursos</a>
-            <a href="../foro" class="nav-link-custom active">Foro</a>
-            <a href="../valoracionempresa" class="nav-link-custom">Valoraciones</a>
-            <a href="../miperfil" class="nav-link-custom">Mi Perfil</a>
-          </div>
-          <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-            <a href="../notificaciones" class="text-white position-relative text-decoration-none">
-              <i class="bi bi-bell-fill fs-3"></i>
-              <span class="notification-badge">0</span>
-            </a>
-            <a href="../miperfil" class="text-white text-decoration-none">
-              <i class="bi bi-person-circle fs-2"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <UserNavbar active="foro" />
 
     <main class="flex-grow-1 py-4">
       <div class="container px-4 px-lg-5">
@@ -76,6 +48,7 @@
 </template>
 
 <script setup>
+import UserNavbar from "../../../components/UserNavbar.vue";
 import { onMounted } from "vue";
 import { getUsuario } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";

@@ -1,13 +1,18 @@
 import bcrypt from "bcryptjs";
 import { crearNotificacionParaTodosLosUsuarios } from "../models/notificacionesModel.js";
+import { correoYaExisteEnSistema } from "../models/usuarioModel.js";
 import {
   getAdminUsuarios,
+  createAdminUsuario,
   getAdminEmpresas,
   createAdminEmpresa,
   getAdminVacantes,
   createAdminVacante,
   updateAdminVacante,
+  updateAdminUsuarioEstado,
+  updateAdminEmpresaEstado,
   updateAdminVacanteEstado,
+  verifyAdminUsuarioEmail,
   deleteAdminUsuario,
   deleteAdminEmpresa,
   deleteAdminVacante
@@ -21,6 +26,8 @@ const parseNullableNumber = (value) => {
   const parsed = Number(value);
   return Number.isNaN(parsed) ? null : parsed;
 };
+
+const ADMIN_EMAIL = "admin@workly.com";
 
 export const obtenerUsuariosAdmin = async (req, res) => {
   try {
@@ -41,6 +48,61 @@ export const obtenerEmpresasAdmin = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       mensaje: "Error al obtener empresas para admin",
+      error: error.message
+    });
+  }
+};
+
+export const crearUsuarioAdmin = async (req, res) => {
+  try {
+    const {
+      nombres,
+      apellidos,
+      correo_electronico,
+      contrasena,
+      telefono,
+      id_municipio_fk,
+      resumen_profesional
+    } = req.body;
+
+    const correoNormalizado = String(correo_electronico || "").trim().toLowerCase();
+
+    if (!nombres || !apellidos || !correoNormalizado || !contrasena) {
+      return res.status(400).json({
+        mensaje: "Nombres, apellidos, correo y contraseña son obligatorios"
+      });
+    }
+
+    if (correoNormalizado === ADMIN_EMAIL) {
+      return res.status(409).json({
+        mensaje: "Ese correo esta reservado para el administrador del sistema"
+      });
+    }
+
+    if (await correoYaExisteEnSistema(correoNormalizado)) {
+      return res.status(409).json({
+        mensaje: "Ya existe una cuenta registrada con ese correo electronico"
+      });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const passwordEncriptada = await bcrypt.hash(String(contrasena).trim(), salt);
+
+    const usuario = await createAdminUsuario({
+      nombres: String(nombres).trim(),
+      apellidos: String(apellidos).trim(),
+      correo_electronico: correoNormalizado,
+      contrasena: passwordEncriptada,
+      telefono: telefono?.trim() || null,
+      id_municipio_fk: parseNullableNumber(id_municipio_fk),
+      resumen_profesional: resumen_profesional?.trim() || ""
+    });
+
+    res.status(201).json(usuario);
+  } catch (error) {
+    const duplicateEmail = error?.code === "ER_DUP_ENTRY";
+    res.status(duplicateEmail ? 409 : 500).json({
+      mensaje: duplicateEmail ? "Ya existe un usuario con ese correo." : "Error al crear usuario desde admin",
       error: error.message
     });
   }
@@ -227,6 +289,82 @@ export const cambiarEstadoVacanteAdmin = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       mensaje: "Error al cambiar el estado de la vacante",
+      error: error.message
+    });
+  }
+};
+
+export const cambiarEstadoUsuarioAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { estado } = req.body;
+
+    if (!estado) {
+      return res.status(400).json({
+        mensaje: "El estado es obligatorio"
+      });
+    }
+
+    const usuario = await updateAdminUsuarioEstado(id, estado);
+
+    if (!usuario) {
+      return res.status(404).json({
+        mensaje: "Usuario no encontrado"
+      });
+    }
+
+    res.json(usuario);
+  } catch (error) {
+    res.status(500).json({
+      mensaje: "Error al cambiar el estado del usuario",
+      error: error.message
+    });
+  }
+};
+
+export const verificarEmailUsuarioAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const usuario = await verifyAdminUsuarioEmail(id);
+
+    if (!usuario) {
+      return res.status(404).json({
+        mensaje: "Usuario no encontrado"
+      });
+    }
+
+    res.json(usuario);
+  } catch (error) {
+    res.status(500).json({
+      mensaje: "Error al verificar el email del usuario",
+      error: error.message
+    });
+  }
+};
+
+export const cambiarEstadoEmpresaAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { estado } = req.body;
+
+    if (!estado) {
+      return res.status(400).json({
+        mensaje: "El estado es obligatorio"
+      });
+    }
+
+    const empresa = await updateAdminEmpresaEstado(id, estado);
+
+    if (!empresa) {
+      return res.status(404).json({
+        mensaje: "Empresa no encontrada"
+      });
+    }
+
+    res.json(empresa);
+  } catch (error) {
+    res.status(500).json({
+      mensaje: "Error al cambiar el estado de la empresa",
       error: error.message
     });
   }

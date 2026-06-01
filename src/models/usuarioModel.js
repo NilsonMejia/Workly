@@ -54,7 +54,7 @@ export const obtenerCuentaPorCorreo = async (correo_electronico) => {
       correo_electronico,
       COALESCE(email_verificado, 0) AS email_verificado
     FROM Usuarios
-    WHERE correo_electronico = ?
+    WHERE LOWER(TRIM(correo_electronico)) = LOWER(TRIM(?))
     LIMIT 1
     `,
     [correo_electronico]
@@ -73,7 +73,7 @@ export const obtenerCuentaPorCorreo = async (correo_electronico) => {
       correo_electronico,
       COALESCE(email_verificado, 0) AS email_verificado
     FROM Empresas
-    WHERE correo_electronico = ?
+    WHERE LOWER(TRIM(correo_electronico)) = LOWER(TRIM(?))
     LIMIT 1
     `,
     [correo_electronico]
