@@ -1,6 +1,6 @@
 import { getToken, getTipo, clearSession, resolveViewPath } from "./config.js";
 
-const LOGIN_PATH = resolveViewPath("public/login/index.html");
+const LOGIN_PATH = resolveViewPath("public/login");
 
 export const requireAuth = (tiposPermitidos = []) => {
   const token = getToken();

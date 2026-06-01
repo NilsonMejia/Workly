@@ -3,7 +3,7 @@
     <!-- ========== NAVBAR MEJORADO ========== -->
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
         <div class="container-fluid px-4 px-lg-5">
-            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.vue">
+            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal">
                 <i class="bi bi-briefcase-fill brand-icon"></i>
                 <div class="lh-sm ms-2">
                     <span class="brand-text">Workly</span>
@@ -17,29 +17,29 @@
 
             <div class="collapse navbar-collapse" id="navbarContent">
                 <div class="navbar-nav mx-auto mt-3 mt-lg-0 gap-1">
-                    <a href="../publicarvacante/index.vue" class="nav-link-custom text-decoration-none">
+                    <a href="../publicarvacante" class="nav-link-custom text-decoration-none">
                         <i class="bi bi-plus-circle me-1"></i> Publicar
                     </a>
-                    <a href="../misvacantes/index.vue" class="nav-link-custom text-decoration-none">
+                    <a href="../misvacantes" class="nav-link-custom text-decoration-none">
                         <i class="bi bi-briefcase me-1"></i> Mis vacantes
                     </a>
-                    <a href="../postulaciones/index.vue" class="nav-link-custom text-decoration-none">
+                    <a href="../postulaciones" class="nav-link-custom text-decoration-none">
                         <i class="bi bi-people me-1"></i> Postulaciones
                     </a>
-                    <a href="../foro/index.vue" class="nav-link-custom text-decoration-none">
+                    <a href="../foro" class="nav-link-custom text-decoration-none">
                         <i class="bi bi-chat-dots me-1"></i> Foro
                     </a>
-                    <a href="../resenaempresa/index.vue" class="nav-link-custom text-decoration-none">
+                    <a href="../resenaempresa" class="nav-link-custom text-decoration-none">
                         <i class="bi bi-star me-1"></i> Reseñas
                     </a>
                 </div>
 
                 <div class="d-flex align-items-center justify-content-center gap-4 mt-3 mt-lg-0">
-                    <a href="../notificaciones/index.vue" class="text-white position-relative d-inline-block">
+                    <a href="../notificaciones" class="text-white position-relative d-inline-block">
                         <i class="bi bi-bell-fill fs-3"></i>
                         <span class="notification-badge">2</span>
                     </a>
-                    <a href="../perfil/index.vue" class="text-white d-inline-block">
+                    <a href="../perfil" class="text-white d-inline-block">
                         <i class="bi bi-person-circle fs-2"></i>
                     </a>
                 </div>
@@ -316,7 +316,7 @@
                             <div class="activity-fill" style="width: 75%;"></div>
                         </div>
                         <p class="text-secondary small">75% de ocupación · 3 vacantes críticas</p>
-                        <button class="btn btn-outline-primary-deep w-100 mt-3" @click="window.location.href='../misvacantes/index.vue'">
+                        <button class="btn btn-outline-primary-deep w-100 mt-3" @click="window.location.href='../misvacantes'">
                             Gestionar vacantes <i class="bi bi-arrow-right ms-1"></i>
                         </button>
                     </div>
@@ -353,7 +353,7 @@
                                 </div>
                             </li>
                         </ul>
-                        <button class="btn btn-outline-primary-deep w-100 mt-2" @click="window.location.href='../postulaciones/index.vue'">
+                        <button class="btn btn-outline-primary-deep w-100 mt-2" @click="window.location.href='../postulaciones'">
                             Ver todos (48) <i class="bi bi-arrow-right ms-1"></i>
                         </button>
                     </div>
@@ -373,7 +373,7 @@
                                 <div><span class="fw-medium">Plantilla de entrevista técnica</span><br><small class="text-secondary">Descargable</small></div>
                             </div>
                         </div>
-                        <button class="btn btn-outline-primary-deep w-100 mt-4" @click="window.location.href='../recursos/index.vue'">
+                        <button class="btn btn-outline-primary-deep w-100 mt-4" @click="window.location.href='../recursos'">
                             Explorar biblioteca <i class="bi bi-box-arrow-up-right ms-1"></i>
                         </button>
                     </div>
@@ -384,13 +384,13 @@
                             <i class="bi bi-lightning-charge me-2" style="color: var(--primary-deep);"></i>Accesos rápidos
                         </h6>
                         <div class="d-grid gap-2">
-                            <a href="../foro/index.vue" class="btn btn-light text-start rounded-4 py-3 d-flex align-items-center">
+                            <a href="../foro" class="btn btn-light text-start rounded-4 py-3 d-flex align-items-center">
                                 <i class="bi bi-chat-dots-fill me-3 fs-5" style="color: var(--primary-deep);"></i> Foro de empresas
                             </a>
-                            <a href="../resenaempresa/index.vue" class="btn btn-light text-start rounded-4 py-3 d-flex align-items-center">
+                            <a href="../resenaempresa" class="btn btn-light text-start rounded-4 py-3 d-flex align-items-center">
                                 <i class="bi bi-star-fill me-3 fs-5" style="color: #ffb347;"></i> Reseñas recibidas
                             </a>
-                            <a href="../perfil/index.vue" class="btn btn-light text-start rounded-4 py-3 d-flex align-items-center">
+                            <a href="../perfil" class="btn btn-light text-start rounded-4 py-3 d-flex align-items-center">
                                 <i class="bi bi-building me-3 fs-5" style="color: var(--primary-deep);"></i> Editar perfil empresa
                             </a>
                         </div>
@@ -446,15 +446,14 @@ import { onMounted } from "vue";
 import { API_URL, getToken, getUsuario } from "../../../assets/js/shared/config.js";
 import { requireAuth } from "../../../assets/js/shared/auth.js";
 import {
+  addCompanyForumComment,
+  createCompanyForumPost,
+  getCompanyForumPosts,
+  incrementCompanyForumMetric,
+  toggleCompanyForumSave
+} from "../../../assets/js/shared/empresaForum.js";
 
 onMounted(async () => {
-  addCompanyForumComment,
-    createCompanyForumPost,
-    getCompanyForumPosts,
-    incrementCompanyForumMetric,
-    toggleCompanyForumSave
-  } from "../../../assets/js/shared/empresaForum.js";
-
   requireAuth(["empresa"]);
 
   const alertContainer = document.getElementById("alertContainer");
@@ -493,7 +492,7 @@ onMounted(async () => {
       `
         <div class="d-flex align-items-center justify-content-between mb-3 mt-4">
           <h5 class="fw-bold mb-0" style="color: #121826;">Publicaciones recientes del foro</h5>
-          <a href="../foro/index.vue" class="text-decoration-none fw-semibold" style="color: var(--primary-deep);">
+          <a href="../foro" class="text-decoration-none fw-semibold" style="color: var(--primary-deep);">
             Ver foro completo <i class="bi bi-arrow-right"></i>
           </a>
         </div>
@@ -582,7 +581,7 @@ onMounted(async () => {
                   <span class="text-secondary small"><i class="bi bi-clock me-1"></i>${formatDateTime(post.createdAt)}</span>
                 </div>
               </div>
-              <a href="../foro/index.vue" class="btn btn-sm btn-outline-primary-deep rounded-pill">Abrir foro</a>
+              <a href="../foro" class="btn btn-sm btn-outline-primary-deep rounded-pill">Abrir foro</a>
             </div>
           </div>
         </div>
@@ -675,7 +674,7 @@ onMounted(async () => {
     if (detailNode) detailNode.textContent = total > 0 ? `${total} vacantes publicadas en este momento.` : "Todavia no has publicado vacantes.";
     if (progressNode) progressNode.style.width = `${Math.min(100, total * 10)}%`;
     actionButton?.addEventListener("click", () => {
-      window.location.href = "../misvacantes/index.vue";
+      window.location.href = "../misvacantes";
     });
   };
 
@@ -690,7 +689,7 @@ onMounted(async () => {
     if (button) {
       button.innerHTML = `Ver todos (${dashboardData.metricas?.total_postulaciones ?? 0}) <i class="bi bi-arrow-right ms-1"></i>`;
       button.addEventListener("click", () => {
-        window.location.href = "../postulaciones/index.vue";
+        window.location.href = "../postulaciones";
       });
     }
 
@@ -809,7 +808,7 @@ onMounted(async () => {
     });
 
     btnIrPublicarVacante?.addEventListener("click", () => {
-      window.location.href = "../publicarvacante/index.vue";
+      window.location.href = "../publicarvacante";
     });
 
     btnGuardarPub?.addEventListener("click", () => {

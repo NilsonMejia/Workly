@@ -4,14 +4,14 @@ const getNotificationsPage = () => {
   const tipo = getTipo();
 
   if (tipo === "empresa") {
-    return resolveViewPath("empresa/notificaciones/index.html");
+    return resolveViewPath("empresa/notificaciones");
   }
 
   if (tipo === "admin") {
-    return resolveViewPath("admin/principal/index.html");
+    return resolveViewPath("admin/principal");
   }
 
-  return resolveViewPath("usuario/notificaciones/index.html");
+  return resolveViewPath("usuario/notificaciones");
 };
 
 const updateBadge = (badge, count) => {
@@ -54,7 +54,7 @@ const initNotificationsBell = async () => {
   }
 
   const candidates = [
-    ...document.querySelectorAll('a[href*="/notificaciones/"], a[href$="notificaciones/index.html"]')
+    ...document.querySelectorAll('a[href*="/notificaciones"], a[href$="notificaciones"]')
   ];
 
   if (!candidates.length) {

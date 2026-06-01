@@ -2,7 +2,7 @@
   <div class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
         <div class="container-fluid px-4 px-lg-5">
-            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../paginainicial/index.vue">
+            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../paginainicial">
                 <i class="bi bi-briefcase-fill brand-icon"></i>
                 <div class="lh-sm ms-2">
                     <span class="brand-text">Workly</span>
@@ -147,26 +147,26 @@ onMounted(() => {
     const tipo = getTipo();
 
     if (!token || !tipo) {
-      window.location.href = "../login/index.vue";
+      window.location.href = "../login";
       return;
     }
 
     if (tipo === "usuario") {
-      window.location.href = "../../usuario/principal/index.vue";
+      window.location.href = "../../usuario/principal";
       return;
     }
 
     if (tipo === "empresa") {
-      window.location.href = "../../empresa/principal/index.vue";
+      window.location.href = "../../empresa/principal";
       return;
     }
 
     if (tipo === "admin") {
-      window.location.href = "../../admin/principal/index.vue";
+      window.location.href = "../../admin/principal";
       return;
     }
 
-    window.location.href = "../login/index.vue";
+    window.location.href = "../login";
   };
 
   btnContinuar.addEventListener("click", redirigir);

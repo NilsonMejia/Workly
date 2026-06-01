@@ -34,6 +34,7 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const frontendDir = path.join(__dirname, "../frontend");
+const frontendDistDir = path.join(frontendDir, "dist");
 const frontendViewsDir = path.join(frontendDir, "views");
 const frontendAssetsDir = path.join(frontendDir, "assets");
 
@@ -41,6 +42,7 @@ app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
+app.use(express.static(frontendDistDir));
 app.use(express.static(frontendDir));
 app.use("/views", express.static(frontendViewsDir));
 app.use("/assets", express.static(frontendAssetsDir));
@@ -87,6 +89,18 @@ app.use("/valoraciones", valoracionesRoutes);
 app.use("/api/valoraciones", valoracionesRoutes);
 app.use("/guardados", guardadosRoutes);
 app.use("/empresa/resenas-postulantes", resenasPostulantesRoutes);
+
+app.use((req, res, next) => {
+  if (req.method !== "GET" || !req.accepts("html")) {
+    return next();
+  }
+
+  res.sendFile(path.join(frontendDistDir, "index.html"), (error) => {
+    if (error) {
+      res.status(404).send("Frontend Vue no compilado. Ejecuta npm run frontend:build o usa npm run frontend:dev.");
+    }
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);

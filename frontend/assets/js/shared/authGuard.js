@@ -40,7 +40,7 @@ const expulsarUsuario = () => {
     localStorage.removeItem("usuario");
     
     
-    window.location.href = resolveViewPath("public/login/index.html");
+    window.location.href = resolveViewPath("public/login");
 };
 
 verificarAcceso();

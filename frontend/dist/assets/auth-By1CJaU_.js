@@ -1,0 +1,1 @@
+import{a as s,g as a,c as t,r as i}from"./config-B6wYyi2L.js";const o=i("public/login"),c=(e=[])=>{const r=s(),n=a();return!r||!n?(window.location.href=o,!1):e.length>0&&!e.includes(n)?(t(),window.location.href=o,!1):!0},u=()=>{t(),window.location.href=o};export{u as l,c as r};

@@ -2,7 +2,7 @@
   <div class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
         <div class="container-fluid px-4 px-lg-5">
-            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../paginainicial/index.vue">
+            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../paginainicial">
                 <i class="bi bi-briefcase-fill text-white fs-2"></i>
                 <div class="lh-sm ms-2">
                     <span class="brand-text">Workly</span>
@@ -55,7 +55,7 @@
                         </div>
 
                         <div class="text-center mt-4">
-                            <a href="../login/index.vue" class="text-decoration-none fw-semibold">Volver a iniciar sesion</a>
+                            <a href="../login" class="text-decoration-none fw-semibold">Volver a iniciar sesion</a>
                         </div>
                     </div>
                 </div>
@@ -134,7 +134,7 @@ onMounted(async () => {
       setTimeout(() => {
         window.location.href = normalizeAppRedirect(
           data.redirect,
-          resolveViewPath("public/login/index.vue?verified=1")
+          resolveViewPath("public/login?verified=1")
         );
       }, 1200);
     } catch (error) {
@@ -210,7 +210,7 @@ onMounted(async () => {
   if (!email || !tipo) {
     showAlert("Faltan datos para continuar con la verificacion. Vuelve a iniciar sesion.", "warning");
     setTimeout(() => {
-      window.location.href = resolveViewPath("public/login/index.vue");
+      window.location.href = resolveViewPath("public/login");
     }, 1800);
   } else {
     actualizarVista();

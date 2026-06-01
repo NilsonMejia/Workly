@@ -14,23 +14,16 @@ export const getUsuario = () => {
   return data ? JSON.parse(data) : null;
 };
 
-const getViewsBasePrefix = () => {
-  const currentPath = window.location.pathname || "";
-  const markers = ["/frontend/views/", "/views/"];
-
-  for (const marker of markers) {
-    const index = currentPath.indexOf(marker);
-    if (index >= 0) {
-      return currentPath.slice(0, index + marker.length);
-    }
-  }
-
-  return "/frontend/views/";
-};
-
 export const resolveViewPath = (relativeViewPath) => {
-  const cleanPath = String(relativeViewPath || "").replace(/^\/+/, "");
-  return `${getViewsBasePrefix()}${cleanPath}`;
+  const [pathPart, queryPart = ""] = String(relativeViewPath || "").split("?");
+  const cleanPath = pathPart
+    .replace(/^\/+frontend\/views\//i, "")
+    .replace(/^\/+views\//i, "")
+    .replace(/\/index\.(html|vue)$/i, "")
+    .replace(/^\/+|\/+$/g, "");
+
+  const resolved = `/views/${cleanPath}`;
+  return queryPart ? `${resolved}?${queryPart}` : resolved;
 };
 
 export const normalizeAppRedirect = (redirectPath, fallbackPath = "") => {
@@ -60,7 +53,7 @@ export const buildPendingVerificationPath = ({ email = "", tipo = "" } = {}) => 
   if (email) params.set("email", email);
   if (tipo) params.set("tipo", tipo);
 
-  const basePath = resolveViewPath("public/verificacion-pendiente/index.html");
+  const basePath = resolveViewPath("public/verificacion-pendiente");
   const query = params.toString();
   return query ? `${basePath}?${query}` : basePath;
 };

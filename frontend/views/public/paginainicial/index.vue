@@ -3,7 +3,7 @@
     <!-- ========== NAVBAR (EXACTAMENTE COMO LA IMAGEN: fondo #929aa9, ícono vectorial) ========== -->
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
       <div class="container-fluid px-4 px-lg-5">
-        <a class="navbar-brand d-flex align-items-center" href="index.vue">
+        <a class="navbar-brand d-flex align-items-center" href="">
           <!-- Ícono vectorial profesional (reemplaza el emoji) -->
           <i class="bi bi-briefcase-fill brand-icon"></i>
           <div class="lh-sm ms-2">
@@ -22,11 +22,11 @@
           <div class="d-flex gap-2 mt-3 mt-lg-0">
             <!-- onclick originales conservados -->
             <button class="btn px-4 fw-semibold border-0 text-white btn-primary-deep"
-                    @click="window.location.href='../login/index.vue'">
+                    @click="window.location.href='../login'">
               Iniciar sesión
             </button>
             <button class="btn px-4 fw-semibold border-0 text-white btn-primary-deep"
-                    @click="window.location.href='../registro/index.vue'">
+                    @click="window.location.href='../registro'">
               Registrarse
             </button>
             <!-- ícono de menú (decorativo, sin acción) -->
@@ -65,12 +65,12 @@
                 <div class="d-flex flex-wrap gap-3 mt-4">
                   <button class="btn btn-primary-deep px-4 py-3 fw-semibold d-flex align-items-center gap-2 shadow-sm"
                           style="border-radius: 60px; font-size: 1.1rem;"
-                          @click="window.location.href='../registro/index.vue'">
+                          @click="window.location.href='../registro'">
                     Quiero trabajar <i class="bi bi-arrow-right"></i>
                   </button>
                   <button class="btn btn-soft px-4 py-3 fw-semibold d-flex align-items-center gap-2 border-0 shadow-sm"
                           style="border-radius: 60px; font-size: 1.1rem;"
-                          @click="window.location.href='../registro/index.vue'">
+                          @click="window.location.href='../registro'">
                     ¿Quieres contratar? <i class="bi bi-arrow-right"></i>
                   </button>
                 </div>
@@ -199,7 +199,7 @@
                 <div><h5 class="fw-bold">3. Conecta y postula</h5><p class="text-secondary">Aplica en un clic y recibe respuesta directa.</p></div>
               </div>
               <button class="btn btn-primary-deep px-5 py-3 mt-2 rounded-pill shadow" 
-                      @click="window.location.href='../registro/index.vue'">
+                      @click="window.location.href='../registro'">
                 Comienza ahora <i class="bi bi-arrow-right ms-2"></i>
               </button>
             </div>
@@ -229,7 +229,7 @@
               </div>
               <div class="col-md-4 text-md-end">
                 <button class="btn btn-primary-deep px-5 py-3 fw-bold rounded-pill shadow"
-                        @click="window.location.href='../registro/index.vue'">
+                        @click="window.location.href='../registro'">
                   Crear cuenta <i class="bi bi-chevron-right"></i>
                 </button>
               </div>
@@ -312,7 +312,7 @@ onMounted(async () => {
             <p class="card-text">${(item.descripcion_puesto ?? "").slice(0, 120)}...</p>
 
             <div class="vacante-footer mt-3">
-              <a href="../../public/login/index.vue" class="btn btn-primary btn-sm">
+              <a href="../../public/login" class="btn btn-primary btn-sm">
                 Inicia sesión para aplicar
               </a>
             </div>

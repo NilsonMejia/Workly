@@ -3,7 +3,7 @@
     <!-- ========== NAVBAR MEJORADO ========== -->
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
         <div class="container-fluid px-4 px-lg-5">
-            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.vue">
+            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal">
                 <i class="bi bi-briefcase-fill brand-icon"></i>
                 <div class="lh-sm ms-2">
                     <span class="brand-text">Workly</span>
@@ -17,29 +17,29 @@
 
             <div class="collapse navbar-collapse" id="navbarContent">
                 <div class="navbar-nav mx-auto mt-3 mt-lg-0 gap-1">
-                    <a href="../publicarvacante/index.vue" class="nav-link-custom text-decoration-none">
+                    <a href="../publicarvacante" class="nav-link-custom text-decoration-none">
                         <i class="bi bi-plus-circle me-1"></i> Publicar
                     </a>
-                    <a href="../misvacantes/index.vue" class="nav-link-custom active text-decoration-none">
+                    <a href="../misvacantes" class="nav-link-custom active text-decoration-none">
                         <i class="bi bi-briefcase me-1"></i> Mis vacantes
                     </a>
-                    <a href="../postulaciones/index.vue" class="nav-link-custom text-decoration-none">
+                    <a href="../postulaciones" class="nav-link-custom text-decoration-none">
                         <i class="bi bi-people me-1"></i> Postulaciones
                     </a>
-                    <a href="../foro/index.vue" class="nav-link-custom text-decoration-none">
+                    <a href="../foro" class="nav-link-custom text-decoration-none">
                         <i class="bi bi-chat-dots me-1"></i> Foro
                     </a>
-                    <a href="../resenaempresa/index.vue" class="nav-link-custom text-decoration-none">
+                    <a href="../resenaempresa" class="nav-link-custom text-decoration-none">
                         <i class="bi bi-star me-1"></i> Reseñas
                     </a>
                 </div>
 
                 <div class="d-flex align-items-center justify-content-center gap-4 mt-3 mt-lg-0">
-                    <a href="../notificaciones/index.vue" class="text-white position-relative d-inline-block">
+                    <a href="../notificaciones" class="text-white position-relative d-inline-block">
                         <i class="bi bi-bell-fill fs-3"></i>
                         <span class="notification-badge">2</span>
                     </a>
-                    <a href="../perfil/index.vue" class="text-white d-inline-block">
+                    <a href="../perfil" class="text-white d-inline-block">
                         <i class="bi bi-person-circle fs-2"></i>
                     </a>
                 </div>
@@ -109,13 +109,13 @@
                         <hr class="my-3">
 
                         <div class="list-group list-group-flush">
-                            <a href="../principal/index.vue" class="list-group-item border-0 px-0 py-2 d-flex align-items-center gap-2 text-secondary">
+                            <a href="../principal" class="list-group-item border-0 px-0 py-2 d-flex align-items-center gap-2 text-secondary">
                                 <i class="bi bi-grid"></i> Vista general
                             </a>
-                            <a href="../misvacantes/index.vue" class="list-group-item border-0 px-0 py-2 d-flex align-items-center gap-2 fw-bold" style="color: var(--primary-deep);">
+                            <a href="../misvacantes" class="list-group-item border-0 px-0 py-2 d-flex align-items-center gap-2 fw-bold" style="color: var(--primary-deep);">
                                 <i class="bi bi-briefcase-fill"></i> Mis vacantes
                             </a>
-                            <a href="../postulaciones/index.vue" class="list-group-item border-0 px-0 py-2 d-flex align-items-center gap-2 text-secondary">
+                            <a href="../postulaciones" class="list-group-item border-0 px-0 py-2 d-flex align-items-center gap-2 text-secondary">
                                 <i class="bi bi-people"></i> Postulantes
                             </a>
                             <a href="#" class="list-group-item border-0 px-0 py-2 d-flex align-items-center gap-2 text-secondary" data-bs-toggle="modal" data-bs-target="#modalEstadisticas">
@@ -123,7 +123,7 @@
                             </a>
                         </div>
 
-                        <button class="btn btn-outline-primary w-100 mt-4 rounded-pill" @click="window.location.href='../publicarvacante/index.vue'">
+                        <button class="btn btn-outline-primary w-100 mt-4 rounded-pill" @click="window.location.href='../publicarvacante'">
                             <i class="bi bi-plus-lg me-1"></i> Nueva vacante
                         </button>
                     </div>
@@ -260,7 +260,7 @@
                         <i class="bi bi-inbox fs-1 text-secondary mb-3"></i>
                         <h6 class="fw-bold">No tienes vacantes publicadas</h6>
                         <p class="text-secondary small">Comienza publicando tu primera oferta de empleo</p>
-                        <button class="btn btn-primary-deep mt-2" @click="window.location.href='../publicarvacante/index.vue'">
+                        <button class="btn btn-primary-deep mt-2" @click="window.location.href='../publicarvacante'">
                             <i class="bi bi-plus-lg me-1"></i> Publicar vacante
                         </button>
                     </div>
@@ -498,7 +498,7 @@ onMounted(async () => {
                 <i class="bi bi-three-dots"></i>
               </button>
               <ul class="dropdown-menu dropdown-menu-end border-0 shadow rounded-3">
-                <li><a class="dropdown-item" href="../postulaciones/index.vue"><i class="bi bi-people me-2"></i>Ver postulaciones</a></li>
+                <li><a class="dropdown-item" href="../postulaciones"><i class="bi bi-people me-2"></i>Ver postulaciones</a></li>
                 <li><button class="dropdown-item btn-toggle-estado" data-id="${item.id_vacante}" data-estado="${item.estado === "Activa" ? "Inactiva" : "Activa"}"><i class="bi ${item.estado === "Activa" ? "bi-pause-circle" : "bi-play-circle"} me-2"></i>${item.estado === "Activa" ? "Desactivar" : "Reactivar"}</button></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><button class="dropdown-item text-danger btn-eliminar" data-id="${item.id_vacante}"><i class="bi bi-trash me-2"></i>Eliminar</button></li>

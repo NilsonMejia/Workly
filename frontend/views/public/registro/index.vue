@@ -3,7 +3,7 @@
     <!-- ========== NAVBAR MEJORADO (mismo estilo que homepage/login) ========== -->
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
         <div class="container-fluid px-4 px-lg-5">
-            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="index.vue">
+            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="">
                 <i class="bi bi-briefcase-fill brand-icon"></i>
                 <div class="lh-sm ms-2">
                     <span class="brand-text">Workly</span>
@@ -17,7 +17,7 @@
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
                 <div class="d-flex gap-3 mt-3 mt-lg-0 align-items-center">
-                    <a href="../login/index.vue" class="btn btn-outline-light px-4 py-2 fw-semibold" style="border-color: rgba(255,255,255,0.5); color: white;">
+                    <a href="../login" class="btn btn-outline-light px-4 py-2 fw-semibold" style="border-color: rgba(255,255,255,0.5); color: white;">
                         <i class="bi bi-box-arrow-in-right me-1"></i> Iniciar sesión
                     </a>
                 </div>
@@ -174,7 +174,7 @@
 
                         <p class="text-center mt-4 mb-0 text-secondary">
                             ¿Ya tienes una cuenta? 
-                            <a href="../login/index.vue" class="fw-bold text-decoration-none" style="color: var(--primary-deep);">
+                            <a href="../login" class="fw-bold text-decoration-none" style="color: var(--primary-deep);">
                                 Inicia sesión <i class="bi bi-arrow-right"></i>
                             </a>
                         </p>
