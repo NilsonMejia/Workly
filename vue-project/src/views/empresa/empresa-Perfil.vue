@@ -3,7 +3,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-custom py-3">
       <div class="container-fluid px-4 px-lg-5">
-        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.html">
+        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="/empresa/principal">
           <i class="bi bi-briefcase-fill brand-icon"></i>
           <div class="lh-sm ms-2">
             <span class="brand-text">Workly</span>
@@ -15,7 +15,7 @@
             <a href="/empresa/publicar-vacante" class="nav-link-custom"><i class="bi bi-plus-circle me-1"></i> Publicar</a>
             <a href="/empresa/mis-vacantes" class="nav-link-custom"><i class="bi bi-briefcase me-1"></i> Mis vacantes</a>
             <a href="/empresa/postulaciones" class="nav-link-custom"><i class="bi bi-people me-1"></i> Postulaciones</a>
-            <a href="/empresa/resena-empresa" class="nav-link-custom"><i class="bi bi-star me-1"></i> ReseÃ±as</a>
+            <a href="/empresa/resena-empresa" class="nav-link-custom"><i class="bi bi-star me-1"></i> Reseñas</a>
             <a href="/empresa/perfil" class="nav-link-custom active"><i class="bi bi-building me-1"></i> Perfil empresa</a>
           </div>
           <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
@@ -53,11 +53,11 @@
                   <div id="cardCorreo" class="text-muted">{{ perfil.correo_electronico || '--' }}</div>
                 </div>
                 <div>
-                  <div class="section-title mb-1">TelÃ©fono</div>
+                  <div class="section-title mb-1">Teléfono</div>
                   <div id="cardTelefono" class="text-muted">{{ perfil.telefono || '--' }}</div>
                 </div>
                 <div>
-                  <div class="section-title mb-1">UbicaciÃ³n</div>
+                  <div class="section-title mb-1">Ubicación</div>
                   <div id="cardUbicacion" class="text-muted">{{ ubicacionDisplay || '--' }}</div>
                 </div>
               </div>
@@ -70,7 +70,7 @@
               <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                   <h2 class="h3 fw-bold mb-1">Perfil de empresa</h2>
-                  <p class="text-muted mb-0">MantÃ©n tu informaciÃ³n empresarial lista para atraer mejor talento.</p>
+                  <p class="text-muted mb-0">Mantén tu información empresarial lista para atraer mejor talento.</p>
                 </div>
                 <button class="btn btn-primary rounded-pill px-4" @click="guardarPerfil">
                   <i class="bi bi-floppy me-2"></i>Guardar cambios
@@ -91,7 +91,7 @@
                   <input id="nombre_comercial" class="form-control form-control-lg rounded-4" v-model="perfil.nombre_comercial" required>
                 </div>
                 <div class="col-12 col-md-6">
-                  <label class="form-label fw-semibold" for="razon_social">RazÃ³n social *</label>
+                  <label class="form-label fw-semibold" for="razon_social">Razón social *</label>
                   <input id="razon_social" class="form-control form-control-lg rounded-4" v-model="perfil.razon_social" required>
                 </div>
                 <div class="col-12 col-md-6">
@@ -99,7 +99,7 @@
                   <input id="correo_electronico" class="form-control form-control-lg rounded-4" type="email" v-model="perfil.correo_electronico" disabled>
                 </div>
                 <div class="col-12 col-md-6">
-                  <label class="form-label fw-semibold" for="telefono">TelÃ©fono *</label>
+                  <label class="form-label fw-semibold" for="telefono">Teléfono *</label>
                   <input id="telefono" class="form-control form-control-lg rounded-4" v-model="perfil.telefono" required>
                 </div>
                 <div class="col-12 col-md-6">
@@ -114,11 +114,11 @@
                   <input id="sitio_web" class="form-control form-control-lg rounded-4" placeholder="https://" v-model="perfil.sitio_web">
                 </div>
                 <div class="col-12">
-                  <label class="form-label fw-semibold" for="direccion">DirecciÃ³n</label>
-                  <input id="direccion" class="form-control form-control-lg rounded-4" placeholder="DirecciÃ³n corporativa" v-model="perfil.direccion">
+                  <label class="form-label fw-semibold" for="direccion">Dirección</label>
+                  <input id="direccion" class="form-control form-control-lg rounded-4" placeholder="Dirección corporativa" v-model="perfil.direccion">
                 </div>
                 <div class="col-12">
-                  <label class="form-label fw-semibold" for="descripcion_empresa">DescripciÃ³n de empresa</label>
+                  <label class="form-label fw-semibold" for="descripcion_empresa">Descripción de empresa</label>
                   <textarea id="descripcion_empresa" class="form-control form-control-lg rounded-4" rows="4" placeholder="Describe la empresa, su enfoque y lo que ofrece al talento." v-model="perfil.descripcion_empresa"></textarea>
                 </div>
                 <div class="col-12">
@@ -127,11 +127,11 @@
                 </div>
                 <div class="col-12">
                   <label class="form-label fw-semibold" for="cultura_input">Cultura de empresa</label>
-                  <textarea id="cultura_input" class="form-control form-control-lg rounded-4" rows="4" placeholder="Una lÃ­nea por elemento. Ej. Trabajo en equipo" v-model="culturaStr"></textarea>
+                  <textarea id="cultura_input" class="form-control form-control-lg rounded-4" rows="4" placeholder="Una línea por elemento. Ej. Trabajo en equipo" v-model="culturaStr"></textarea>
                 </div>
                 <div class="col-12">
                   <label class="form-label fw-semibold" for="beneficios_input">Beneficios para el talento</label>
-                  <textarea id="beneficios_input" class="form-control form-control-lg rounded-4" rows="4" placeholder="Una lÃ­nea por beneficio. Ej. Modalidad hÃ­brida" v-model="beneficiosStr"></textarea>
+                  <textarea id="beneficios_input" class="form-control form-control-lg rounded-4" rows="4" placeholder="Una línea por beneficio. Ej. Modalidad híbrida" v-model="beneficiosStr"></textarea>
                 </div>
               </form>
 
@@ -142,7 +142,7 @@
                     <h3 class="h5 fw-bold mb-3">Especialidades</h3>
                     <div class="d-flex flex-wrap gap-2" id="listaEspecialidades">
                       <span v-for="esp in perfil.especialidades" :key="esp" class="badge text-bg-light rounded-pill px-3 py-2">{{ esp }}</span>
-                      <span v-if="!perfil.especialidades?.length" class="text-muted">AÃºn no has definido especialidades.</span>
+                      <span v-if="!perfil.especialidades?.length" class="text-muted">Aún no has definido especialidades.</span>
                     </div>
                   </div>
                 </div>
@@ -151,7 +151,7 @@
                     <h3 class="h5 fw-bold mb-3">Cultura</h3>
                     <div class="d-grid gap-3" id="listaCultura">
                       <div v-for="cult in perfil.cultura" :key="cult" class="border rounded-4 p-3">{{ cult }}</div>
-                      <p v-if="!perfil.cultura?.length" class="text-muted mb-0">AÃºn no has definido cultura de empresa.</p>
+                      <p v-if="!perfil.cultura?.length" class="text-muted mb-0">Aún no has definido cultura de empresa.</p>
                     </div>
                   </div>
                 </div>
@@ -160,7 +160,7 @@
                     <h3 class="h5 fw-bold mb-3">Beneficios</h3>
                     <div class="d-grid gap-3" id="listaBeneficios">
                       <div v-for="ben in perfil.beneficios" :key="ben" class="border rounded-4 p-3">{{ ben }}</div>
-                      <p v-if="!perfil.beneficios?.length" class="text-muted mb-0">AÃºn no has definido beneficios.</p>
+                      <p v-if="!perfil.beneficios?.length" class="text-muted mb-0">Aún no has definido beneficios.</p>
                     </div>
                   </div>
                 </div>
@@ -173,7 +173,7 @@
 
     <footer class="footer-custom py-4 mt-auto text-center text-white-50">
       <div class="container">
-        <span>Workly 2026 Â· Tu empresa tambiÃ©n necesita una gran vitrina</span>
+        <span>Workly 2026 · Tu empresa también necesita una gran vitrina</span>
       </div>
     </footer>
   </div>
@@ -184,7 +184,7 @@ import { ref, reactive, computed, onMounted, onBeforeMount } from 'vue'
 import { API_URL, getToken } from '../../services/api.js'
 import { requireAuth } from '../../services/api.js'
 
-// AutenticaciÃ³n
+// Autenticación
 onBeforeMount(() => {
   requireAuth(['empresa'])
 })
@@ -222,7 +222,7 @@ const beneficiosStr = ref('')
 // Computed para vista previa del logo
 const logoPreview = computed(() => logoBase64.value || perfil.logo_empresa || 'https://placehold.co/240x240/eef2ff/3f51b5?text=Empresa')
 
-// Computed para mostrar ubicaciÃ³n en tarjeta lateral
+// Computed para mostrar ubicación en tarjeta lateral
 const ubicacionDisplay = computed(() => {
   const parts = []
   if (perfil.nombre_municipio) parts.push(perfil.nombre_municipio)
@@ -302,11 +302,11 @@ const cargarPerfilEmpresa = async () => {
   beneficiosStr.value = (perfil.beneficios || []).join('\n')
 }
 
-// ValidaciÃ³n del formulario
+// Validación del formulario
 const validarFormulario = () => {
   if (!perfil.nombre_comercial?.trim()) throw new Error('El nombre comercial es obligatorio.')
-  if (!perfil.razon_social?.trim()) throw new Error('La razÃ³n social es obligatoria.')
-  if (!perfil.telefono?.trim()) throw new Error('El telÃ©fono es obligatorio.')
+  if (!perfil.razon_social?.trim()) throw new Error('La razón social es obligatoria.')
+  if (!perfil.telefono?.trim()) throw new Error('El teléfono es obligatorio.')
   if (!perfil.id_municipio_fk) throw new Error('Selecciona un municipio.')
 }
 
@@ -381,7 +381,7 @@ const handleLogoChange = async (event) => {
   const file = event.target.files?.[0]
   if (!file) return
   if (!file.type.startsWith('image/')) {
-    showAlert('Selecciona una imagen vÃ¡lida.')
+    showAlert('Selecciona una imagen válida.')
     event.target.value = ''
     return
   }
@@ -401,7 +401,7 @@ const handleLogoChange = async (event) => {
   reader.readAsDataURL(file)
 }
 
-// InicializaciÃ³n
+// Inicialización
 onMounted(async () => {
   try {
     await cargarMunicipios()

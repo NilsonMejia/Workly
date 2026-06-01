@@ -2,11 +2,11 @@
   <div class="d-flex flex-column min-vh-100 body-notifications">
     <nav class="navbar navbar-expand-lg navbar-custom py-3">
       <div class="container-fluid px-4 px-lg-5">
-        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="#">
+        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="/usuario/principal">
           <i class="bi bi-briefcase-fill text-white fs-2"></i>
           <div class="lh-sm ms-2">
             <span class="text-white fw-bold fs-3">Workly</span>
-            <span class="d-block text-white-50 small">Tu bÃºsqueda de trabajo profesional</span>
+            <span class="d-block text-white-50 small">Tu búsqueda de trabajo profesional</span>
           </div>
         </a>
 
@@ -16,19 +16,19 @@
 
         <div class="collapse navbar-collapse" id="navbarContent">
           <div class="navbar-nav mx-auto gap-2 mt-3 mt-lg-0">
-            <a href="#" class="nav-link-custom">Buscar empleo</a>
-            <a href="#" class="nav-link-custom">Recursos</a>
-            <a href="#" class="nav-link-custom">Valoraciones</a>
-            <a href="#" class="nav-link-custom">Mi perfil</a>
+            <a href="/usuario/buscar-empleo" class="nav-link-custom">Buscar empleo</a>
+            <a href="/usuario/recursos" class="nav-link-custom">Recursos</a>
+            <a href="/usuario/valoraciones-empresa" class="nav-link-custom">Valoraciones</a>
+            <a href="/usuario/mi-perfil" class="nav-link-custom">Mi perfil</a>
           </div>
           <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-            <a href="#" class="text-white position-relative text-decoration-none">
+            <a href="/usuario/notificaciones" class="text-white position-relative text-decoration-none">
               <i class="bi bi-bell-fill fs-4"></i>
               <span class="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {{ resumen.no_leidas }}
               </span>
             </a>
-            <a href="#" class="text-white text-decoration-none">
+            <a href="/usuario/mi-perfil" class="text-white text-decoration-none">
               <i class="bi bi-person-circle fs-4"></i>
             </a>
           </div>
@@ -43,7 +43,7 @@
           <div class="row g-4 align-items-center position-relative">
             <div class="col-12 col-xl-7">
               <span class="badge rounded-pill text-bg-light text-primary fw-semibold mb-3">Centro de alertas</span>
-              <h1 class="display-6 fw-bold mb-2">Mantente al dÃ­a con cada movimiento de tus postulaciones</h1>
+              <h1 class="display-6 fw-bold mb-2">Mantente al día con cada movimiento de tus postulaciones</h1>
               <p class="mb-0 text-white-50">Controla respuestas de empresas, cambios de estado y mensajes clave desde un solo panel.</p>
             </div>
             <div class="col-12 col-xl-5">
@@ -81,10 +81,10 @@
           <div class="d-flex flex-column flex-xl-row justify-content-between align-items-xl-center gap-3 mb-4">
             <div>
               <h2 class="h3 fw-bold mb-1">Bandeja personal</h2>
-              <p class="text-muted mb-0">Filtra rÃ¡pido y revisa quÃ© sigue en cada oportunidad.</p>
+              <p class="text-muted mb-0">Filtra rápido y revisa qué sigue en cada oportunidad.</p>
             </div>
             <button class="btn btn-primary rounded-pill px-4" @click="marcarTodasComoLeidas">
-              <i class="bi bi-check2-all me-2"></i>Marcar todas como leÃ­das
+              <i class="bi bi-check2-all me-2"></i>Marcar todas como leídas
             </button>
           </div>
 
@@ -96,7 +96,7 @@
           <div class="row g-3 align-items-end mb-4">
             <div class="col-12 col-lg-5">
               <label for="inputBuscar" class="form-label fw-semibold">Buscar</label>
-              <input id="inputBuscar" v-model="filtros.search" type="search" class="form-control form-control-lg rounded-4" placeholder="TÃ­tulo o mensaje" @keydown.enter="aplicarFiltros">
+              <input id="inputBuscar" v-model="filtros.search" type="search" class="form-control form-control-lg rounded-4" placeholder="Título o mensaje" @keydown.enter="aplicarFiltros">
             </div>
             <div class="col-12 col-md-6 col-lg-3">
               <label for="filtroTipo" class="form-label fw-semibold">Tipo</label>
@@ -112,8 +112,8 @@
               <label for="filtroLeida" class="form-label fw-semibold">Estado</label>
               <select id="filtroLeida" v-model="filtros.leida" class="form-select form-select-lg rounded-4">
                 <option value="">Todas</option>
-                <option value="0">No leÃ­das</option>
-                <option value="1">LeÃ­das</option>
+                <option value="0">No leídas</option>
+                <option value="1">Leídas</option>
               </select>
             </div>
             <div class="col-12 col-lg-2 d-grid">
@@ -164,7 +164,7 @@
                       <div class="d-flex flex-wrap gap-2 mt-3">
                         <button type="button" :class="['btn', 'btn-sm', Number(item.leida) === 0 ? 'btn-outline-primary' : 'btn-outline-secondary', 'rounded-pill']" @click="toggleLeida(item.id_notificacion, item.leida)">
                           <i :class="['bi', Number(item.leida) === 0 ? 'bi-check2' : 'bi-envelope', 'me-1']"></i>
-                          {{ Number(item.leida) === 0 ? "Marcar leÃ­da" : "Marcar no leÃ­da" }}
+                          {{ Number(item.leida) === 0 ? "Marcar leída" : "Marcar no leída" }}
                         </button>
                         <a v-if="item.enlace" class="btn btn-sm btn-light rounded-pill border" :href="resolveNotificationLink(item.enlace)">
                           <i class="bi bi-box-arrow-up-right me-1"></i>Ver detalle
@@ -185,7 +185,7 @@
                   <div class="summary-icon"><i class="bi bi-send-check"></i></div>
                   <div>
                     <h3 class="h5 fw-bold mb-0">Seguimiento</h3>
-                    <p class="text-muted small mb-0">Resumen rÃ¡pido de tu estado actual</p>
+                    <p class="text-muted small mb-0">Resumen rápido de tu estado actual</p>
                   </div>
                 </div>
                 <div class="d-flex justify-content-between">
@@ -198,8 +198,8 @@
                 <div class="d-flex align-items-center gap-3 mb-3">
                   <div class="summary-icon"><i class="bi bi-lightning-charge-fill"></i></div>
                   <div>
-                    <h3 class="h5 fw-bold mb-0">Acciones rÃ¡pidas</h3>
-                    <p class="text-muted small mb-0">Atajos Ãºtiles para seguir postulando</p>
+                    <h3 class="h5 fw-bold mb-0">Acciones rápidas</h3>
+                    <p class="text-muted small mb-0">Atajos útiles para seguir postulando</p>
                   </div>
                 </div>
                 <div class="d-grid gap-2">
@@ -216,11 +216,11 @@
               </div>
 
               <div class="summary-card p-4">
-                <h3 class="h5 fw-bold mb-3">Buenas prÃ¡cticas</h3>
+                <h3 class="h5 fw-bold mb-3">Buenas prácticas</h3>
                 <ul class="list-unstyled text-muted small mb-0 d-grid gap-2">
                   <li><i class="bi bi-check2-circle text-primary me-2"></i>Revisa cambios de estado en cuanto aparezcan.</li>
                   <li><i class="bi bi-check2-circle text-primary me-2"></i>Abre el detalle cuando una empresa responda.</li>
-                  <li><i class="bi bi-check2-circle text-primary me-2"></i>MantÃ©n tu perfil actualizado para nuevas oportunidades.</li>
+                  <li><i class="bi bi-check2-circle text-primary me-2"></i>Mantén tu perfil actualizado para nuevas oportunidades.</li>
                 </ul>
               </div>
             </div>
@@ -242,7 +242,7 @@ import { ref, reactive, onMounted } from 'vue';
 import { API_URL, getToken } from "../../services/api.js";
 import { requireAuth } from "../../services/api.js";
 
-// Diccionario de Ãconos
+// Diccionario de Íconos
 const ICONOS = {
   postulacion: "bi-send-check",
   estado: "bi-arrow-repeat",
@@ -273,12 +273,12 @@ const alerta = reactive({
   tipo: 'danger'
 });
 
-// Headers de autenticaciÃ³n estÃ¡ticos basados en tu config.js
+// Headers de autenticación estáticos basados en tu config.js
 const authHeaders = {
   Authorization: `Bearer ${getToken()}`
 };
 
-// MÃ©todos de formato y resoluciÃ³n
+// Métodos de formato y resolución
 const resolveNotificationLink = (value) => {
   if (!value) return null;
   try {
@@ -303,7 +303,7 @@ const formatDate = (value) => {
 
 const getTypeLabel = (value) => {
   const labels = {
-    postulacion: "PostulaciÃ³n",
+    postulacion: "Postulación",
     estado: "Estado",
     sistema: "Sistema",
     comentario: "Comentario"
@@ -311,7 +311,7 @@ const getTypeLabel = (value) => {
   return labels[value] || "Sistema";
 };
 
-// ObtenciÃ³n de Query Params a travÃ©s del estado de Vue
+// Obtención de Query Params a través del estado de Vue
 const getFilterQuery = () => {
   const params = new URLSearchParams();
   if (filtros.tipo) params.set("tipo_notificacion", filtros.tipo);
@@ -371,7 +371,7 @@ const toggleLeida = async (id, leida) => {
       headers: authHeaders
     });
     const data = await response.json();
-    if (!response.ok) throw new Error(data.mensaje || "No se pudo actualizar la notificaciÃ³n");
+    if (!response.ok) throw new Error(data.mensaje || "No se pudo actualizar la notificación");
 
     showAlert(data.mensaje, "success");
     await init();
@@ -387,7 +387,7 @@ const eliminarNotificacion = async (id) => {
       headers: authHeaders
     });
     const data = await response.json();
-    if (!response.ok) throw new Error(data.mensaje || "No se pudo eliminar la notificaciÃ³n");
+    if (!response.ok) throw new Error(data.mensaje || "No se pudo eliminar la notificación");
 
     showAlert(data.mensaje, "success");
     await init();

@@ -3,7 +3,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
       <div class="container-fluid px-4 px-lg-5">
-        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.html">
+        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="/empresa/principal">
           <i class="bi bi-briefcase-fill brand-icon"></i>
           <div class="lh-sm ms-2">
             <span class="brand-text">Workly</span>
@@ -16,7 +16,7 @@
             <a href="/empresa/mis-vacantes" class="nav-link-custom"><i class="bi bi-briefcase me-1"></i> Mis vacantes</a>
             <a href="/empresa/postulaciones" class="nav-link-custom"><i class="bi bi-people me-1"></i> Postulaciones</a>
             <a href="/empresa/foro" class="nav-link-custom"><i class="bi bi-chat-dots me-1"></i> Foro</a>
-            <a href="/empresa/resena-empresa" class="nav-link-custom active"><i class="bi bi-star me-1"></i> ReseÃ±as</a>
+            <a href="/empresa/resena-empresa" class="nav-link-custom active"><i class="bi bi-star me-1"></i> Reseñas</a>
           </div>
           <div class="d-flex align-items-center justify-content-center gap-4 mt-3 mt-lg-0">
             <a href="/empresa/notificaciones" class="text-white position-relative d-inline-block">
@@ -51,13 +51,13 @@
                 </div>
                 <div class="col-6">
                   <div class="metric-pill">
-                    <div class="small text-white-50 mb-1">ReseÃ±as empresa</div>
+                    <div class="small text-white-50 mb-1">Reseñas empresa</div>
                     <div class="fs-4 fw-bold">{{ resumenEmpresa.total_valoraciones || 0 }}</div>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="metric-pill">
-                    <div class="small text-white-50 mb-1">Mis reseÃ±as</div>
+                    <div class="small text-white-50 mb-1">Mis reseñas</div>
                     <div class="fs-4 fw-bold">{{ resenas.length }}</div>
                   </div>
                 </div>
@@ -80,23 +80,23 @@
         </div>
 
         <div class="row g-4">
-          <!-- SecciÃ³n izquierda: reseÃ±as de empresa y referencias externas -->
+          <!-- Sección izquierda: reseñas de empresa y referencias externas -->
           <section class="col-12 col-xl-7">
             <div class="section-card mb-4">
               <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 mb-4">
                 <div>
-                  <h2 class="h4 fw-bold mb-1">ReseÃ±as sobre tu empresa</h2>
+                  <h2 class="h4 fw-bold mb-1">Reseñas sobre tu empresa</h2>
                   <p class="text-muted mb-0">Lo que los usuarios que postularon quieren destacar de tu proceso.</p>
                 </div>
                 <div class="text-lg-end">
                   <div class="fw-bold fs-4">{{ (resumenEmpresa.promedio || 0).toFixed(1) }}</div>
-                  <div class="text-muted small">{{ resumenEmpresa.total_valoraciones || 0 }} reseÃ±as</div>
+                  <div class="text-muted small">{{ resumenEmpresa.total_valoraciones || 0 }} reseñas</div>
                 </div>
               </div>
               <div class="d-grid gap-3">
                 <div v-if="valoracionesEmpresa.length === 0" class="empty-state text-center p-4">
                   <div class="mb-2"><i class="bi bi-chat-square-heart fs-2 text-primary"></i></div>
-                  <p class="text-muted mb-0">Tu empresa aÃºn no tiene comentarios publicados por usuarios.</p>
+                  <p class="text-muted mb-0">Tu empresa aún no tiene comentarios publicados por usuarios.</p>
                 </div>
                 <article v-for="v in valoracionesEmpresa" :key="v.id_valoracion" class="review-card">
                   <div class="d-flex gap-3">
@@ -120,14 +120,14 @@
               <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 mb-4">
                 <div>
                   <h2 class="h4 fw-bold mb-1">Referencias externas de tus postulantes</h2>
-                  <p class="text-muted mb-0">Opiniones que otras empresas dejaron sobre candidatos que tambiÃ©n aplicaron contigo.</p>
+                  <p class="text-muted mb-0">Opiniones que otras empresas dejaron sobre candidatos que también aplicaron contigo.</p>
                 </div>
                 <span class="badge text-bg-light rounded-pill align-self-lg-start">{{ resenasExternas.length }} referencias</span>
               </div>
               <div class="d-grid gap-3">
                 <div v-if="resenasExternas.length === 0" class="empty-state text-center p-4">
                   <div class="mb-2"><i class="bi bi-diagram-3 fs-2 text-primary"></i></div>
-                  <p class="text-muted mb-0">TodavÃ­a no hay referencias externas para tus postulantes actuales.</p>
+                  <p class="text-muted mb-0">Todavía no hay referencias externas para tus postulantes actuales.</p>
                 </div>
                 <article v-for="r in resenasExternas" :key="r.id_resena" class="review-card">
                   <div class="d-flex gap-3">
@@ -153,23 +153,23 @@
             </div>
           </section>
 
-          <!-- Columna derecha: formulario y resÃºmenes -->
+          <!-- Columna derecha: formulario y resúmenes -->
           <aside class="col-12 col-xl-5">
-            <!-- Formulario para crear/actualizar reseÃ±a -->
+            <!-- Formulario para crear/actualizar reseña -->
             <div class="form-card mb-4">
-              <h2 class="h4 fw-bold mb-3">Crear o actualizar reseÃ±a de postulante</h2>
-              <p class="text-muted mb-4">Documenta tu experiencia con cada candidato para dar seguimiento mÃ¡s claro al proceso.</p>
+              <h2 class="h4 fw-bold mb-3">Crear o actualizar reseña de postulante</h2>
+              <p class="text-muted mb-4">Documenta tu experiencia con cada candidato para dar seguimiento más claro al proceso.</p>
               <div class="mb-3">
-                <label class="form-label fw-semibold small">PostulaciÃ³n</label>
+                <label class="form-label fw-semibold small">Postulación</label>
                 <select class="form-select rounded-4" v-model="selectedPostulacionId">
-                  <option value="">Selecciona una postulaciÃ³n</option>
+                  <option value="">Selecciona una postulación</option>
                   <option v-for="p in postulaciones" :key="p.id_postulacion" :value="p.id_postulacion">
-                    {{ p.nombres }} {{ p.apellidos }} | {{ p.titulo_puesto }} {{ p.id_resena ? '(con reseÃ±a)' : '' }}
+                    {{ p.nombres }} {{ p.apellidos }} | {{ p.titulo_puesto }} {{ p.id_resena ? '(con reseña)' : '' }}
                   </option>
                 </select>
               </div>
               <div class="mb-3">
-                <label class="form-label fw-semibold small">PuntuaciÃ³n</label>
+                <label class="form-label fw-semibold small">Puntuación</label>
                 <div class="d-flex align-items-center gap-2 mb-2">
                   <i v-for="i in 5" :key="i" class="bi star-interactive"
                      :class="i <= puntuacionTemporal ? 'bi-star-fill active' : 'bi-star'"
@@ -178,20 +178,20 @@
               </div>
               <div class="mb-3">
                 <label class="form-label fw-semibold small">Comentario</label>
-                <textarea class="form-control rounded-4" rows="4" placeholder="Describe fortalezas, comunicaciÃ³n, ajuste al perfil y nivel de seguimiento" v-model="comentarioTemporal"></textarea>
+                <textarea class="form-control rounded-4" rows="4" placeholder="Describe fortalezas, comunicación, ajuste al perfil y nivel de seguimiento" v-model="comentarioTemporal"></textarea>
               </div>
               <div class="mb-4">
                 <label class="form-label fw-semibold small">Etiquetas</label>
-                <input class="form-control rounded-4" placeholder="Ej: puntual, buena comunicaciÃ³n, perfil tÃ©cnico" v-model="etiquetasStr">
-                <div class="form-text">SepÃ¡ralas con comas.</div>
+                <input class="form-control rounded-4" placeholder="Ej: puntual, buena comunicación, perfil técnico" v-model="etiquetasStr">
+                <div class="form-text">Sepáralas con comas.</div>
               </div>
-              <button type="button" class="btn btn-primary w-100 rounded-pill py-3" @click="guardarResena" :disabled="cargando">Guardar reseÃ±a</button>
+              <button type="button" class="btn btn-primary w-100 rounded-pill py-3" @click="guardarResena" :disabled="cargando">Guardar reseña</button>
             </div>
 
-            <!-- Resumen de evaluaciÃ³n -->
+            <!-- Resumen de evaluación -->
             <div class="summary-card mb-4">
               <div class="d-flex align-items-center justify-content-between mb-3">
-                <h3 class="h5 fw-bold mb-0">Resumen de evaluaciÃ³n</h3>
+                <h3 class="h5 fw-bold mb-0">Resumen de evaluación</h3>
                 <span class="badge text-bg-light rounded-pill">{{ cobertura }}%</span>
               </div>
               <div class="d-flex justify-content-between py-2 border-bottom">
@@ -199,7 +199,7 @@
                 <strong>{{ promedioMisResenas }}</strong>
               </div>
               <div class="d-flex justify-content-between py-2 border-bottom">
-                <span class="text-muted">Total reseÃ±as</span>
+                <span class="text-muted">Total reseñas</span>
                 <strong>{{ resenas.length }}</strong>
               </div>
               <div class="d-flex justify-content-between py-2">
@@ -208,16 +208,16 @@
               </div>
             </div>
 
-            <!-- Ãšltimas reseÃ±as propias -->
+            <!-- Últimas reseñas propias -->
             <div class="section-card">
               <div class="d-flex align-items-center justify-content-between mb-3">
-                <h3 class="h5 fw-bold mb-0">Tus Ãºltimas reseÃ±as</h3>
-                <span class="badge text-bg-light rounded-pill">{{ resenas.length }} reseÃ±as</span>
+                <h3 class="h5 fw-bold mb-0">Tus últimas reseñas</h3>
+                <span class="badge text-bg-light rounded-pill">{{ resenas.length }} reseñas</span>
               </div>
               <div class="d-grid gap-3">
                 <div v-if="resenas.length === 0" class="empty-state text-center p-4">
                   <div class="mb-2"><i class="bi bi-stars fs-2 text-primary"></i></div>
-                  <p class="text-muted mb-0">TodavÃ­a no has creado reseÃ±as para tus postulantes.</p>
+                  <p class="text-muted mb-0">Todavía no has creado reseñas para tus postulantes.</p>
                 </div>
                 <article v-for="r in resenas" :key="r.id_resena" class="review-card">
                   <div class="d-flex gap-3">
@@ -244,7 +244,7 @@
     </main>
 
     <footer class="py-4 mt-auto footer-custom text-center text-white-50">
-      <div class="container">Workly 2026 | Seguimiento real del talento y tu reputaciÃ³n</div>
+      <div class="container">Workly 2026 | Seguimiento real del talento y tu reputación</div>
     </footer>
   </div>
 </template>
@@ -268,7 +268,7 @@ const alertMessage = ref('')
 const alertType = ref('danger')
 const cargando = ref(false)
 
-// Formulario de reseÃ±a
+// Formulario de reseña
 const selectedPostulacionId = ref('')
 const puntuacionTemporal = ref(0)
 const comentarioTemporal = ref('')
@@ -286,7 +286,7 @@ const cobertura = computed(() => {
   return Math.round((resenas.value.length / postulacionesResenables.value) * 100)
 })
 
-// Watch para cargar datos de postulaciÃ³n seleccionada
+// Watch para cargar datos de postulación seleccionada
 watch(selectedPostulacionId, (newId) => {
   if (!newId) {
     puntuacionTemporal.value = 0
@@ -350,7 +350,7 @@ const cargarPanel = async () => {
       headers: authHeaders()
     })
     const data = await res.json()
-    if (!res.ok) throw new Error(data.mensaje || 'No se pudieron cargar las reseÃ±as.')
+    if (!res.ok) throw new Error(data.mensaje || 'No se pudieron cargar las reseñas.')
 
     postulaciones.value = Array.isArray(data.postulaciones) ? data.postulaciones : []
     resenas.value = Array.isArray(data.resenas) ? data.resenas : []
@@ -363,18 +363,18 @@ const cargarPanel = async () => {
   }
 }
 
-// ========== Guardar reseÃ±a ==========
+// ========== Guardar reseña ==========
 const guardarResena = async () => {
   if (!selectedPostulacionId.value) {
-    showAlert('Selecciona una postulaciÃ³n.')
+    showAlert('Selecciona una postulación.')
     return
   }
   if (puntuacionTemporal.value === 0) {
-    showAlert('Selecciona una puntuaciÃ³n.')
+    showAlert('Selecciona una puntuación.')
     return
   }
   if (!comentarioTemporal.value.trim()) {
-    showAlert('Escribe una reseÃ±a.')
+    showAlert('Escribe una reseña.')
     return
   }
 
@@ -392,9 +392,9 @@ const guardarResena = async () => {
       })
     })
     const data = await res.json()
-    if (!res.ok) throw new Error(data.mensaje || 'No se pudo guardar la reseÃ±a.')
+    if (!res.ok) throw new Error(data.mensaje || 'No se pudo guardar la reseña.')
 
-    showAlert('ReseÃ±a guardada correctamente.', 'success')
+    showAlert('Reseña guardada correctamente.', 'success')
     await cargarPanel()
     // Limpiar formulario
     selectedPostulacionId.value = ''

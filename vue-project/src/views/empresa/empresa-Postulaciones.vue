@@ -3,7 +3,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
       <div class="container-fluid px-4 px-lg-5">
-        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.html">
+        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="/empresa/principal">
           <i class="bi bi-briefcase-fill brand-icon"></i>
           <div class="lh-sm ms-2">
             <span class="brand-text">Workly</span>
@@ -19,7 +19,7 @@
             <a href="/empresa/mis-vacantes" class="nav-link-custom text-decoration-none"><i class="bi bi-briefcase me-1"></i> Mis vacantes</a>
             <a href="/empresa/postulaciones" class="nav-link-custom active text-decoration-none"><i class="bi bi-people me-1"></i> Postulaciones</a>
             <a href="/empresa/foro" class="nav-link-custom text-decoration-none"><i class="bi bi-chat-dots me-1"></i> Foro</a>
-            <a href="/empresa/resena-empresa" class="nav-link-custom text-decoration-none"><i class="bi bi-star me-1"></i> ReseÃ±as</a>
+            <a href="/empresa/resena-empresa" class="nav-link-custom text-decoration-none"><i class="bi bi-star me-1"></i> Reseñas</a>
           </div>
           <div class="d-flex align-items-center justify-content-center gap-4 mt-3 mt-lg-0">
             <a href="/empresa/notificaciones" class="text-white position-relative d-inline-block">
@@ -40,7 +40,7 @@
         <div class="filter-bar mb-4 p-3 d-flex align-items-center flex-wrap gap-3">
           <div class="d-flex align-items-center">
             <i class="bi bi-people-fill fs-2 me-2" style="color: var(--primary-deep);"></i>
-            <h4 class="fw-bold mb-0" style="color: #121826;">GestiÃ³n de Postulantes</h4>
+            <h4 class="fw-bold mb-0" style="color: #121826;">Gestión de Postulantes</h4>
           </div>
           <div class="ms-auto d-flex gap-2 flex-wrap">
             <div class="input-group" style="max-width: 260px;">
@@ -69,7 +69,7 @@
                     <div class="avatar-circle">{{ getInitials(p) }}</div>
                     <div>
                       <h6 class="fw-bold mb-1">{{ p.nombres }} {{ p.apellidos }}</h6>
-                      <p class="text-secondary small mb-0">{{ p.correo_electronico || 'Sin correo' }} Â· {{ p.titulo_puesto || 'Vacante' }}</p>
+                      <p class="text-secondary small mb-0">{{ p.correo_electronico || 'Sin correo' }} · {{ p.titulo_puesto || 'Vacante' }}</p>
                     </div>
                     <div class="ms-md-4">
                       <span class="badge bg-light text-dark px-3 py-2">{{ p.titulo_puesto }}</span>
@@ -77,7 +77,7 @@
                     <div class="ms-auto text-end">
                       <select class="form-select form-select-sm rounded-pill fw-bold" :class="getEstadoClass(p.id_estado_fk)" style="border: none;" @change="cambiarEstado(p.id_postulacion, $event.target.value)">
                         <option value="1" :selected="p.id_estado_fk === 1">Recibida</option>
-                        <option value="2" :selected="p.id_estado_fk === 2">En RevisiÃ³n</option>
+                        <option value="2" :selected="p.id_estado_fk === 2">En Revisión</option>
                         <option value="3" :selected="p.id_estado_fk === 3">Entrevista</option>
                         <option value="4" :selected="p.id_estado_fk === 4">Rechazada</option>
                         <option value="5" :selected="p.id_estado_fk === 5">Contratado</option>
@@ -109,7 +109,7 @@
                   </svg>
                 </div>
                 <div class="flex-grow-1">
-                  <div class="d-flex justify-content-between small"><span>En revisiÃ³n</span> <span class="fw-bold">{{ resumen.revision }}</span></div>
+                  <div class="d-flex justify-content-between small"><span>En revisión</span> <span class="fw-bold">{{ resumen.revision }}</span></div>
                   <div class="d-flex justify-content-between small"><span>Entrevistas</span> <span class="fw-bold">{{ resumen.entrevistas }}</span></div>
                   <div class="d-flex justify-content-between small"><span>Aprobados</span> <span class="fw-bold">{{ resumen.aprobados }}</span></div>
                 </div>
@@ -121,9 +121,9 @@
               </div>
             </div>
 
-            <!-- Vacantes mÃ¡s activas -->
+            <!-- Vacantes más activas -->
             <div class="sidebar-card">
-              <h6 class="fw-bold mb-3 d-flex align-items-center"><i class="bi bi-bar-chart-line me-2" style="color: var(--primary-deep);"></i>Vacantes mÃ¡s activas</h6>
+              <h6 class="fw-bold mb-3 d-flex align-items-center"><i class="bi bi-bar-chart-line me-2" style="color: var(--primary-deep);"></i>Vacantes más activas</h6>
               <div class="d-flex flex-column gap-3">
                 <div v-for="(item, idx) in topVacantes" :key="idx">
                   <div class="d-flex justify-content-between small fw-medium mb-1">
@@ -176,7 +176,7 @@
                 <p class="fw-medium">{{ selectedPostulante?.correo_electronico || '---' }}</p>
               </div>
               <div class="col-md-6">
-                <label class="text-secondary small">TelÃ©fono</label>
+                <label class="text-secondary small">Teléfono</label>
                 <p class="fw-medium">{{ selectedPostulante?.telefono || '---' }}</p>
               </div>
               <div class="col-12">
@@ -222,8 +222,8 @@
         <div class="d-flex flex-wrap justify-content-center gap-4 gap-md-5">
           <a href="#"><i class="bi bi-question-circle me-1"></i>Ayuda</a>
           <a href="#"><i class="bi bi-shield-lock me-1"></i>Privacidad</a>
-          <a href="#">TÃ©rminos</a>
-          <span class="text-white opacity-75">ðŸ’¼ Workly 2026 Â· Conectando talento</span>
+          <a href="#">Términos</a>
+          <span class="text-white opacity-75">💼 Workly 2026 · Conectando talento</span>
         </div>
       </div>
     </footer>
@@ -326,7 +326,7 @@ const abrirPerfil = (p) => {
 const abrirContacto = (p) => {
   selectedPostulante.value = p
   contactoDestino.value = `${p.nombres} ${p.apellidos} (${p.correo_electronico || 'sin correo'})`
-  mensajeContacto.value = `Hola ${p.nombres}, queremos dar seguimiento a tu postulaciÃ³n para ${p.titulo_puesto || 'esta vacante'}.`
+  mensajeContacto.value = `Hola ${p.nombres}, queremos dar seguimiento a tu postulación para ${p.titulo_puesto || 'esta vacante'}.`
   contactarModal?.show()
 }
 
@@ -365,7 +365,7 @@ const enviarMensaje = async () => {
       body: JSON.stringify({
         tipo_usuario: 'usuario',
         id_destinatario: Number(selectedPostulante.value.id_usuario),
-        titulo: `Mensaje de empresa sobre ${selectedPostulante.value.titulo_puesto || 'tu postulaciÃ³n'}`,
+        titulo: `Mensaje de empresa sobre ${selectedPostulante.value.titulo_puesto || 'tu postulación'}`,
         mensaje: msg,
         tipo_notificacion: 'comentario',
         enlace: `/views/usuario/detalleempleo/index.html?id=${selectedPostulante.value.id_vacante_fk}`

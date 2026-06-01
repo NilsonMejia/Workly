@@ -3,7 +3,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-custom py-3">
       <div class="container-fluid px-4 px-lg-5">
-        <a class="navbar-brand text-white fw-bold fs-3 d-flex align-items-center gap-2" href="../principal/index.html">
+        <a class="navbar-brand text-white fw-bold fs-3 d-flex align-items-center gap-2" href="/empresa/principal">
           <i class="bi bi-briefcase-fill"></i>
           <span>Workly</span>
         </a>
@@ -14,7 +14,7 @@
 
         <div class="collapse navbar-collapse" id="navbarContent">
           <div class="navbar-nav mx-auto gap-2 mt-3 mt-lg-0">
-            <a href="../principal/index.html" class="nav-link-custom">Dashboard</a>
+            <a href="/empresa/principal" class="nav-link-custom">Dashboard</a>
             <a href="/empresa/postulaciones" class="nav-link-custom active">Postulaciones</a>
             <a href="/empresa/mis-vacantes" class="nav-link-custom">Vacantes</a>
             <a href="/empresa/foro" class="nav-link-custom">Foro</a>
@@ -27,7 +27,7 @@
             <a href="/empresa/perfil" class="text-white text-decoration-none">
               <i class="bi bi-building fs-4"></i>
             </a>
-            <button class="btn btn-light btn-sm rounded-pill px-3 fw-semibold" @click="handleLogout">Cerrar sesiÃ³n</button>
+            <button class="btn btn-light btn-sm rounded-pill px-3 fw-semibold" @click="handleLogout">Cerrar sesión</button>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@
 
     <main class="flex-grow-1 py-4 py-lg-5">
       <div class="container px-4 px-lg-5">
-        <!-- BotÃ³n volver -->
+        <!-- Botón volver -->
         <div class="mb-3">
           <a href="/empresa/postulaciones" class="btn btn-outline-secondary rounded-pill px-4">
             <i class="bi bi-arrow-left me-2"></i>Volver a postulaciones
@@ -46,9 +46,9 @@
         <section class="surface-card hero-card p-4 p-lg-5 mb-4">
           <div class="row g-4 align-items-center position-relative">
             <div class="col-12 col-xl-8">
-              <span class="badge rounded-pill text-bg-light text-primary fw-semibold mb-3">RevisiÃ³n de candidato</span>
+              <span class="badge rounded-pill text-bg-light text-primary fw-semibold mb-3">Revisión de candidato</span>
               <h1 class="display-6 fw-bold mb-2">{{ nombreCompleto }}</h1>
-              <p class="mb-3 text-white-50">{{ resumenProfesional || 'Estamos preparando la informaciÃ³n completa del postulante y la vacante.' }}</p>
+              <p class="mb-3 text-white-50">{{ resumenProfesional || 'Estamos preparando la información completa del postulante y la vacante.' }}</p>
               <div class="d-flex flex-wrap gap-2">
                 <span class="badge rounded-pill bg-light text-dark">{{ tituloVacante || 'Vacante' }}</span>
                 <span class="badge rounded-pill bg-light text-dark">{{ fechaPostulacionFormateada }}</span>
@@ -106,7 +106,7 @@
                 <div class="detail-icon"><i class="bi bi-person-vcard"></i></div>
                 <div>
                   <h2 class="h4 fw-bold mb-0">Perfil del postulante</h2>
-                  <p class="text-muted mb-0">InformaciÃ³n base para decidir el siguiente paso.</p>
+                  <p class="text-muted mb-0">Información base para decidir el siguiente paso.</p>
                 </div>
               </div>
               <div class="info-grid">
@@ -119,13 +119,13 @@
                   </div>
                   <div class="col-12 col-md-6">
                     <div class="info-item">
-                      <div class="info-label">Correo electrÃ³nico</div>
+                      <div class="info-label">Correo electrónico</div>
                       <div class="info-value">{{ correoPostulante || 'No definido' }}</div>
                     </div>
                   </div>
                   <div class="col-12 col-md-6">
                     <div class="info-item">
-                      <div class="info-label">TelÃ©fono</div>
+                      <div class="info-label">Teléfono</div>
                       <div class="info-value">{{ telefonoPostulante || 'No definido' }}</div>
                     </div>
                   </div>
@@ -148,7 +148,7 @@
                 <div class="detail-icon"><i class="bi bi-briefcase"></i></div>
                 <div>
                   <h2 class="h4 fw-bold mb-0">Vacante asociada</h2>
-                  <p class="text-muted mb-0">Contexto de la oportunidad a la que aplicÃ³.</p>
+                  <p class="text-muted mb-0">Contexto de la oportunidad a la que aplicó.</p>
                 </div>
               </div>
               <div class="info-grid">
@@ -178,8 +178,8 @@
                     </div>
                   </div>
                   <div class="col-12">
-                    <div class="info-label mb-2">DescripciÃ³n del puesto</div>
-                    <div class="text-box">{{ descripcionVacante || 'La vacante no tiene descripciÃ³n disponible.' }}</div>
+                    <div class="info-label mb-2">Descripción del puesto</div>
+                    <div class="text-box">{{ descripcionVacante || 'La vacante no tiene descripción disponible.' }}</div>
                   </div>
                 </div>
               </div>
@@ -202,13 +202,13 @@
                   <div class="info-value" v-html="estadoBadge"></div>
                 </div>
                 <div class="info-item mb-3">
-                  <div class="info-label">Fecha de postulaciÃ³n</div>
+                  <div class="info-label">Fecha de postulación</div>
                   <div class="info-value">{{ fechaPostulacionFormateada }}</div>
                 </div>
                 <div class="info-label mb-2">Actualizar proceso</div>
                 <select v-model="nuevoEstadoId" class="form-select form-select-lg rounded-4 mb-3">
                   <option value="1">Recibida</option>
-                  <option value="2">En revisiÃ³n</option>
+                  <option value="2">En revisión</option>
                   <option value="3">Entrevista</option>
                   <option value="4">Rechazada</option>
                   <option value="5">Contratado</option>
@@ -220,7 +220,7 @@
             </section>
 
             <section class="detail-card mb-4">
-              <h3 class="h5 fw-bold mb-3">Acciones rÃ¡pidas</h3>
+              <h3 class="h5 fw-bold mb-3">Acciones rápidas</h3>
               <div class="d-grid gap-2">
                 <button class="btn btn-primary rounded-4" @click="copiarCorreo">
                   <i class="bi bi-envelope me-2"></i>Copiar correo
@@ -265,7 +265,7 @@ import { ref, computed, onMounted, onBeforeMount } from 'vue'
 import { API_URL, getToken } from '../../services/api.js'
 import { requireAuth, logout } from '../../services/api.js'
 
-// ========== AutenticaciÃ³n ==========
+// ========== Autenticación ==========
 onBeforeMount(() => {
   requireAuth(['empresa'])
 })
@@ -277,7 +277,7 @@ const alertType = ref('danger')
 const toastMessage = ref('')
 let toastInstance = null
 
-// Datos de la postulaciÃ³n
+// Datos de la postulación
 const postulacion = ref(null)
 const nuevoEstadoId = ref('1')
 
@@ -291,10 +291,10 @@ const statusMap = {
 }
 
 const processSteps = [
-  { id: 1, label: 'Recibida', detail: 'La empresa ya recibiÃ³ la postulaciÃ³n.', icon: 'bi-inbox-fill' },
-  { id: 2, label: 'En revision', detail: 'El perfil estÃ¡ siendo evaluado.', icon: 'bi-search' },
-  { id: 3, label: 'Entrevista', detail: 'El candidato pasÃ³ a una conversaciÃ³n formal.', icon: 'bi-camera-video-fill' },
-  { id: 5, label: 'Contratado', detail: 'El proceso terminÃ³ de forma exitosa.', icon: 'bi-check-circle-fill' }
+  { id: 1, label: 'Recibida', detail: 'La empresa ya recibió la postulación.', icon: 'bi-inbox-fill' },
+  { id: 2, label: 'En revision', detail: 'El perfil está siendo evaluado.', icon: 'bi-search' },
+  { id: 3, label: 'Entrevista', detail: 'El candidato pasó a una conversación formal.', icon: 'bi-camera-video-fill' },
+  { id: 5, label: 'Contratado', detail: 'El proceso terminó de forma exitosa.', icon: 'bi-check-circle-fill' }
 ]
 
 // ========== Computed: datos derivados ==========
@@ -344,9 +344,9 @@ const timelineSteps = computed(() => {
   const isRejected = estadoId.value === 4
   if (isRejected) {
     return [
-      { label: 'Recibida', detail: 'La empresa recibiÃ³ la postulaciÃ³n.', icon: 'bi-inbox-fill' },
-      { label: 'RevisiÃ³n', detail: 'El perfil fue revisado por el equipo.', icon: 'bi-search' },
-      { label: 'Cierre', detail: 'Se definiÃ³ un rechazo para esta vacante.', icon: 'bi-x-circle-fill' }
+      { label: 'Recibida', detail: 'La empresa recibió la postulación.', icon: 'bi-inbox-fill' },
+      { label: 'Revisión', detail: 'El perfil fue revisado por el equipo.', icon: 'bi-search' },
+      { label: 'Cierre', detail: 'Se definió un rechazo para esta vacante.', icon: 'bi-x-circle-fill' }
     ]
   }
   return processSteps.map(step => ({
@@ -383,7 +383,7 @@ const getPostulacionId = () => {
 const cargarDetalle = async () => {
   const id = getPostulacionId()
   if (!id) {
-    showAlert('No se encontrÃ³ el ID de la postulaciÃ³n.')
+    showAlert('No se encontró el ID de la postulación.')
     return
   }
 
@@ -403,7 +403,7 @@ const cargarDetalle = async () => {
     nuevoEstadoId.value = String(data.id_estado_fk || 1)
   } catch (error) {
     console.error(error)
-    showAlert('Error de conexiÃ³n con el servidor.')
+    showAlert('Error de conexión con el servidor.')
   } finally {
     loading.value = false
   }
@@ -435,7 +435,7 @@ const actualizarEstado = async () => {
   }
 }
 
-// ========== Acciones rÃ¡pidas ==========
+// ========== Acciones rápidas ==========
 const copiarCorreo = async () => {
   const email = postulacion.value?.correo_electronico
   if (!email) {
@@ -456,8 +456,8 @@ const prepararContacto = () => {
     showAlert('No hay correo disponible para este postulante.')
     return
   }
-  const subject = encodeURIComponent(`Seguimiento de postulaciÃ³n - ${postulacion.value.titulo_puesto || 'Vacante'}`)
-  const body = encodeURIComponent(`Hola ${postulacion.value.nombres || ''},%0D%0A%0D%0ATe contactamos para dar seguimiento a tu postulaciÃ³n.%0D%0A%0D%0ASaludos.`)
+  const subject = encodeURIComponent(`Seguimiento de postulación - ${postulacion.value.titulo_puesto || 'Vacante'}`)
+  const body = encodeURIComponent(`Hola ${postulacion.value.nombres || ''},%0D%0A%0D%0ATe contactamos para dar seguimiento a tu postulación.%0D%0A%0D%0ASaludos.`)
   window.location.href = `mailto:${email}?subject=${subject}&body=${body}`
 }
 

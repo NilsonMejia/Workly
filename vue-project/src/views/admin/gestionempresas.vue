@@ -17,7 +17,7 @@
             <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/usuarios">Usuarios</a></li>
             <li class="nav-item"><a class="nav-link nav-link-custom active" href="/admin/empresas">Empresas</a></li>
             <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/vacantes">Vacantes</a></li>
-            <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/estadisticas">EstadÃ­sticas</a></li>
+            <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/estadisticas">Estadísticas</a></li>
           </ul>
           <div class="profile-wrapper ms-lg-3">
             <i class="bi bi-person-circle fs-2 text-white" style="cursor: pointer;"></i>
@@ -32,14 +32,14 @@
         <!-- Sidebar -->
         <aside class="col-12 col-lg-2">
           <div class="bento-card p-3 h-100">
-            <h6 class="text-muted fw-bold mb-4 ps-2 small text-uppercase">MenÃº Admin</h6>
+            <h6 class="text-muted fw-bold mb-4 ps-2 small text-uppercase">Menú Admin</h6>
             <div class="d-flex flex-column">
               <a href="/admin/principal" class="btn-menu-side"><i class="bi bi-grid-fill me-2"></i> Dashboard</a>
-              <a href="/admin/usuarios" class="btn-menu-side"><i class="bi bi-people-fill me-2"></i> GestiÃ³n de Usuarios</a>
-              <a href="/admin/empresas" class="btn-menu-side active"><i class="bi bi-building me-2"></i> GestiÃ³n de Empresas</a>
-              <a href="/admin/vacantes" class="btn-menu-side"><i class="bi bi-file-earmark-text me-2"></i> GestiÃ³n de Vacantes</a>
-              <a href="/admin/estadisticas" class="btn-menu-side"><i class="bi bi-bar-chart-fill me-2"></i> EstadÃ­sticas del Sistema</a>
-              <a href="/admin/moderacion" class="btn-menu-side"><i class="bi bi-shield-lock-fill me-2"></i> ModeraciÃ³n de Contenido</a>
+              <a href="/admin/usuarios" class="btn-menu-side"><i class="bi bi-people-fill me-2"></i> Gestión de Usuarios</a>
+              <a href="/admin/empresas" class="btn-menu-side active"><i class="bi bi-building me-2"></i> Gestión de Empresas</a>
+              <a href="/admin/vacantes" class="btn-menu-side"><i class="bi bi-file-earmark-text me-2"></i> Gestión de Vacantes</a>
+              <a href="/admin/estadisticas" class="btn-menu-side"><i class="bi bi-bar-chart-fill me-2"></i> Estadísticas del Sistema</a>
+              <a href="/admin/moderacion" class="btn-menu-side"><i class="bi bi-shield-lock-fill me-2"></i> Moderación de Contenido</a>
             </div>
           </div>
         </aside>
@@ -47,7 +47,7 @@
         <!-- Main Content -->
         <div class="col-12 col-lg-10">
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="fw-bold m-0" style="color: var(--azul-oscuro)">GestiÃ³n de Empresas</h4>
+            <h4 class="fw-bold m-0" style="color: var(--azul-oscuro)">Gestión de Empresas</h4>
           </div>
 
           <!-- Alert Container -->
@@ -166,7 +166,7 @@
                     </div>
                     <p class="small mb-0 text-muted">
                       {{ empresa.correo_electronico || 'Sin correo' }}
-                      {{ empresa.sitio_web ? ' Â· ' + empresa.sitio_web : '' }}
+                      {{ empresa.sitio_web ? ' · ' + empresa.sitio_web : '' }}
                     </p>
                   </div>
                 </div>
@@ -203,7 +203,7 @@
                   <input type="text" class="form-control" v-model="nuevaEmpresa.nombre_comercial">
                 </div>
                 <div class="col-md-6">
-                  <label class="form-label fw-bold">RazÃ³n social</label>
+                  <label class="form-label fw-bold">Razón social</label>
                   <input type="text" class="form-control" v-model="nuevaEmpresa.razon_social">
                 </div>
                 <div class="col-md-6">
@@ -211,7 +211,7 @@
                   <input type="email" class="form-control" v-model="nuevaEmpresa.correo_electronico">
                 </div>
                 <div class="col-md-6">
-                  <label class="form-label fw-bold">ContraseÃ±a *</label>
+                  <label class="form-label fw-bold">Contraseña *</label>
                   <input type="password" class="form-control" v-model="nuevaEmpresa.contrasena">
                 </div>
                 <div class="col-md-6">
@@ -228,7 +228,7 @@
                   </select>
                 </div>
                 <div class="col-12">
-                  <label class="form-label fw-bold">DescripciÃ³n</label>
+                  <label class="form-label fw-bold">Descripción</label>
                   <textarea class="form-control" v-model="nuevaEmpresa.descripcion_empresa" rows="4"></textarea>
                 </div>
               </div>
@@ -347,14 +347,14 @@ const cargarEmpresas = async () => {
     empresas.value = Array.isArray(data) ? data : []
   } catch (error) {
     console.error('Error cargando empresas:', error)
-    showAlert('Error de conexiÃ³n con el servidor.')
+    showAlert('Error de conexión con el servidor.')
   } finally {
     loading.value = false
   }
 }
 
 const eliminarEmpresa = async (id) => {
-  if (!confirm('Â¿Seguro que deseas eliminar esta empresa?')) return
+  if (!confirm('¿Seguro que deseas eliminar esta empresa?')) return
 
   try {
     const response = await fetch(`${API_URL}/admin/empresas/${id}`, {
@@ -381,14 +381,14 @@ const eliminarEmpresa = async (id) => {
     await cargarEmpresas()
   } catch (error) {
     console.error('Error eliminando empresa:', error)
-    showAlert('Error de conexiÃ³n con el servidor.')
+    showAlert('Error de conexión con el servidor.')
   }
 }
 
 const guardarEmpresa = async () => {
-  // Validaciones bÃ¡sicas
+  // Validaciones básicas
   if (!nuevaEmpresa.value.nombre_comercial || !nuevaEmpresa.value.correo_electronico || !nuevaEmpresa.value.contrasena) {
-    showAlert('Completa nombre comercial, correo y contraseÃ±a.', 'warning')
+    showAlert('Completa nombre comercial, correo y contraseña.', 'warning')
     return
   }
 
@@ -420,14 +420,14 @@ const guardarEmpresa = async () => {
     await cargarEmpresas()
   } catch (error) {
     console.error('Error creando empresa:', error)
-    showAlert('Error de conexiÃ³n con el servidor.')
+    showAlert('Error de conexión con el servidor.')
   }
 }
 
 // ========== Funciones UI ==========
 const aplicarFiltro = () => {
-  // El filtro ya es reactivo gracias a v-model, esta funciÃ³n es redundante pero se mantiene por compatibilidad
-  // Forzamos actualizaciÃ³n del computed (ya se actualiza automÃ¡ticamente)
+  // El filtro ya es reactivo gracias a v-model, esta función es redundante pero se mantiene por compatibilidad
+  // Forzamos actualización del computed (ya se actualiza automáticamente)
 }
 
 const limpiarFormulario = () => {
@@ -452,7 +452,7 @@ onBeforeMount(() => {
   try {
     requireAuth(['admin'])
   } catch (error) {
-    console.error('Error de autenticaciÃ³n:', error)
+    console.error('Error de autenticación:', error)
     redirectToLogin()
   }
 })

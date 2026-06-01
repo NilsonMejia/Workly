@@ -3,7 +3,7 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
       <div class="container-fluid px-4 px-lg-5">
-        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.html">
+        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="/empresa/principal">
           <i class="bi bi-briefcase-fill brand-icon"></i>
           <div class="lh-sm ms-2">
             <span class="brand-text">Workly</span>

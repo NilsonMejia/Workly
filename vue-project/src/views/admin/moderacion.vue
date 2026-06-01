@@ -17,7 +17,7 @@
             <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/usuarios">Usuarios</a></li>
             <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/empresas">Empresas</a></li>
             <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/vacantes">Vacantes</a></li>
-            <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/estadisticas">EstadÃ­sticas</a></li>
+            <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/estadisticas">Estadísticas</a></li>
           </ul>
           <div class="profile-wrapper ms-lg-3">
             <i class="bi bi-person-circle fs-2 text-white" style="cursor: pointer"></i>
@@ -32,14 +32,14 @@
         <!-- Sidebar -->
         <aside class="col-12 col-lg-2">
           <div class="bento-card p-3 h-100">
-            <h6 class="text-muted fw-bold mb-4 ps-2 small text-uppercase">MenÃº Admin</h6>
+            <h6 class="text-muted fw-bold mb-4 ps-2 small text-uppercase">Menú Admin</h6>
             <div class="d-flex flex-column">
               <a href="/admin/principal" class="btn-menu-side"><i class="bi bi-grid-fill me-2"></i> Dashboard</a>
-              <a href="/admin/usuarios" class="btn-menu-side"><i class="bi bi-people-fill me-2"></i> GestiÃ³n de Usuarios</a>
-              <a href="/admin/empresas" class="btn-menu-side"><i class="bi bi-building me-2"></i> GestiÃ³n de Empresas</a>
-              <a href="/admin/vacantes" class="btn-menu-side"><i class="bi bi-file-earmark-text me-2"></i> GestiÃ³n de Vacantes</a>
-              <a href="/admin/estadisticas" class="btn-menu-side"><i class="bi bi-bar-chart-fill me-2"></i> EstadÃ­sticas del Sistema</a>
-              <a href="/admin/moderacion" class="btn-menu-side active"><i class="bi bi-shield-lock-fill me-2"></i> ModeraciÃ³n de Contenido</a>
+              <a href="/admin/usuarios" class="btn-menu-side"><i class="bi bi-people-fill me-2"></i> Gestión de Usuarios</a>
+              <a href="/admin/empresas" class="btn-menu-side"><i class="bi bi-building me-2"></i> Gestión de Empresas</a>
+              <a href="/admin/vacantes" class="btn-menu-side"><i class="bi bi-file-earmark-text me-2"></i> Gestión de Vacantes</a>
+              <a href="/admin/estadisticas" class="btn-menu-side"><i class="bi bi-bar-chart-fill me-2"></i> Estadísticas del Sistema</a>
+              <a href="/admin/moderacion" class="btn-menu-side active"><i class="bi bi-shield-lock-fill me-2"></i> Moderación de Contenido</a>
             </div>
           </div>
         </aside>
@@ -47,7 +47,7 @@
         <!-- Main Content -->
         <div class="col-12 col-lg-10">
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="fw-bold m-0" style="color: var(--azul-oscuro)">ModeraciÃ³n de Contenido</h4>
+            <h4 class="fw-bold m-0" style="color: var(--azul-oscuro)">Moderación de Contenido</h4>
           </div>
 
           <!-- Alert Container -->
@@ -84,7 +84,7 @@
 
           <!-- Moderation Table -->
           <div class="bento-card p-4 mb-4">
-            <h6 class="fw-bold mb-4">Elementos para revisiÃ³n</h6>
+            <h6 class="fw-bold mb-4">Elementos para revisión</h6>
             <div class="table-responsive">
               <table class="table align-middle">
                 <thead class="text-muted border-bottom">
@@ -211,9 +211,9 @@
                         <i :class="`bi bi-${index === 0 ? 'plus-circle' : index === 1 ? 'exclamation-triangle' : 'check-circle'} me-2 text-${index === 0 ? 'primary' : index === 1 ? 'danger' : 'success'}`"></i>
                         {{ item.titulo }}
                       </h6>
-                      <small class="text-muted">{{ item.tipo }} Â· {{ formatearFecha(item.fecha) }}</small>
+                      <small class="text-muted">{{ item.tipo }} · {{ formatearFecha(item.fecha) }}</small>
                     </div>
-                    <p class="small mb-0 text-muted">{{ item.origen }} Â· {{ item.detalle }}</p>
+                    <p class="small mb-0 text-muted">{{ item.origen }} · {{ item.detalle }}</p>
                   </div>
                 </div>
               </div>
@@ -223,12 +223,12 @@
       </div>
     </main>
 
-    <!-- Modal de ConfirmaciÃ³n -->
+    <!-- Modal de Confirmación -->
     <div class="modal fade" id="modalConfirmacion" tabindex="-1" ref="modalConfirmacionRef">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Confirmar acciÃ³n</h5>
+            <h5 class="modal-title">Confirmar acción</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body" v-html="confirmacionMensaje"></div>
@@ -274,7 +274,7 @@ const usuarios = ref([])
 const empresas = ref([])
 const vacantes = ref([])
 
-// Modal de confirmaciÃ³n
+// Modal de confirmación
 const modalConfirmacionRef = ref(null)
 let modalConfirmacionInstance = null
 const confirmacionMensaje = ref('')
@@ -299,7 +299,7 @@ const itemsModeracion = computed(() => {
     tipo: 'Empresa',
     origen: item.correo_electronico || 'Sin correo',
     detalle: item.sitio_web || 'Sin sitio web',
-    estado: item.estado || 'RevisiÃ³n general',
+    estado: item.estado || 'Revisión general',
     fecha: item.fecha_registro || new Date().toISOString()
   }))
 
@@ -308,7 +308,7 @@ const itemsModeracion = computed(() => {
     titulo: item.titulo_puesto || 'Vacante',
     tipo: 'Vacante',
     origen: item.nombre_comercial || 'Sin empresa',
-    detalle: `${item.nombre_categoria || 'Sin categorÃ­a'} Â· ${item.modalidad || 'N/D'}`,
+    detalle: `${item.nombre_categoria || 'Sin categoría'} · ${item.modalidad || 'N/D'}`,
     estado: item.estado || 'Activo',
     fecha: item.fecha_publicacion || new Date().toISOString()
   }))
@@ -374,7 +374,7 @@ const getEstadoBadge = (estado) => {
     Pendiente: { class: 'warning text-dark', icon: 'clock', text: 'Pendiente' },
     Suspendido: { class: 'danger', icon: 'exclamation-triangle', text: 'Suspendido' },
     Rechazado: { class: 'danger', icon: 'x-circle', text: 'Rechazado' },
-    'RevisiÃ³n general': { class: 'info', icon: 'eye', text: 'En revisiÃ³n' },
+    'Revisión general': { class: 'info', icon: 'eye', text: 'En revisión' },
     Publicada: { class: 'success', icon: 'check-circle', text: 'Publicada' },
     Reportada: { class: 'danger', icon: 'exclamation-triangle', text: 'Reportada' }
   }
@@ -417,7 +417,7 @@ const cargarModeracion = async () => {
     try { vacantesData = await vacantesRes.json() } catch {}
 
     if (!usuariosRes.ok || !empresasRes.ok || !vacantesRes.ok) {
-      showAlert('No se pudieron cargar los datos de moderaciÃ³n.')
+      showAlert('No se pudieron cargar los datos de moderación.')
       usuarios.value = []
       empresas.value = []
       vacantes.value = []
@@ -429,7 +429,7 @@ const cargarModeracion = async () => {
     vacantes.value = Array.isArray(vacantesData) ? vacantesData : []
   } catch (error) {
     console.error(error)
-    showAlert('Error de conexiÃ³n con el servidor.')
+    showAlert('Error de conexión con el servidor.')
     usuarios.value = []
     empresas.value = []
     vacantes.value = []
@@ -465,7 +465,7 @@ const actualizarEstadoItem = async (item, nuevoEstado) => {
     await cargarModeracion()
   } catch (error) {
     console.error(error)
-    showAlert(`Error de conexiÃ³n al actualizar ${item.tipo}.`)
+    showAlert(`Error de conexión al actualizar ${item.tipo}.`)
   } finally {
     loading.value = false
   }
@@ -497,22 +497,22 @@ const eliminarItem = async (item) => {
     await cargarModeracion()
   } catch (error) {
     console.error(error)
-    showAlert(`Error de conexiÃ³n al eliminar ${item.tipo}.`)
+    showAlert(`Error de conexión al eliminar ${item.tipo}.`)
   } finally {
     loading.value = false
   }
 }
 
-// ========== LÃ³gica de confirmaciÃ³n modal ==========
+// ========== Lógica de confirmación modal ==========
 const abrirConfirmacion = (item, accion) => {
   if (accion === 'suspend') {
-    confirmacionMensaje.value = `Â¿EstÃ¡s seguro de que deseas <strong>SUSPENDER</strong> ${item.tipo} "${item.titulo}"?`
+    confirmacionMensaje.value = `¿Estás seguro de que deseas <strong>SUSPENDER</strong> ${item.tipo} "${item.titulo}"?`
     pendingAction = { tipo: 'suspend', item }
   } else if (accion === 'activate') {
-    confirmacionMensaje.value = `Â¿EstÃ¡s seguro de que deseas <strong>ACTIVAR</strong> ${item.tipo} "${item.titulo}"?`
+    confirmacionMensaje.value = `¿Estás seguro de que deseas <strong>ACTIVAR</strong> ${item.tipo} "${item.titulo}"?`
     pendingAction = { tipo: 'activate', item }
   } else if (accion === 'delete') {
-    confirmacionMensaje.value = `Â¿EstÃ¡s seguro de que deseas <strong>ELIMINAR</strong> ${item.tipo} "${item.titulo}"? Esta acciÃ³n no se puede deshacer.`
+    confirmacionMensaje.value = `¿Estás seguro de que deseas <strong>ELIMINAR</strong> ${item.tipo} "${item.titulo}"? Esta acción no se puede deshacer.`
     pendingAction = { tipo: 'delete', item }
   }
   modalConfirmacionInstance?.show()
@@ -536,8 +536,8 @@ const ejecutarAccionConfirmada = async () => {
 
 // ========== Filtro ==========
 const aplicarFiltro = () => {
-  // El filtro se actualiza automÃ¡ticamente vÃ­a computed (filteredItems)
-  // Esta funciÃ³n solo existe para mantener coherencia con el diseÃ±o original
+  // El filtro se actualiza automáticamente vía computed (filteredItems)
+  // Esta función solo existe para mantener coherencia con el diseño original
 }
 
 // ========== Ciclo de vida ==========
@@ -545,7 +545,7 @@ onBeforeMount(() => {
   try {
     requireAuth(['admin'])
   } catch (error) {
-    console.error('Error de autenticaciÃ³n:', error)
+    console.error('Error de autenticación:', error)
     redirectToLogin()
   }
 })

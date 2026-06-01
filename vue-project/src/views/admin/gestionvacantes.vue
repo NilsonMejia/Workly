@@ -17,7 +17,7 @@
             <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/usuarios">Usuarios</a></li>
             <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/empresas">Empresas</a></li>
             <li class="nav-item"><a class="nav-link nav-link-custom active" href="/admin/vacantes">Vacantes</a></li>
-            <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/estadisticas">EstadÃ­sticas</a></li>
+            <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/estadisticas">Estadísticas</a></li>
           </ul>
           <div class="profile-wrapper ms-lg-3">
             <i class="bi bi-person-circle fs-2 text-white" style="cursor: pointer;"></i>
@@ -39,14 +39,14 @@
         <!-- Sidebar -->
         <aside class="col-12 col-lg-2">
           <div class="bento-card p-3 h-100">
-            <h6 class="text-muted fw-bold mb-4 ps-2 small text-uppercase">MenÃº Admin</h6>
+            <h6 class="text-muted fw-bold mb-4 ps-2 small text-uppercase">Menú Admin</h6>
             <div class="d-flex flex-column">
               <a href="/admin/principal" class="btn-menu-side"><i class="bi bi-grid-fill me-2"></i> Dashboard</a>
-              <a href="/admin/usuarios" class="btn-menu-side"><i class="bi bi-people-fill me-2"></i> GestiÃ³n de Usuarios</a>
-              <a href="/admin/empresas" class="btn-menu-side"><i class="bi bi-building me-2"></i> GestiÃ³n de Empresas</a>
-              <a href="/admin/vacantes" class="btn-menu-side active"><i class="bi bi-file-earmark-text me-2"></i> GestiÃ³n de Vacantes</a>
-              <a href="/admin/estadisticas" class="btn-menu-side"><i class="bi bi-bar-chart-fill me-2"></i> EstadÃ­sticas del Sistema</a>
-              <a href="/admin/moderacion" class="btn-menu-side"><i class="bi bi-shield-lock-fill me-2"></i> ModeraciÃ³n de Contenido</a>
+              <a href="/admin/usuarios" class="btn-menu-side"><i class="bi bi-people-fill me-2"></i> Gestión de Usuarios</a>
+              <a href="/admin/empresas" class="btn-menu-side"><i class="bi bi-building me-2"></i> Gestión de Empresas</a>
+              <a href="/admin/vacantes" class="btn-menu-side active"><i class="bi bi-file-earmark-text me-2"></i> Gestión de Vacantes</a>
+              <a href="/admin/estadisticas" class="btn-menu-side"><i class="bi bi-bar-chart-fill me-2"></i> Estadísticas del Sistema</a>
+              <a href="/admin/moderacion" class="btn-menu-side"><i class="bi bi-shield-lock-fill me-2"></i> Moderación de Contenido</a>
             </div>
           </div>
         </aside>
@@ -54,7 +54,7 @@
         <!-- Main Content -->
         <div class="col-12 col-lg-10">
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="fw-bold m-0" style="color: var(--azul-oscuro)">GestiÃ³n de Vacantes</h4>
+            <h4 class="fw-bold m-0" style="color: var(--azul-oscuro)">Gestión de Vacantes</h4>
             <div class="d-flex gap-2">
               <button class="btn btn-action-top" @click="exportarLista">
                 <i class="bi bi-download me-2"></i>Exportar lista
@@ -71,7 +71,7 @@
               <div class="col">
                 <div class="input-group">
                   <span class="input-group-text bg-light border-0"><i class="bi bi-search"></i></span>
-                  <input type="text" class="form-control bg-light border-0" v-model="filtroTexto" @keydown.enter="aplicarFiltro" placeholder="Buscar por tÃ­tulo, empresa o categorÃ­a...">
+                  <input type="text" class="form-control bg-light border-0" v-model="filtroTexto" @keydown.enter="aplicarFiltro" placeholder="Buscar por título, empresa o categoría...">
                 </div>
               </div>
               <div class="col-auto">
@@ -126,7 +126,7 @@
                   <tr v-else v-for="vacante in filteredVacantes" :key="vacante.id_vacante">
                     <td>
                       <div class="fw-bold">{{ vacante.titulo_puesto || 'N/D' }}</div>
-                      <div class="small text-muted">{{ vacante.modalidad || 'N/D' }} Â· {{ vacante.nombre_categoria || 'Sin categorÃ­a' }}</div>
+                      <div class="small text-muted">{{ vacante.modalidad || 'N/D' }} · {{ vacante.nombre_categoria || 'Sin categoría' }}</div>
                     </td>
                     <td>{{ vacante.nombre_comercial || 'N/D' }}</td>
                     <td>
@@ -198,7 +198,7 @@
                       <h6 class="fw-bold mb-1">{{ vacante.titulo_puesto || 'Vacante' }}</h6>
                       <small class="text-muted">{{ formatearFecha(vacante.fecha_publicacion) }}</small>
                     </div>
-                    <p class="small mb-0 text-muted">{{ vacante.nombre_comercial || 'Empresa' }} Â· {{ vacante.modalidad || 'N/D' }} Â· {{ vacante.estado || 'Activo' }}</p>
+                    <p class="small mb-0 text-muted">{{ vacante.nombre_comercial || 'Empresa' }} · {{ vacante.modalidad || 'N/D' }} · {{ vacante.estado || 'Activo' }}</p>
                   </div>
                 </div>
               </div>
@@ -223,7 +223,7 @@
             <form id="formVacante">
               <input type="hidden" v-model="vacanteForm.id_vacante">
               <div class="mb-3">
-                <label class="form-label fw-bold">TÃ­tulo del puesto *</label>
+                <label class="form-label fw-bold">Título del puesto *</label>
                 <input type="text" class="form-control" v-model="vacanteForm.titulo_puesto" required>
               </div>
               <div class="mb-3">
@@ -234,9 +234,9 @@
                 </select>
               </div>
               <div class="mb-3">
-                <label class="form-label fw-bold">CategorÃ­a</label>
+                <label class="form-label fw-bold">Categoría</label>
                 <select class="form-select" v-model="vacanteForm.id_categoria_fk">
-                  <option value="">Selecciona una categorÃ­a</option>
+                  <option value="">Selecciona una categoría</option>
                   <option v-for="cat in categorias" :key="cat.id_categoria" :value="cat.id_categoria">{{ cat.nombre_categoria }}</option>
                 </select>
               </div>
@@ -245,11 +245,11 @@
                 <select class="form-select" v-model="vacanteForm.modalidad">
                   <option value="Presencial">Presencial</option>
                   <option value="Remoto">Remoto</option>
-                  <option value="HÃ­brido">HÃ­brido</option>
+                  <option value="Híbrido">Híbrido</option>
                 </select>
               </div>
               <div class="mb-3">
-                <label class="form-label fw-bold">DescripciÃ³n</label>
+                <label class="form-label fw-bold">Descripción</label>
                 <textarea class="form-control" v-model="vacanteForm.descripcion_puesto" rows="3"></textarea>
               </div>
               <div class="mb-3">
@@ -386,14 +386,14 @@ const cargarCatalogos = async () => {
       return false
     }
 
-    if (!empresasRes.ok || !categoriasRes.ok) throw new Error('Error cargando catÃ¡logos')
+    if (!empresasRes.ok || !categoriasRes.ok) throw new Error('Error cargando catálogos')
 
     empresas.value = await empresasRes.json()
     categorias.value = await categoriasRes.json()
     return true
   } catch (error) {
     console.error(error)
-    showAlert('No se pudieron cargar empresas o categorÃ­as.')
+    showAlert('No se pudieron cargar empresas o categorías.')
     return false
   }
 }
@@ -419,7 +419,7 @@ const cargarVacantes = async () => {
     vacantes.value = Array.isArray(data) ? data : []
   } catch (error) {
     console.error(error)
-    showAlert('Error de conexiÃ³n con el servidor.')
+    showAlert('Error de conexión con el servidor.')
   } finally {
     loading.value = false
   }
@@ -437,7 +437,7 @@ const guardarVacante = async () => {
   }
 
   if (!payload.id_empresa_fk || !payload.id_categoria_fk || !payload.titulo_puesto || !payload.descripcion_puesto) {
-    showAlert('Completa empresa, categorÃ­a, tÃ­tulo y descripciÃ³n.', 'warning')
+    showAlert('Completa empresa, categoría, título y descripción.', 'warning')
     return
   }
 
@@ -470,7 +470,7 @@ const guardarVacante = async () => {
     await cargarVacantes()
   } catch (error) {
     console.error(error)
-    showAlert('Error de conexiÃ³n con el servidor.')
+    showAlert('Error de conexión con el servidor.')
   }
 }
 
@@ -499,12 +499,12 @@ const cambiarEstadoVacante = async (id, nuevoEstado) => {
     await cargarVacantes()
   } catch (error) {
     console.error(error)
-    showAlert('Error de conexiÃ³n con el servidor.')
+    showAlert('Error de conexión con el servidor.')
   }
 }
 
 const eliminarVacante = async (id) => {
-  if (!confirm('Â¿Seguro que deseas eliminar esta vacante?')) return
+  if (!confirm('¿Seguro que deseas eliminar esta vacante?')) return
 
   try {
     const response = await fetch(`${API_URL}/admin/vacantes/${id}`, {
@@ -529,13 +529,13 @@ const eliminarVacante = async (id) => {
     await cargarVacantes()
   } catch (error) {
     console.error(error)
-    showAlert('Error de conexiÃ³n con el servidor.')
+    showAlert('Error de conexión con el servidor.')
   }
 }
 
 // ========== Funciones UI ==========
 const aplicarFiltro = () => {
-  // Computed se actualiza automÃ¡ticamente por v-model, esta funciÃ³n solo existe por coherencia
+  // Computed se actualiza automáticamente por v-model, esta función solo existe por coherencia
 }
 
 const limpiarFiltros = () => {
@@ -579,10 +579,10 @@ const verVacante = (vacante) => {
   showAlert(`
     <strong>${vacante.titulo_puesto}</strong><br>
     Empresa: ${vacante.nombre_comercial}<br>
-    CategorÃ­a: ${vacante.nombre_categoria}<br>
+    Categoría: ${vacante.nombre_categoria}<br>
     Modalidad: ${vacante.modalidad || 'N/D'}<br>
     Estado: ${vacante.estado || 'Activo'}<br>
-    DescripciÃ³n: ${vacante.descripcion_puesto || 'Sin descripciÃ³n'}
+    Descripción: ${vacante.descripcion_puesto || 'Sin descripción'}
   `, 'info')
 }
 
@@ -621,7 +621,7 @@ onBeforeMount(() => {
   try {
     requireAuth(['admin'])
   } catch (error) {
-    console.error('Error de autenticaciÃ³n:', error)
+    console.error('Error de autenticación:', error)
     redirectToLogin()
   }
 })

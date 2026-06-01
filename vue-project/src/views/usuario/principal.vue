@@ -2,11 +2,11 @@
   <div class="d-flex flex-column min-vh-100 main-dashboard-wrapper">
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
       <div class="container-fluid px-4 px-lg-5">
-        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="#">
+        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="/usuario/principal">
           <i class="bi bi-briefcase-fill brand-icon"></i>
           <div class="lh-sm ms-2">
             <span class="brand-text">Workly</span>
-            <span class="brand-sub">Tu bÃºsqueda de trabajo profesional</span>
+            <span class="brand-sub">Tu búsqueda de trabajo profesional</span>
           </div>
         </a>
 
@@ -16,26 +16,26 @@
 
         <div class="collapse navbar-collapse" id="navbarContent">
           <div class="navbar-nav mx-auto mt-3 mt-lg-0 gap-2">
-            <a href="#" class="nav-link-custom text-decoration-none px-3 py-2">
+            <a href="/usuario/buscar-empleo" class="nav-link-custom text-decoration-none px-3 py-2">
               <i class="bi bi-search me-1"></i> Buscar empleo
             </a>
-            <a href="#" class="nav-link-custom text-decoration-none px-3 py-2">
+            <a href="/usuario/recursos" class="nav-link-custom text-decoration-none px-3 py-2">
               <i class="bi bi-journal-bookmark-fill me-1"></i> Recursos
             </a>
-            <a href="#" class="nav-link-custom text-decoration-none px-3 py-2">
+            <a href="/usuario/valoraciones-empresa" class="nav-link-custom text-decoration-none px-3 py-2">
               <i class="bi bi-star-fill me-1"></i> Valoraciones
             </a>
-            <a href="#" class="nav-link-custom text-decoration-none px-3 py-2">
+            <a href="/usuario/mi-perfil" class="nav-link-custom text-decoration-none px-3 py-2">
               <i class="bi bi-person-badge me-1"></i> Mi Perfil
             </a>
           </div>
 
           <div class="d-flex align-items-center justify-content-center gap-4 mt-3 mt-lg-0">
-            <a href="#" class="text-white position-relative d-inline-block">
+            <a href="/usuario/notificaciones" class="text-white position-relative d-inline-block">
               <i class="bi bi-bell-fill fs-3"></i>
               <span class="notification-badge">5</span>
             </a>
-            <a href="#" class="text-white d-inline-block">
+            <a href="/usuario/mi-perfil" class="text-white d-inline-block">
               <i class="bi bi-person-circle fs-2"></i>
             </a>
           </div>
@@ -48,7 +48,7 @@
 
         <div class="welcome-banner d-flex align-items-center justify-content-between">
           <div>
-            <h2>ðŸ‘‹ Â¡Bienvenido, <span>{{ nombreUsuarioVisible }}</span>!</h2>
+            <h2>👋 ¡Bienvenido, <span>{{ nombreUsuarioVisible }}</span>!</h2>
             <p>Hoy hay 342 nuevas vacantes para ti</p>
           </div>
           <div class="d-none d-md-block">
@@ -87,7 +87,7 @@
         <section class="mb-5">
           <div class="d-flex align-items-center mb-3">
             <i class="bi bi-sliders2 fs-4 me-2" style="color: var(--primary-deep);"></i>
-            <h5 class="fw-bold mb-0" style="color: #121826;">Personaliza tu bÃºsqueda</h5>
+            <h5 class="fw-bold mb-0" style="color: #121826;">Personaliza tu búsqueda</h5>
             <span class="badge bg-light text-dark ms-3 px-3 py-2 rounded-pill">Filtros avanzados</span>
           </div>
 
@@ -101,7 +101,7 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="filter-label"><i class="bi bi-geo-alt"></i> UbicaciÃ³n</div>
+                <div class="filter-label"><i class="bi bi-geo-alt"></i> Ubicación</div>
                 <div class="input-group">
                   <span class="input-group-text bg-transparent border-0 ps-0"><i class="bi bi-pin-map"></i></span>
                   <input type="text" v-model="filtros.ubicacion" class="form-control-custom w-100" placeholder="Ciudad, estado o remoto">
@@ -117,17 +117,17 @@
                   <option value="Tiempo completo">Tiempo completo</option>
                   <option value="Medio tiempo">Medio tiempo</option>
                   <option value="Freelance">Freelance</option>
-                  <option value="PrÃ¡cticas">PrÃ¡cticas</option>
+                  <option value="Prácticas">Prácticas</option>
                 </select>
               </div>
               <div class="col-md-6">
                 <div class="filter-label"><i class="bi bi-bar-chart-steps"></i> Nivel de experiencia</div>
                 <select v-model="filtros.experiencia" class="form-select-custom w-100">
                   <option value="Todos los niveles">Todos los niveles</option>
-                  <option value="PrÃ¡cticas / Becario">PrÃ¡cticas / Becario</option>
-                  <option value="Junior">Junior (0-2 aÃ±os)</option>
-                  <option value="Semi-Senior">Semi-Senior (2-5 aÃ±os)</option>
-                  <option value="Senior">Senior (5+ aÃ±os)</option>
+                  <option value="Prácticas / Becario">Prácticas / Becario</option>
+                  <option value="Junior">Junior (0-2 años)</option>
+                  <option value="Semi-Senior">Semi-Senior (2-5 años)</option>
+                  <option value="Senior">Senior (5+ años)</option>
                 </select>
               </div>
             </div>
@@ -138,7 +138,7 @@
                 <div class="row g-2">
                   <div class="col-6">
                     <select v-model="filtros.salarioMin" class="form-select-custom w-100">
-                      <option value="MÃ­nimo">MÃ­nimo</option>
+                      <option value="Mínimo">Mínimo</option>
                       <option value="500">$500</option>
                       <option value="800">$800</option>
                       <option value="1000">$1000</option>
@@ -146,7 +146,7 @@
                   </div>
                   <div class="col-6">
                     <select v-model="filtros.salarioMax" class="form-select-custom w-100">
-                      <option value="MÃ¡ximo">MÃ¡ximo</option>
+                      <option value="Máximo">Máximo</option>
                       <option value="1000">$1000</option>
                       <option value="1500">$1500</option>
                       <option value="2000">$2000</option>
@@ -167,7 +167,7 @@
                   </div>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="filtroHibrido" value="Hibrido" v-model="filtros.modalidades">
-                    <label class="form-check-label" for="filtroHibrido">HÃ­brido</label>
+                    <label class="form-check-label" for="filtroHibrido">Híbrido</label>
                   </div>
                 </div>
               </div>
@@ -187,7 +187,7 @@
         <section v-if="mostrarResultados" ref="seccionResultadosRef" class="mb-5">
           <div class="d-flex align-items-center mb-4">
             <h4 class="fw-bold mb-0" style="color: #121826;">
-              <i class="bi bi-card-checklist me-2" style="color: var(--primary-deep);"></i>Resultados de tu bÃºsqueda
+              <i class="bi bi-card-checklist me-2" style="color: var(--primary-deep);"></i>Resultados de tu búsqueda
             </h4>
             <span class="badge bg-primary ms-3 rounded-pill">{{ resultadosVacantes.length }} encontrados</span>
           </div>
@@ -274,7 +274,7 @@
                 <i class="bi bi-file-earmark-text-fill fs-1 mb-2" style="color: var(--primary-deep);"></i>
                 <h3 class="fw-bold mb-0">75,820</h3>
                 <p class="text-secondary mb-0">Contrataciones</p>
-                <small class="text-success"><i class="bi bi-check-circle"></i> este aÃ±o</small>
+                <small class="text-success"><i class="bi bi-check-circle"></i> este año</small>
               </div>
             </div>
           </div>
@@ -350,10 +350,10 @@
                     <i class="bi bi-file-earmark-text fs-2" style="color: var(--primary-deep);"></i>
                   </div>
                   <div>
-                    <h6 class="fw-bold">CÃ³mo destacar tu CV</h6>
-                    <p class="text-secondary small mb-2">Aprende a crear un currÃ­culum que capture la atenciÃ³n de los reclutadores.</p>
+                    <h6 class="fw-bold">Cómo destacar tu CV</h6>
+                    <p class="text-secondary small mb-2">Aprende a crear un currículum que capture la atención de los reclutadores.</p>
                     <a href="#" class="text-decoration-none fw-semibold small" style="color: var(--primary-deep);">
-                      Leer mÃ¡s <i class="bi bi-arrow-right"></i>
+                      Leer más <i class="bi bi-arrow-right"></i>
                     </a>
                   </div>
                 </div>
@@ -366,10 +366,10 @@
                     <i class="bi bi-camera-video fs-2" style="color: var(--primary-deep);"></i>
                   </div>
                   <div>
-                    <h6 class="fw-bold">PreparaciÃ³n para entrevistas</h6>
-                    <p class="text-secondary small mb-2">Consejos prÃ¡cticos para enfrentar entrevistas tÃ©cnicas y de RRHH.</p>
+                    <h6 class="fw-bold">Preparación para entrevistas</h6>
+                    <p class="text-secondary small mb-2">Consejos prácticos para enfrentar entrevistas técnicas y de RRHH.</p>
                     <a href="#" class="text-decoration-none fw-semibold small" style="color: var(--primary-deep);">
-                      Leer mÃ¡s <i class="bi bi-arrow-right"></i>
+                      Leer más <i class="bi bi-arrow-right"></i>
                     </a>
                   </div>
                 </div>
@@ -438,8 +438,8 @@
         <div class="d-flex flex-wrap justify-content-center gap-4 gap-md-5">
           <a href="#"><i class="bi bi-question-circle me-1"></i>Ayuda</a>
           <a href="#"><i class="bi bi-shield-lock me-1"></i>Privacidad</a>
-          <a href="#">TÃ©rminos</a>
-          <span class="text-white opacity-75">ðŸ’¼ Workly 2026 Â· Conectando talento</span>
+          <a href="#">Términos</a>
+          <span class="text-white opacity-75">💼 Workly 2026 · Conectando talento</span>
         </div>
       </div>
     </footer>
@@ -451,10 +451,10 @@ import { ref, reactive, computed, onMounted, nextTick } from 'vue';
 import { API_URL, getUsuario } from "../../services/api.js";
 import { requireAuth } from "../../services/api.js";
 
-// Ejecutar protecciÃ³n de ruta de autenticaciÃ³n
+// Ejecutar protección de ruta de autenticación
 requireAuth(["usuario"]);
 
-// Elementos Reactivos de BÃºsqueda RÃ¡pida
+// Elementos Reactivos de Búsqueda Rápida
 const inputBusquedaRapida = ref("");
 const buscandoRapido = ref(false);
 
@@ -471,14 +471,14 @@ const mostrarResultados = ref(false);
 // Referencia del DOM para el scroll suave
 const seccionResultadosRef = ref(null);
 
-// InicializaciÃ³n de Filtros Avanzados
+// Inicialización de Filtros Avanzados
 const filtros = reactive({
   palabra: "",
   ubicacion: "",
   tipo: "Todos los tipos",
   experiencia: "Todos los niveles",
-  salarioMin: "MÃ­nimo",
-  salarioMax: "MÃ¡ximo",
+  salarioMin: "Mínimo",
+  salarioMax: "Máximo",
   modalidades: []
 });
 
@@ -528,7 +528,7 @@ const cargarEmpleosDestacados = async () => {
   }
 };
 
-// ConstrucciÃ³n de Query Params para Endpoint de Filtros
+// Construcción de Query Params para Endpoint de Filtros
 const construirFiltros = () => {
   const params = new URLSearchParams();
 
@@ -558,7 +558,7 @@ const construirFiltros = () => {
   return params;
 };
 
-// AcciÃ³n: Aplicar Filtros Avanzados y Buscar
+// Acción: Aplicar Filtros Avanzados y Buscar
 const buscarConFiltros = async () => {
   mostrarResultados.value = true;
   filtrandoCargando.value = true;
@@ -594,20 +594,20 @@ const buscarConFiltros = async () => {
   }
 };
 
-// AcciÃ³n: Limpiar Filtros Formularios
+// Acción: Limpiar Filtros Formularios
 const limpiarFiltros = () => {
   filtros.palabra = "";
   filtros.ubicacion = "";
   filtros.tipo = "Todos los tipos";
   filtros.experiencia = "Todos los niveles";
-  filtros.salarioMin = "MÃ­nimo";
-  filtros.salarioMax = "MÃ¡ximo";
+  filtros.salarioMin = "Mínimo";
+  filtros.salarioMax = "Máximo";
   filtros.modalidades = [];
   mostrarResultados.value = false;
   resultadosVacantes.value = [];
 };
 
-// AcciÃ³n: RedirecciÃ³n mediante BÃºsqueda RÃ¡pida
+// Acción: Redirección mediante Búsqueda Rápida
 const irABusqueda = () => {
   const query = inputBusquedaRapida.value.trim();
   if (!query) {

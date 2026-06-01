@@ -17,7 +17,7 @@
             <li class="nav-item"><a class="nav-link nav-link-custom active" href="/admin/usuarios">Usuarios</a></li>
             <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/empresas">Empresas</a></li>
             <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/vacantes">Vacantes</a></li>
-            <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/estadisticas">EstadÃ­sticas</a></li>
+            <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/estadisticas">Estadísticas</a></li>
           </ul>
           <div class="profile-wrapper ms-lg-3">
             <i class="bi bi-person-circle fs-2 text-white" style="cursor: pointer;"></i>
@@ -32,25 +32,25 @@
         <!-- Sidebar -->
         <aside class="col-12 col-lg-2">
           <div class="bento-card p-3 h-100">
-            <h6 class="text-muted fw-bold mb-4 ps-2 small text-uppercase">MenÃº Admin</h6>
+            <h6 class="text-muted fw-bold mb-4 ps-2 small text-uppercase">Menú Admin</h6>
             <div class="d-flex flex-column">
               <a href="/admin/principal" class="btn-menu-side">
                 <i class="bi bi-grid-fill me-2"></i> Dashboard
               </a>
               <a href="/admin/usuarios" class="btn-menu-side active">
-                <i class="bi bi-people-fill me-2"></i> GestiÃ³n de Usuarios
+                <i class="bi bi-people-fill me-2"></i> Gestión de Usuarios
               </a>
               <a href="/admin/empresas" class="btn-menu-side">
-                <i class="bi bi-building me-2"></i> GestiÃ³n de Empresas
+                <i class="bi bi-building me-2"></i> Gestión de Empresas
               </a>
               <a href="/admin/vacantes" class="btn-menu-side">
-                <i class="bi bi-file-earmark-text me-2"></i> GestiÃ³n de Vacantes
+                <i class="bi bi-file-earmark-text me-2"></i> Gestión de Vacantes
               </a>
               <a href="/admin/estadisticas" class="btn-menu-side">
-                <i class="bi bi-bar-chart-fill me-2"></i> EstadÃ­sticas del Sistema
+                <i class="bi bi-bar-chart-fill me-2"></i> Estadísticas del Sistema
               </a>
               <a href="/admin/moderacion" class="btn-menu-side">
-                <i class="bi bi-shield-lock-fill me-2"></i> ModeraciÃ³n de Contenido
+                <i class="bi bi-shield-lock-fill me-2"></i> Moderación de Contenido
               </a>
             </div>
           </div>
@@ -59,7 +59,7 @@
         <!-- Main Content -->
         <div class="col-12 col-lg-10">
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="fw-bold m-0" style="color: var(--azul-oscuro)">GestiÃ³n de Usuarios</h4>
+            <h4 class="fw-bold m-0" style="color: var(--azul-oscuro)">Gestión de Usuarios</h4>
           </div>
 
           <!-- Alert Container -->
@@ -107,7 +107,7 @@
                   <tr>
                     <th>Usuario</th>
                     <th>Correo</th>
-                    <th>TelÃ©fono</th>
+                    <th>Teléfono</th>
                     <th>Municipio</th>
                     <th>Acciones</th>
                   </tr>
@@ -160,11 +160,11 @@
                     <span class="fw-bold fs-5">{{ filteredUsuarios.length }}</span>
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
-                    <span class="text-muted fw-semibold">Con telÃ©fono</span>
+                    <span class="text-muted fw-semibold">Con teléfono</span>
                     <span class="fw-bold fs-5">{{ usuariosConTelefono }}</span>
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
-                    <span class="text-muted fw-semibold">Sin telÃ©fono</span>
+                    <span class="text-muted fw-semibold">Sin teléfono</span>
                     <span class="fw-bold fs-5">{{ usuariosSinTelefono }}</span>
                   </div>
                 </div>
@@ -196,7 +196,7 @@
                     </div>
                     <p class="small mb-0 text-muted">
                       {{ usuario.correo_electronico || 'Sin correo' }}
-                      <span v-if="usuario.telefono"> Â· {{ usuario.telefono }}</span>
+                      <span v-if="usuario.telefono"> · {{ usuario.telefono }}</span>
                     </p>
                   </div>
                 </div>
@@ -296,14 +296,14 @@ const cargarUsuarios = async () => {
     usuarios.value = Array.isArray(data) ? data : []
   } catch (error) {
     console.error(error)
-    showAlert('Error de conexiÃ³n con el servidor.')
+    showAlert('Error de conexión con el servidor.')
   } finally {
     loading.value = false
   }
 }
 
 const eliminarUsuario = async (id) => {
-  if (!confirm('Â¿Seguro que deseas eliminar este usuario?')) return
+  if (!confirm('¿Seguro que deseas eliminar este usuario?')) return
 
   try {
     const response = await fetch(`${API_URL}/admin/usuarios/${id}`, {
@@ -332,15 +332,15 @@ const eliminarUsuario = async (id) => {
     await cargarUsuarios()
   } catch (error) {
     console.error(error)
-    showAlert('Error de conexiÃ³n con el servidor.')
+    showAlert('Error de conexión con el servidor.')
   }
 }
 
 // ========== Filtro ==========
 const aplicarFiltro = () => {
   // El filtro ya es reactivo gracias a v-model y el computed.
-  // Esta funciÃ³n existe para mantener coherencia con el diseÃ±o original.
-  // No requiere lÃ³gica adicional.
+  // Esta función existe para mantener coherencia con el diseño original.
+  // No requiere lógica adicional.
 }
 
 // ========== Ciclo de vida ==========
@@ -348,7 +348,7 @@ onBeforeMount(() => {
   try {
     requireAuth(['admin'])
   } catch (error) {
-    console.error('Error de autenticaciÃ³n:', error)
+    console.error('Error de autenticación:', error)
     redirectToLogin()
   }
 })

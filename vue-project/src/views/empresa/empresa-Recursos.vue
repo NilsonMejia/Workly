@@ -3,7 +3,7 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg py-3 recursos-nav">
       <div class="container-fluid px-4 px-lg-5">
-        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.html">
+        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="/empresa/principal">
           <i class="bi bi-briefcase-fill brand-icon"></i>
           <div class="lh-sm ms-2">
             <span class="brand-text">Workly</span>
@@ -19,7 +19,7 @@
             <a href="/empresa/mis-vacantes" class="nav-link-custom">Mis vacantes</a>
             <a href="/empresa/postulaciones" class="nav-link-custom">Postulaciones</a>
             <a href="/empresa/foro" class="nav-link-custom">Foro</a>
-            <a href="/empresa/resena-empresa" class="nav-link-custom">ReseÃ±as</a>
+            <a href="/empresa/resena-empresa" class="nav-link-custom">Reseñas</a>
             <a href="/empresa/recursos" class="nav-link-custom active">Recursos</a>
           </div>
           <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
@@ -42,8 +42,8 @@
           <div class="row g-4 align-items-center">
             <div class="col-12 col-xl-7">
               <span class="hero-chip">Biblioteca curada</span>
-              <h1 class="hero-title mt-3 mb-3">Recursos listos para reclutar mejor y moverte mÃ¡s rÃ¡pido.</h1>
-              <p class="hero-copy mb-0">Encuentra guÃ­as, plantillas y materiales prÃ¡cticos para publicar mejor, entrevistar con mÃ¡s criterio y dar seguimiento profesional a cada candidato.</p>
+              <h1 class="hero-title mt-3 mb-3">Recursos listos para reclutar mejor y moverte más rápido.</h1>
+              <p class="hero-copy mb-0">Encuentra guías, plantillas y materiales prácticos para publicar mejor, entrevistar con más criterio y dar seguimiento profesional a cada candidato.</p>
             </div>
             <div class="col-12 col-xl-5">
               <div class="hero-stats">
@@ -52,7 +52,7 @@
                   <strong class="stat-value">{{ totalRecursos }}</strong>
                 </div>
                 <div class="stat-box">
-                  <span class="stat-label">CategorÃ­as</span>
+                  <span class="stat-label">Categorías</span>
                   <strong class="stat-value">{{ categoriasUnicas.length }}</strong>
                 </div>
                 <div class="stat-box">
@@ -71,19 +71,19 @@
               <label class="form-label fw-semibold">Buscar recurso</label>
               <div class="search-shell">
                 <i class="bi bi-search text-muted"></i>
-                <input type="search" class="form-control border-0 shadow-none" placeholder="GuÃ­as, entrevistas, plantillas, onboarding..." v-model="searchTerm" @keydown.enter="aplicarFiltros">
+                <input type="search" class="form-control border-0 shadow-none" placeholder="Guías, entrevistas, plantillas, onboarding..." v-model="searchTerm" @keydown.enter="aplicarFiltros">
               </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
-              <label class="form-label fw-semibold">CategorÃ­a</label>
+              <label class="form-label fw-semibold">Categoría</label>
               <select class="form-select form-select-lg rounded-4 border-0 surface-input" v-model="selectedCategory" @change="aplicarFiltros">
-                <option value="">Todas las categorÃ­as</option>
+                <option value="">Todas las categorías</option>
                 <option v-for="cat in categoriasUnicas" :key="cat" :value="cat">{{ cat }}</option>
               </select>
             </div>
             <div class="col-12 col-lg-3 d-grid">
               <button type="button" class="btn btn-primary btn-lg rounded-4" @click="aplicarFiltros">
-                <i class="bi bi-funnel me-2"></i>Aplicar bÃºsqueda
+                <i class="bi bi-funnel me-2"></i>Aplicar búsqueda
               </button>
             </div>
           </div>
@@ -123,7 +123,7 @@
               <div v-if="recursosFiltrados.length === 0" class="empty-state">
                 <i class="bi bi-journal-x"></i>
                 <h3>No encontramos recursos con ese filtro</h3>
-                <p>Prueba otra palabra o cambia la categorÃ­a para ver mÃ¡s materiales.</p>
+                <p>Prueba otra palabra o cambia la categoría para ver más materiales.</p>
               </div>
             </div>
           </section>
@@ -131,14 +131,14 @@
           <!-- Sidebar -->
           <aside class="col-12 col-xl-4">
             <div class="sidebar-card mb-4">
-              <h3 class="h5 fw-bold mb-3">Accesos rÃ¡pidos</h3>
+              <h3 class="h5 fw-bold mb-3">Accesos rápidos</h3>
               <div class="quick-links">
                 <button v-for="link in quickLinks" :key="link.titulo" class="quick-link" @click="mostrarToast(link.accion)">{{ link.titulo }}</button>
               </div>
             </div>
 
             <div class="sidebar-card mb-4">
-              <h3 class="h5 fw-bold mb-3">CategorÃ­as</h3>
+              <h3 class="h5 fw-bold mb-3">Categorías</h3>
               <div class="category-list">
                 <button class="category-row" :class="{ active: selectedCategory === '' }" @click="selectedCategory = ''; aplicarFiltros()">
                   Todas <span>{{ totalRecursos }}</span>
@@ -152,7 +152,7 @@
             <div class="sidebar-card">
               <h3 class="h5 fw-bold mb-3">Favoritos del equipo</h3>
               <ul class="favorite-list mb-0">
-                <li>Formato de evaluaciÃ³n de candidato</li>
+                <li>Formato de evaluación de candidato</li>
                 <li>Webinar de reclutamiento moderno</li>
                 <li>Checklist para entrevistas</li>
               </ul>
@@ -174,7 +174,7 @@
 
     <footer class="footer-custom py-4 mt-auto text-center text-white-50">
       <div class="container">
-        <span>Workly 2026 | Recursos para contratar con mÃ¡s orden y criterio</span>
+        <span>Workly 2026 | Recursos para contratar con más orden y criterio</span>
       </div>
     </footer>
   </div>
@@ -188,19 +188,19 @@ onBeforeMount(() => {
   requireAuth(['empresa'])
 })
 
-// Datos de recursos (extraÃ­dos del HTML estÃ¡tico)
+// Datos de recursos (extraídos del HTML estático)
 const recursos = ref([
   {
     id: 1,
-    titulo: 'GuÃ­a para redactar vacantes efectivas',
-    descripcion: 'Aprende a escribir descripciones claras, precisas y atractivas para traer candidatos mÃ¡s alineados desde la primera publicaciÃ³n.',
+    titulo: 'Guía para redactar vacantes efectivas',
+    descripcion: 'Aprende a escribir descripciones claras, precisas y atractivas para traer candidatos más alineados desde la primera publicación.',
     categoria: 'Reclutamiento',
     formato: 'PDF',
     meta: '12 min'
   },
   {
     id: 2,
-    titulo: 'Plantilla de entrevista tÃ©cnica',
+    titulo: 'Plantilla de entrevista técnica',
     descripcion: 'Una estructura lista para ordenar preguntas, puntajes y observaciones sin improvisar durante la entrevista.',
     categoria: 'Entrevistas',
     formato: 'DOCX',
@@ -208,8 +208,8 @@ const recursos = ref([
   },
   {
     id: 3,
-    titulo: 'Matriz de evaluaciÃ³n de candidatos',
-    descripcion: 'Compara perfiles con criterios uniformes para reducir sesgos y dejar trazabilidad clara de la decisiÃ³n.',
+    titulo: 'Matriz de evaluación de candidatos',
+    descripcion: 'Compara perfiles con criterios uniformes para reducir sesgos y dejar trazabilidad clara de la decisión.',
     categoria: 'Evaluacion',
     formato: 'XLSX',
     meta: 'Comparativo'
@@ -217,7 +217,7 @@ const recursos = ref([
   {
     id: 4,
     titulo: 'Webinar: marca empleadora',
-    descripcion: 'Ideas concretas para mejorar la percepciÃ³n de tu empresa y fortalecer la atracciÃ³n de talento desde tus publicaciones.',
+    descripcion: 'Ideas concretas para mejorar la percepción de tu empresa y fortalecer la atracción de talento desde tus publicaciones.',
     categoria: 'Capacitaciones',
     formato: 'VIDEO',
     meta: '45 min'
@@ -233,7 +233,7 @@ const recursos = ref([
   {
     id: 6,
     titulo: 'Manual de onboarding inicial',
-    descripcion: 'Recorrido prÃ¡ctico para que la experiencia del nuevo talento empiece con claridad desde el primer dÃ­a.',
+    descripcion: 'Recorrido práctico para que la experiencia del nuevo talento empiece con claridad desde el primer día.',
     categoria: 'Reclutamiento',
     formato: 'PDF',
     meta: 'Onboarding'
@@ -242,8 +242,8 @@ const recursos = ref([
 
 // Quick links
 const quickLinks = [
-  { titulo: 'GuÃ­a de vacantes', accion: 'Abriendo guÃ­a para redactar vacantes efectivas' },
-  { titulo: 'Plantilla tÃ©cnica', accion: 'Abriendo plantilla de entrevista tÃ©cnica' },
+  { titulo: 'Guía de vacantes', accion: 'Abriendo guía para redactar vacantes efectivas' },
+  { titulo: 'Plantilla técnica', accion: 'Abriendo plantilla de entrevista técnica' },
   { titulo: 'Checklist de entrevistas', accion: 'Abriendo checklist para entrevistas' }
 ]
 
@@ -251,7 +251,7 @@ const quickLinks = [
 const searchTerm = ref('')
 const selectedCategory = ref('')
 
-// Computed: categorÃ­as Ãºnicas para el filtro
+// Computed: categorías únicas para el filtro
 const categoriasUnicas = computed(() => {
   const cats = recursos.value.map(r => r.categoria)
   return [...new Set(cats)]
@@ -277,11 +277,11 @@ const recursosFiltrados = computed(() => {
 const estadoMensaje = computed(() => {
   const total = recursosFiltrados.value.length
   if (total === recursos.value.length) return 'Mostrando todos los recursos disponibles.'
-  if (total > 0) return 'Mostrando solo los recursos que coinciden con tu bÃºsqueda.'
+  if (total > 0) return 'Mostrando solo los recursos que coinciden con tu búsqueda.'
   return 'No hubo coincidencias con los filtros actuales.'
 })
 
-// Contar recursos por categorÃ­a (para sidebar)
+// Contar recursos por categoría (para sidebar)
 const contarPorCategoria = (categoria) => {
   return recursos.value.filter(r => r.categoria === categoria).length
 }
@@ -294,10 +294,10 @@ const mostrarToast = (mensaje) => {
   toastInstance?.show()
 }
 
-// Aplicar filtros (solo fuerza la reactividad, ya estÃ¡ cubierta por computed)
+// Aplicar filtros (solo fuerza la reactividad, ya está cubierta por computed)
 const aplicarFiltros = () => {
-  // Los computados se actualizan automÃ¡ticamente por los v-model
-  // Esta funciÃ³n es Ãºtil por si se necesita lÃ³gica extra, pero aquÃ­ solo refresca.
+  // Los computados se actualizan automáticamente por los v-model
+  // Esta función es útil por si se necesita lógica extra, pero aquí solo refresca.
 }
 
 // Inicializar Toast de Bootstrap

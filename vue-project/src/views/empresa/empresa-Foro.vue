@@ -3,7 +3,7 @@
     <!-- ========== NAVBAR ========== -->
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
       <div class="container-fluid px-4 px-lg-5">
-        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.html">
+        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="/empresa/principal">
           <i class="bi bi-briefcase-fill brand-icon"></i>
           <div class="lh-sm ms-2">
             <span class="brand-text">Workly</span>
@@ -19,7 +19,7 @@
             <a href="/empresa/mis-vacantes" class="nav-link-custom text-decoration-none"><i class="bi bi-briefcase me-1"></i> Mis vacantes</a>
             <a href="/empresa/postulaciones" class="nav-link-custom text-decoration-none"><i class="bi bi-people me-1"></i> Postulaciones</a>
             <a href="/empresa/foro" class="nav-link-custom active text-decoration-none"><i class="bi bi-chat-dots me-1"></i> Foro</a>
-            <a href="/empresa/resena-empresa" class="nav-link-custom text-decoration-none"><i class="bi bi-star me-1"></i> ReseÃ±as</a>
+            <a href="/empresa/resena-empresa" class="nav-link-custom text-decoration-none"><i class="bi bi-star me-1"></i> Reseñas</a>
           </div>
           <div class="d-flex align-items-center justify-content-center gap-4 mt-3 mt-lg-0">
             <a href="/empresa/notificaciones" class="text-white position-relative d-inline-block">
@@ -38,7 +38,7 @@
     <main class="flex-grow-1 py-4">
       <div class="container-fluid px-4 px-lg-5">
         
-        <!-- Barra de bÃºsqueda y filtros -->
+        <!-- Barra de búsqueda y filtros -->
         <div class="filter-bar mb-4 p-3 d-flex align-items-center flex-wrap gap-3">
           <div class="d-flex align-items-center">
             <i class="bi bi-chat-dots-fill fs-2 me-2" style="color: var(--primary-deep);"></i>
@@ -51,7 +51,7 @@
             </div>
             <button class="btn btn-outline-primary-deep" @click="applySearch">Buscar</button>
             <select class="form-select w-auto rounded-pill bg-light border-0 fw-medium" v-model="selectedCategory">
-              <option value="">Todas las categorÃ­as</option>
+              <option value="">Todas las categorías</option>
               <option>Reclutamiento</option>
               <option>Consejos</option>
               <option>Vacantes</option>
@@ -65,7 +65,7 @@
         <div class="row g-4">
           <!-- Columna principal: Publicaciones -->
           <section class="col-12 col-lg-8">
-            <!-- Caja de nueva publicaciÃ³n -->
+            <!-- Caja de nueva publicación -->
             <div class="forum-card">
               <div class="d-flex gap-3 mb-3">
                 <div class="avatar-circle">{{ companyInitials }}</div>
@@ -89,7 +89,7 @@
               </div>
             </div>
 
-            <!-- Listado dinÃ¡mico de posts -->
+            <!-- Listado dinámico de posts -->
             <div v-for="post in filteredPosts" :key="post.id" class="forum-card">
               <div class="d-flex gap-3 mb-3">
                 <div class="avatar-circle">{{ post.authorInitials }}</div>
@@ -130,10 +130,10 @@
                   </button>
                 </div>
               </div>
-              <!-- Comentarios recientes (Ãºltimos 2) -->
+              <!-- Comentarios recientes (últimos 2) -->
               <div class="bg-light rounded-4 p-3 mt-3">
                 <div class="small fw-semibold mb-2">Comentarios recientes</div>
-                <div v-if="post.comments.length === 0" class="text-muted small">TodavÃ­a no hay comentarios en este tema.</div>
+                <div v-if="post.comments.length === 0" class="text-muted small">Todavía no hay comentarios en este tema.</div>
                 <div v-for="comment in getRecentComments(post.comments)" :key="comment.createdAt + comment.content" class="border rounded-4 bg-white p-3 mb-2">
                   <div class="fw-semibold small">{{ comment.author }}</div>
                   <div class="text-muted small mb-1">{{ formatRelativeDate(comment.createdAt) }}</div>
@@ -144,15 +144,15 @@
             <div v-if="filteredPosts.length === 0" class="forum-card text-center">
               <i class="bi bi-search fs-1 text-muted opacity-50"></i>
               <h5 class="fw-bold mt-3">No hay temas para esos filtros</h5>
-              <p class="text-muted mb-0">Prueba otra bÃºsqueda o publica un nuevo tema.</p>
+              <p class="text-muted mb-0">Prueba otra búsqueda o publica un nuevo tema.</p>
             </div>
           </section>
 
           <!-- Sidebar -->
           <aside class="col-12 col-lg-4">
-            <!-- CategorÃ­as populares -->
+            <!-- Categorías populares -->
             <div class="sidebar-card">
-              <h6 class="fw-bold mb-3 d-flex align-items-center"><i class="bi bi-tags me-2" style="color: var(--primary-deep);"></i>CategorÃ­as populares</h6>
+              <h6 class="fw-bold mb-3 d-flex align-items-center"><i class="bi bi-tags me-2" style="color: var(--primary-deep);"></i>Categorías populares</h6>
               <div class="d-flex flex-column gap-2">
                 <button v-for="cat in popularCategories" :key="cat.name" class="d-flex justify-content-between text-start text-decoration-none text-dark fw-medium p-2 rounded-3 border-0 bg-transparent"
                   :class="{ 'bg-light': selectedCategory === cat.name }" @click="selectedCategory = cat.name">
@@ -212,7 +212,7 @@
                     <i class="bi bi-type-italic cursor-pointer"></i>
                     <i class="bi bi-link-45deg cursor-pointer"></i>
                   </div>
-                  <textarea v-model="replyContent" class="form-control border-0 shadow-none p-3" rows="5" placeholder="Comparte tu experiencia o consejo aquÃ­..."></textarea>
+                  <textarea v-model="replyContent" class="form-control border-0 shadow-none p-3" rows="5" placeholder="Comparte tu experiencia o consejo aquí..."></textarea>
                 </div>
               </div>
               <div class="d-flex justify-content-end gap-2">
@@ -247,8 +247,8 @@
         <div class="d-flex flex-wrap justify-content-center gap-4 gap-md-5">
           <a href="#"><i class="bi bi-question-circle me-1"></i>Ayuda</a>
           <a href="#"><i class="bi bi-shield-lock me-1"></i>Privacidad</a>
-          <a href="#">TÃ©rminos</a>
-          <span class="text-white opacity-75">ðŸ’¼ Workly 2026 Â· Conectando talento</span>
+          <a href="#">Términos</a>
+          <span class="text-white opacity-75">💼 Workly 2026 · Conectando talento</span>
         </div>
       </div>
     </footer>
@@ -268,7 +268,7 @@ import {
   saveCompanyForumPosts
 } from '../../services/empresaForum.js'
 
-// ========== AutenticaciÃ³n ==========
+// ========== Autenticación ==========
 onBeforeMount(() => {
   requireAuth(['empresa'])
 })
@@ -315,7 +315,7 @@ const formatRelativeDate = (value) => {
   if (diffHours < 1) return 'Hace unos minutos'
   if (diffHours < 24) return `Hace ${diffHours}h`
   const diffDays = Math.floor(diffHours / 24)
-  return diffDays === 1 ? 'Ayer' : `Hace ${diffDays} dÃ­as`
+  return diffDays === 1 ? 'Ayer' : `Hace ${diffDays} días`
 }
 
 const getRecentComments = (comments) => {
@@ -349,7 +349,7 @@ const filteredPosts = computed(() => {
       p.category.toLowerCase().includes(term)
     )
   }
-  if (selectedCategory.value && selectedCategory.value !== 'Todas las categorÃ­as') {
+  if (selectedCategory.value && selectedCategory.value !== 'Todas las categorías') {
     result = result.filter(p => p.category === selectedCategory.value)
   }
   return result
@@ -362,7 +362,7 @@ const popularCategories = computed(() => {
     counts[cat] = (counts[cat] || 0) + 1
   })
   return [
-    { name: 'Todas las categorÃ­as', count: posts.value.length },
+    { name: 'Todas las categorías', count: posts.value.length },
     ...Object.entries(counts).map(([name, count]) => ({ name, count }))
   ]
 })
@@ -395,7 +395,7 @@ const publishTopic = () => {
   newPostContent.value = ''
   selectedCategoryForNew.value = 'Reclutamiento'
   refreshAndSave()
-  showToast('success', 'Tema publicado con Ã©xito en el foro.')
+  showToast('success', 'Tema publicado con éxito en el foro.')
 }
 
 const saveDraft = () => {
@@ -442,11 +442,11 @@ const submitReply = () => {
   replyContent.value = ''
   modalInstance?.hide()
   refreshAndSave()
-  showToast('success', 'Respuesta publicada con Ã©xito.')
+  showToast('success', 'Respuesta publicada con éxito.')
 }
 
 const applySearch = () => {
-  // No se necesita lÃ³gica extra, los computados se actualizan automÃ¡ticamente
+  // No se necesita lógica extra, los computados se actualizan automáticamente
 }
 
 const scrollToComposer = () => {

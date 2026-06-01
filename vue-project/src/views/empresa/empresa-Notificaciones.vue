@@ -3,7 +3,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-custom py-3">
       <div class="container-fluid px-4 px-lg-5">
-        <a class="navbar-brand text-white fw-bold fs-3 d-flex align-items-center gap-2" href="../principal/index.html">
+        <a class="navbar-brand text-white fw-bold fs-3 d-flex align-items-center gap-2" href="/empresa/principal">
           <i class="bi bi-briefcase-fill"></i>
           <span>Workly</span>
         </a>
@@ -12,7 +12,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarContent">
           <div class="navbar-nav mx-auto gap-2 mt-3 mt-lg-0">
-            <a href="../principal/index.html" class="nav-link-custom">Dashboard</a>
+            <a href="/empresa/principal" class="nav-link-custom">Dashboard</a>
             <a href="/empresa/publicar-vacante" class="nav-link-custom">Publicar</a>
             <a href="/empresa/mis-vacantes" class="nav-link-custom">Vacantes</a>
             <a href="/empresa/postulaciones" class="nav-link-custom">Postulaciones</a>

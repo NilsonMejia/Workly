@@ -12,8 +12,8 @@
             <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/usuarios">Usuarios</a></li>
             <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/empresas">Empresas</a></li>
             <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/vacantes">Vacantes</a></li>
-            <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/estadisticas">EstadÃ­sticas</a></li>
-            <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/moderacion">ModeraciÃ³n</a></li>
+            <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/estadisticas">Estadísticas</a></li>
+            <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/moderacion">Moderación</a></li>
           </ul>
           <div class="profile-wrapper ms-lg-3 d-flex align-items-center gap-3">
             <a href="/admin/principal" class="text-white position-relative text-decoration-none">
@@ -31,14 +31,14 @@
         <!-- Sidebar -->
         <aside class="col-12 col-lg-2">
           <div class="bento-card p-3 h-100">
-            <h6 class="text-muted fw-bold mb-4 ps-2 small text-uppercase">MenÃº Admin</h6>
+            <h6 class="text-muted fw-bold mb-4 ps-2 small text-uppercase">Menú Admin</h6>
             <div class="d-flex flex-column">
               <a href="/admin/principal" class="btn-menu-side active"><i class="bi bi-grid-fill me-2"></i> Dashboard</a>
-              <a href="/admin/usuarios" class="btn-menu-side text-nowrap"><i class="bi bi-people-fill me-2"></i> GestiÃ³n de Usuarios</a>
-              <a href="/admin/empresas" class="btn-menu-side text-nowrap"><i class="bi bi-building me-2"></i> GestiÃ³n de Empresas</a>
-              <a href="/admin/vacantes" class="btn-menu-side text-nowrap"><i class="bi bi-file-earmark-text me-2"></i> GestiÃ³n de Vacantes</a>
-              <a href="/admin/estadisticas" class="btn-menu-side"><i class="bi bi-bar-chart-fill me-2"></i> EstadÃ­sticas del Sistema</a>
-              <a href="/admin/moderacion" class="btn-menu-side"><i class="bi bi-shield-lock-fill me-2"></i> ModeraciÃ³n de Contenido</a>
+              <a href="/admin/usuarios" class="btn-menu-side text-nowrap"><i class="bi bi-people-fill me-2"></i> Gestión de Usuarios</a>
+              <a href="/admin/empresas" class="btn-menu-side text-nowrap"><i class="bi bi-building me-2"></i> Gestión de Empresas</a>
+              <a href="/admin/vacantes" class="btn-menu-side text-nowrap"><i class="bi bi-file-earmark-text me-2"></i> Gestión de Vacantes</a>
+              <a href="/admin/estadisticas" class="btn-menu-side"><i class="bi bi-bar-chart-fill me-2"></i> Estadísticas del Sistema</a>
+              <a href="/admin/moderacion" class="btn-menu-side"><i class="bi bi-shield-lock-fill me-2"></i> Moderación de Contenido</a>
             </div>
           </div>
         </aside>
@@ -141,26 +141,26 @@
               <div class="vstack gap-4">
                 <!-- Quick Access -->
                 <div class="bento-card p-4">
-                  <h6 class="fw-bold text-center mb-3">Accesos rÃ¡pidos</h6>
+                  <h6 class="fw-bold text-center mb-3">Accesos rápidos</h6>
                   <a class="btn-quick-access" href="/admin/usuarios">Usuarios</a>
                   <a class="btn-quick-access" href="/admin/empresas">Empresas</a>
                   <a class="btn-quick-access" href="/admin/vacantes">Vacantes</a>
-                  <a class="btn-quick-access" href="/admin/moderacion">ModeraciÃ³n</a>
+                  <a class="btn-quick-access" href="/admin/moderacion">Moderación</a>
                 </div>
 
                 <!-- Operational Summary -->
                 <div class="bento-card p-4">
                   <h6 class="fw-bold mb-3">Resumen operativo</h6>
                   <div class="d-flex justify-content-between mb-2 small">
-                    <span>Ãšltimos usuarios</span>
+                    <span>Últimos usuarios</span>
                     <strong>{{ ultimosUsuariosCount }}</strong>
                   </div>
                   <div class="d-flex justify-content-between mb-2 small">
-                    <span>Ãšltimas empresas</span>
+                    <span>Últimas empresas</span>
                     <strong>{{ ultimasEmpresasCount }}</strong>
                   </div>
                   <div class="d-flex justify-content-between mb-2 small">
-                    <span>Ãšltimas vacantes</span>
+                    <span>Últimas vacantes</span>
                     <strong>{{ ultimasVacantesCount }}</strong>
                   </div>
                   <div class="d-flex justify-content-between small">
@@ -171,7 +171,7 @@
 
                 <!-- Latest Vacancies -->
                 <div class="bento-card p-4">
-                  <h6 class="fw-bold mb-3">Ãšltimas vacantes</h6>
+                  <h6 class="fw-bold mb-3">Últimas vacantes</h6>
                   <div v-if="loading" class="small text-muted">Cargando...</div>
                   <div v-else id="ultimasVacantesBox">
                     <div v-if="!ultimasVacantes.length" class="small text-muted">No hay vacantes.</div>
@@ -219,14 +219,14 @@ const ultimasEmpresas = ref([])
 const ultimasVacantes = ref([])
 
 // ========== Computed ==========
-// Datos para el grÃ¡fico de barras (Usuarios, Empresas, Vacantes)
+// Datos para el gráfico de barras (Usuarios, Empresas, Vacantes)
 const chartData = computed(() => [
   { label: 'Usuarios', value: Number(metricas.value.total_usuarios || 0) },
   { label: 'Empresas', value: Number(metricas.value.total_empresas || 0) },
   { label: 'Vacantes', value: Number(metricas.value.total_vacantes || 0) }
 ])
 
-// Altura mÃ¡xima de la barra (130px) con mÃ­nimo 20px
+// Altura máxima de la barra (130px) con mínimo 20px
 const maxChartValue = computed(() => {
   const values = chartData.value.map(item => item.value)
   return Math.max(...values, 1)
@@ -237,7 +237,7 @@ const getBarHeight = (value) => {
   return Math.max(height, 20)
 }
 
-// Actividad reciente: 3 items a partir de los primeros elementos de cada categorÃ­a
+// Actividad reciente: 3 items a partir de los primeros elementos de cada categoría
 const actividadItems = computed(() => {
   const items = []
   if (ultimosUsuarios.value?.[0]) {
@@ -314,7 +314,7 @@ const cargarDashboard = async () => {
       return
     }
 
-    // Actualizar todas las mÃ©tricas
+    // Actualizar todas las métricas
     metricas.value = data.metricas || {
       total_usuarios: 0,
       total_empresas: 0,
@@ -326,7 +326,7 @@ const cargarDashboard = async () => {
     ultimasVacantes.value = data.ultimasVacantes || []
   } catch (error) {
     console.error('Error al cargar dashboard:', error)
-    showAlert('Error de conexiÃ³n con el servidor.')
+    showAlert('Error de conexión con el servidor.')
   } finally {
     loading.value = false
   }
@@ -337,7 +337,7 @@ onBeforeMount(() => {
   try {
     requireAuth(['admin'])
   } catch (error) {
-    console.error('Error de autenticaciÃ³n:', error)
+    console.error('Error de autenticación:', error)
     redirectToLogin()
   }
 })

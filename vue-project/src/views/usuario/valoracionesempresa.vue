@@ -2,11 +2,11 @@
   <div class="d-flex flex-column min-vh-100 body-ratings">
     <nav class="navbar navbar-expand-lg navbar-custom py-3">
       <div class="container-fluid px-4 px-lg-5">
-        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="#">
+        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="/usuario/principal">
           <i class="bi bi-briefcase-fill brand-icon"></i>
           <div class="lh-sm ms-2">
             <span class="brand-text">Workly</span>
-            <span class="brand-sub">Tu bÃºsqueda de trabajo profesional</span>
+            <span class="brand-sub">Tu búsqueda de trabajo profesional</span>
           </div>
         </a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
@@ -14,17 +14,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarContent">
           <div class="navbar-nav mx-auto gap-2 mt-3 mt-lg-0">
-            <a href="#" class="nav-link-custom"><i class="bi bi-search me-1"></i> Buscar empleo</a>
-            <a href="#" class="nav-link-custom"><i class="bi bi-journal-bookmark-fill me-1"></i> Recursos</a>
-            <a href="#" class="nav-link-custom active"><i class="bi bi-star-fill me-1"></i> Valoraciones</a>
-            <a href="#" class="nav-link-custom"><i class="bi bi-person-badge me-1"></i> Mi Perfil</a>
+            <a href="/usuario/buscar-empleo" class="nav-link-custom"><i class="bi bi-search me-1"></i> Buscar empleo</a>
+            <a href="/usuario/recursos" class="nav-link-custom"><i class="bi bi-journal-bookmark-fill me-1"></i> Recursos</a>
+            <a href="/usuario/valoraciones-empresa" class="nav-link-custom active"><i class="bi bi-star-fill me-1"></i> Valoraciones</a>
+            <a href="/usuario/mi-perfil" class="nav-link-custom"><i class="bi bi-person-badge me-1"></i> Mi Perfil</a>
           </div>
           <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-            <a href="#" class="text-white position-relative text-decoration-none">
+            <a href="/usuario/notificaciones" class="text-white position-relative text-decoration-none">
               <i class="bi bi-bell-fill fs-3"></i>
               <span class="notification-badge">0</span>
             </a>
-            <a href="#" class="text-white text-decoration-none">
+            <a href="/usuario/mi-perfil" class="text-white text-decoration-none">
               <i class="bi bi-person-circle fs-2"></i>
             </a>
           </div>
@@ -84,7 +84,7 @@
                       </div>
                       <div class="text-end flex-shrink-0">
                         <div class="fw-bold">{{ empresa.promedio || "0.0" }}</div>
-                        <small class="text-muted d-block">{{ empresa.total_valoraciones || 0 }} reseÃ±as</small>
+                        <small class="text-muted d-block">{{ empresa.total_valoraciones || 0 }} reseñas</small>
                       </div>
                     </div>
                   </article>
@@ -97,7 +97,7 @@
                 <div class="d-flex flex-column flex-lg-row justify-content-between gap-4">
                   <div>
                     <h2 class="h4 fw-bold mb-1">{{ empresaSeleccionada.nombre_comercial }}</h2>
-                    <p class="text-muted mb-2">{{ empresaSeleccionada.descripcion_empresa || "Empresa sin descripciÃ³n registrada." }}</p>
+                    <p class="text-muted mb-2">{{ empresaSeleccionada.descripcion_empresa || "Empresa sin descripción registrada." }}</p>
                     <div class="text-muted small">
                       {{ [empresaSeleccionada.nombre_municipio, empresaSeleccionada.nombre_departamento].filter(Boolean).join(", ") || "El Salvador" }}
                     </div>
@@ -114,13 +114,13 @@
 
               <div class="surface-card p-4 mb-4">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
-                  <h2 class="h5 fw-bold mb-0">Escribe tu valoraciÃ³n</h2>
+                  <h2 class="h5 fw-bold mb-0">Escribe tu valoración</h2>
                   <span :class="badgeClass" id="estadoPermiso">{{ badgeText }}</span>
                 </div>
                 
                 <form id="formValoracion" class="row g-3" @submit.prevent="guardarValoracion">
                   <div class="col-12">
-                    <label class="form-label fw-semibold">PuntuaciÃ³n</label>
+                    <label class="form-label fw-semibold">Puntuación</label>
                     <div class="d-flex gap-1" id="starRating">
                       <button 
                         v-for="star in 5" 
@@ -142,7 +142,7 @@
                       class="form-control form-control-lg rounded-4" 
                       rows="4" 
                       maxlength="600" 
-                      placeholder="CuÃ©ntale a otros candidatos cÃ³mo fue tu experiencia."
+                      placeholder="Cuéntale a otros candidatos cómo fue tu experiencia."
                       :disabled="isFormDisabled"
                     ></textarea>
                   </div>
@@ -172,7 +172,7 @@
                   </template>
                   <template v-else>
                     <div class="text-center py-4 text-muted border rounded-4 bg-light">
-                      Esta empresa todavÃ­a no tiene comentarios publicados.
+                      Esta empresa todavía no tiene comentarios publicados.
                     </div>
                   </template>
                 </div>
@@ -186,7 +186,7 @@
 
     <footer class="footer-custom py-4 mt-auto text-center text-white-50">
       <div class="container">
-        <span>Workly 2026 Â· Opiniones transparentes para tomar mejores decisiones</span>
+        <span>Workly 2026 · Opiniones transparentes para tomar mejores decisiones</span>
       </div>
     </footer>
   </div>
@@ -197,7 +197,7 @@ import { ref, reactive, computed, onMounted } from "vue";
 import { API_URL, getToken } from "../../services/api.js";
 import { requireAuth } from "../../services/api.js";
 
-// EjecuciÃ³n del guard de autenticaciÃ³n
+// Ejecución del guard de autenticación
 requireAuth(["usuario"]);
 
 // Estados Reactivos
@@ -217,7 +217,7 @@ const form = reactive({
   comentario: ""
 });
 
-// Headers estÃ¡ticos
+// Headers estáticos
 const authHeaders = () => ({
   Authorization: `Bearer ${getToken()}`
 });
@@ -244,7 +244,7 @@ const renderStars = (value) => {
   ).join("");
 };
 
-// Computeds para la gestiÃ³n de permisos en la UI
+// Computeds para la gestión de permisos en la UI
 const puedeValorar = computed(() => Number(empresaSeleccionada.value?.puede_valorar || 0) === 1);
 const yaValoro = computed(() => Number(empresaSeleccionada.value?.ya_valoro || 0) === 1);
 
@@ -262,16 +262,16 @@ const badgeClass = computed(() => {
 const badgeText = computed(() => {
   if (yaValoro.value) return "Ya valoraste esta empresa. Puedes editar tu comentario.";
   if (puedeValorar.value) return "Puedes valorar esta empresa";
-  return "Solo puedes valorar si postulaste o trabajaste aquÃ­";
+  return "Solo puedes valorar si postulaste o trabajaste aquí";
 });
 
 const buttonText = computed(() => {
-  if (yaValoro.value) return "Actualizar valoraciÃ³n";
-  if (isFormDisabled.value) return "ValoraciÃ³n bloqueada";
-  return "Enviar valoraciÃ³n";
+  if (yaValoro.value) return "Actualizar valoración";
+  if (isFormDisabled.value) return "Valoración bloqueada";
+  return "Enviar valoración";
 });
 
-// SincronizaciÃ³n del formulario reactivo
+// Sincronización del formulario reactivo
 const hydrateForm = () => {
   if (miValoracion.value) {
     form.puntuacion = Number(miValoracion.value.puntuacion || 0);
@@ -282,7 +282,7 @@ const hydrateForm = () => {
   }
 };
 
-// SelecciÃ³n inteligente inicial
+// Selección inteligente inicial
 const getPreferredEmpresaId = () => {
   const urlId = Number(new URLSearchParams(window.location.search).get("id_empresa"));
   if (urlId) return urlId;
@@ -321,7 +321,7 @@ const seleccionarEmpresa = async (idEmpresa) => {
 
   hydrateForm();
 
-  // ActualizaciÃ³n de Query Params sin recargar la pestaÃ±a
+  // Actualización de Query Params sin recargar la pestaña
   const url = new URL(window.location.href);
   url.searchParams.set("id_empresa", idEmpresa);
   window.history.replaceState({}, "", url);
@@ -339,7 +339,7 @@ const guardarValoracion = async () => {
   try {
     if (!empresaSeleccionada.value) throw new Error("Selecciona una empresa para valorar.");
     if (isFormDisabled.value && !yaValoro.value) throw new Error("No tienes permiso para valorar esta empresa.");
-    if (form.puntuacion < 1) throw new Error("Selecciona una puntuaciÃ³n de 1 a 5 estrellas.");
+    if (form.puntuacion < 1) throw new Error("Selecciona una puntuación de 1 a 5 estrellas.");
     if (!form.comentario.trim()) throw new Error("Escribe un comentario antes de enviar.");
 
     const isEditing = Boolean(miValoracion.value?.id_valoracion);
@@ -361,14 +361,14 @@ const guardarValoracion = async () => {
     });
 
     const data = await response.json();
-    if (!response.ok) throw new Error(data.mensaje || "No se pudo guardar la valoraciÃ³n");
+    if (!response.ok) throw new Error(data.mensaje || "No se pudo guardar la valoración");
 
     showAlert(data.mensaje, "success");
     await cargarEmpresas();
     await seleccionarEmpresa(Number(empresaSeleccionada.value.id_empresa));
   } catch (error) {
     console.error(error);
-    showAlert(error.message || "No se pudo enviar la valoraciÃ³n");
+    showAlert(error.message || "No se pudo enviar la valoración");
   }
 };
 

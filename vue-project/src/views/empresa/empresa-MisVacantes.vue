@@ -3,7 +3,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg py-3 navbar-custom">
       <div class="container-fluid px-4 px-lg-5">
-        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="../principal/index.html">
+        <a class="navbar-brand d-flex align-items-center text-decoration-none" href="/empresa/principal">
           <i class="bi bi-briefcase-fill brand-icon"></i>
           <div class="lh-sm ms-2">
             <span class="brand-text">Workly</span>
@@ -19,7 +19,7 @@
             <a href="/empresa/mis-vacantes" class="nav-link-custom active text-decoration-none"><i class="bi bi-briefcase me-1"></i> Mis vacantes</a>
             <a href="/empresa/postulaciones" class="nav-link-custom text-decoration-none"><i class="bi bi-people me-1"></i> Postulaciones</a>
             <a href="/empresa/foro" class="nav-link-custom text-decoration-none"><i class="bi bi-chat-dots me-1"></i> Foro</a>
-            <a href="/empresa/resena-empresa" class="nav-link-custom text-decoration-none"><i class="bi bi-star me-1"></i> ReseÃ±as</a>
+            <a href="/empresa/resena-empresa" class="nav-link-custom text-decoration-none"><i class="bi bi-star me-1"></i> Reseñas</a>
           </div>
           <div class="d-flex align-items-center justify-content-center gap-4 mt-3 mt-lg-0">
             <a href="/empresa/notificaciones" class="text-white position-relative d-inline-block">
@@ -45,7 +45,7 @@
           <div class="d-flex gap-2 align-items-center mt-2 mt-sm-0">
             <div class="input-group" style="max-width: 260px;">
               <span class="input-group-text bg-transparent border-0 text-muted"><i class="bi bi-search"></i></span>
-              <input type="text" class="form-control bg-transparent border-0 shadow-none" placeholder="Buscar por tÃ­tulo..." v-model="searchTerm" @input="renderVacantes">
+              <input type="text" class="form-control bg-transparent border-0 shadow-none" placeholder="Buscar por título..." v-model="searchTerm" @input="renderVacantes">
             </div>
             <div class="d-flex gap-2">
               <span class="status-badge status-active cursor-pointer" :style="{ opacity: currentFilter === 'Activa' ? 1 : 0.6 }" @click="setFilter('Activa')">Activas</span>
@@ -60,7 +60,7 @@
             <div class="sidebar-card">
               <div class="d-flex align-items-center gap-3 mb-4">
                 <div class="bg-light p-3 rounded-4"><i class="bi bi-bar-chart-line fs-3" style="color: var(--primary-deep);"></i></div>
-                <div><h6 class="fw-bold mb-0">Resumen</h6><span class="text-secondary small">Ãšltimos 30 dÃ­as</span></div>
+                <div><h6 class="fw-bold mb-0">Resumen</h6><span class="text-secondary small">Últimos 30 días</span></div>
               </div>
               <div class="mb-3">
                 <div class="d-flex justify-content-between small fw-medium mb-1"><span>Vistas totales</span><span class="fw-bold">1,245</span></div>
@@ -72,10 +72,10 @@
               </div>
               <hr class="my-3">
               <div class="list-group list-group-flush">
-                <a href="../principal/index.html" class="list-group-item border-0 px-0 py-2 d-flex align-items-center gap-2 text-secondary"><i class="bi bi-grid"></i> Vista general</a>
+                <a href="/empresa/principal" class="list-group-item border-0 px-0 py-2 d-flex align-items-center gap-2 text-secondary"><i class="bi bi-grid"></i> Vista general</a>
                 <a href="/empresa/mis-vacantes" class="list-group-item border-0 px-0 py-2 d-flex align-items-center gap-2 fw-bold" style="color: var(--primary-deep);"><i class="bi bi-briefcase-fill"></i> Mis vacantes</a>
                 <a href="/empresa/postulaciones" class="list-group-item border-0 px-0 py-2 d-flex align-items-center gap-2 text-secondary"><i class="bi bi-people"></i> Postulantes</a>
-                <a href="#" class="list-group-item border-0 px-0 py-2 d-flex align-items-center gap-2 text-secondary" data-bs-toggle="modal" data-bs-target="#modalEstadisticas" @click.prevent="openStatsModal"><i class="bi bi-graph-up"></i> EstadÃ­sticas</a>
+                <a href="#" class="list-group-item border-0 px-0 py-2 d-flex align-items-center gap-2 text-secondary" data-bs-toggle="modal" data-bs-target="#modalEstadisticas" @click.prevent="openStatsModal"><i class="bi bi-graph-up"></i> Estadísticas</a>
               </div>
               <button class="btn btn-outline-primary w-100 mt-4 rounded-pill" @click="goToCreate"> <i class="bi bi-plus-lg me-1"></i> Nueva vacante</button>
             </div>
@@ -104,7 +104,7 @@
                       <div class="bg-light p-2 rounded-3"><i class="bi bi-briefcase fs-5" style="color: var(--primary-deep);"></i></div>
                       <div>
                         <h6 class="fw-bold mb-0">{{ vac.titulo_puesto }}</h6>
-                        <span class="text-secondary small">{{ vac.nombre_categoria || 'Sin categorÃ­a' }} Â· {{ vac.nombre_municipio || 'Sin ubicaciÃ³n' }} Â· {{ vac.modalidad || 'N/D' }}</span>
+                        <span class="text-secondary small">{{ vac.nombre_categoria || 'Sin categoría' }} · {{ vac.nombre_municipio || 'Sin ubicación' }} · {{ vac.modalidad || 'N/D' }}</span>
                       </div>
                     </div>
                   </div>
@@ -130,12 +130,12 @@
       </div>
     </main>
 
-    <!-- Modal EstadÃ­sticas -->
+    <!-- Modal Estadísticas -->
     <div class="modal fade" id="modalEstadisticas" tabindex="-1" aria-hidden="true" ref="statsModalRef">
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content border-0 rounded-4 shadow-lg">
           <div class="modal-header border-bottom-0 pb-0 px-4 pt-4">
-            <h4 class="modal-title fw-bold" style="color: #121826;">EstadÃ­sticas de Mis Vacantes</h4>
+            <h4 class="modal-title fw-bold" style="color: #121826;">Estadísticas de Mis Vacantes</h4>
             <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body px-4 py-4">
@@ -158,7 +158,7 @@
                 <div class="bg-light p-4 rounded-4 text-center h-100">
                   <i class="bi bi-lightning-fill fs-1 mb-2" style="color: #f39c12;"></i>
                   <h2 class="fw-bold mb-1">{{ conversionRate }}%</h2>
-                  <p class="text-secondary small fw-medium mb-0">Tasa de conversiÃ³n</p>
+                  <p class="text-secondary small fw-medium mb-0">Tasa de conversión</p>
                 </div>
               </div>
             </div>
@@ -187,8 +187,8 @@
         <div class="d-flex flex-wrap justify-content-center gap-4 gap-md-5">
           <a href="#"><i class="bi bi-question-circle me-1"></i>Ayuda</a>
           <a href="#"><i class="bi bi-shield-lock me-1"></i>Privacidad</a>
-          <a href="#">TÃ©rminos</a>
-          <span class="text-white opacity-75">ðŸ’¼ Workly 2026 Â· Conectando talento</span>
+          <a href="#">Términos</a>
+          <span class="text-white opacity-75">💼 Workly 2026 · Conectando talento</span>
         </div>
       </div>
     </footer>
@@ -269,7 +269,7 @@ const cargarVacantes = async () => {
 }
 
 const toggleEstado = async (id, nuevoEstado) => {
-  if (!confirm(`Â¿Seguro que deseas ${nuevoEstado === 'Activa' ? 'reactivar' : 'desactivar'} esta vacante?`)) return
+  if (!confirm(`¿Seguro que deseas ${nuevoEstado === 'Activa' ? 'reactivar' : 'desactivar'} esta vacante?`)) return
   try {
     const res = await fetch(`${API_URL}/vacantes/${id}/estado`, {
       method: 'PATCH',
@@ -284,7 +284,7 @@ const toggleEstado = async (id, nuevoEstado) => {
 }
 
 const eliminarVacante = async (id) => {
-  if (!confirm('Â¿Seguro que quieres eliminar esta vacante? Esta acciÃ³n no se puede deshacer.')) return
+  if (!confirm('¿Seguro que quieres eliminar esta vacante? Esta acción no se puede deshacer.')) return
   try {
     const res = await fetch(`${API_URL}/vacantes/${id}`, { method: 'DELETE', headers: authHeaders() })
     if (!res.ok) throw new Error('No se pudo eliminar')

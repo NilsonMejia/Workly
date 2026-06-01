@@ -13,7 +13,7 @@
             <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/usuarios">Usuarios</a></li>
             <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/empresas">Empresas</a></li>
             <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/vacantes">Vacantes</a></li>
-            <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/estadisticas">EstadÃ­sticas</a></li>
+            <li class="nav-item"><a class="nav-link nav-link-custom" href="/admin/estadisticas">Estadísticas</a></li>
           </ul>
           <div class="profile-wrapper ms-lg-3">
             <i class="bi bi-person-circle fs-2 text-white" style="cursor: pointer;"></i>
@@ -28,14 +28,14 @@
         <!-- Sidebar -->
         <aside class="col-12 col-lg-2">
           <div class="bento-card p-3 h-100">
-            <h6 class="text-muted fw-bold mb-4 ps-2 small text-uppercase">MenÃº Admin</h6>
+            <h6 class="text-muted fw-bold mb-4 ps-2 small text-uppercase">Menú Admin</h6>
             <div class="d-flex flex-column">
               <a href="/admin/principal" class="btn btn-menu-side"><i class="bi bi-grid-fill me-2"></i> Dashboard</a>
-              <a href="/admin/usuarios" class="btn btn-menu-side text-nowrap"><i class="bi bi-people-fill me-2"></i> GestiÃ³n de Usuarios</a>
-              <a href="/admin/empresas" class="btn btn-menu-side text-nowrap"><i class="bi bi-building me-2"></i> GestiÃ³n de Empresas</a>
-              <a href="/admin/vacantes" class="btn btn-menu-side text-nowrap"><i class="bi bi-file-earmark-text me-2"></i> GestiÃ³n de Vacantes</a>
-              <a href="/admin/estadisticas" class="btn btn-menu-side active"><i class="bi bi-bar-chart-fill me-2"></i> EstadÃ­sticas del Sistema</a>
-              <a href="/admin/moderacion" class="btn btn-menu-side"><i class="bi bi-shield-lock-fill me-2"></i> ModeraciÃ³n</a>
+              <a href="/admin/usuarios" class="btn btn-menu-side text-nowrap"><i class="bi bi-people-fill me-2"></i> Gestión de Usuarios</a>
+              <a href="/admin/empresas" class="btn btn-menu-side text-nowrap"><i class="bi bi-building me-2"></i> Gestión de Empresas</a>
+              <a href="/admin/vacantes" class="btn btn-menu-side text-nowrap"><i class="bi bi-file-earmark-text me-2"></i> Gestión de Vacantes</a>
+              <a href="/admin/estadisticas" class="btn btn-menu-side active"><i class="bi bi-bar-chart-fill me-2"></i> Estadísticas del Sistema</a>
+              <a href="/admin/moderacion" class="btn btn-menu-side"><i class="bi bi-shield-lock-fill me-2"></i> Moderación</a>
             </div>
           </div>
         </aside>
@@ -43,7 +43,7 @@
         <!-- Main Content -->
         <div class="col-12 col-lg-10">
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="fw-bold m-0" style="color: var(--azul-oscuro)">EstadÃ­sticas del Sistema</h4>
+            <h4 class="fw-bold m-0" style="color: var(--azul-oscuro)">Estadísticas del Sistema</h4>
           </div>
 
           <!-- Alert Container -->
@@ -58,7 +58,7 @@
             <div class="col-md-3">
               <div class="bento-card p-3 text-center">
                 <h2 class="stat-number mb-0">{{ categorias.length }}</h2>
-                <p class="mb-0 fw-semibold">CategorÃ­as con vacantes</p>
+                <p class="mb-0 fw-semibold">Categorías con vacantes</p>
                 <small class="text-muted">Datos actuales</small>
               </div>
             </div>
@@ -72,7 +72,7 @@
             <div class="col-md-3">
               <div class="bento-card p-3 text-center">
                 <h2 class="stat-number mb-0">{{ estados.length }}</h2>
-                <p class="mb-0 fw-semibold">Estados de postulaciÃ³n</p>
+                <p class="mb-0 fw-semibold">Estados de postulación</p>
                 <small class="text-muted">Datos actuales</small>
               </div>
             </div>
@@ -89,14 +89,14 @@
           <div class="row g-4 mb-4">
             <div class="col-lg-8">
               <div class="bento-card p-4 h-100">
-                <h6 class="fw-bold mb-4">Vacantes por categorÃ­a</h6>
+                <h6 class="fw-bold mb-4">Vacantes por categoría</h6>
                 <div v-if="loading" class="d-flex justify-content-center py-5">
                   <div class="spinner-border text-primary" role="status">
                     <span class="visually-hidden">Cargando...</span>
                   </div>
                 </div>
                 <div v-else-if="!topCategories.length" class="empty-box text-center py-5">
-                  No hay datos de categorÃ­as.
+                  No hay datos de categorías.
                 </div>
                 <div v-else class="d-flex justify-content-around align-items-end" style="height: 300px; border-bottom: 2px solid #eee;">
                   <div v-for="item in topCategories" :key="item.nombre_categoria" class="text-center bar-wrap">
@@ -133,7 +133,7 @@
           <div class="row g-4">
             <div class="col-lg-8">
               <div class="bento-card p-4">
-                <h6 class="fw-bold mb-3">Empresas con mÃ¡s vacantes</h6>
+                <h6 class="fw-bold mb-3">Empresas con más vacantes</h6>
                 <div class="table-responsive">
                   <table class="table table-borderless align-middle">
                     <thead class="text-muted small">
@@ -180,9 +180,9 @@
                 </div>
 
                 <div class="bento-card p-4">
-                  <h6 class="fw-bold mb-3">Resumen rÃ¡pido</h6>
+                  <h6 class="fw-bold mb-3">Resumen rápido</h6>
                   <div class="d-flex justify-content-between mb-2">
-                    <span>CategorÃ­as</span>
+                    <span>Categorías</span>
                     <strong>{{ categorias.length }}</strong>
                   </div>
                   <div class="d-flex justify-content-between mb-2">
@@ -231,47 +231,47 @@ const modalidades = ref([])
 const estados = ref([])
 const empresas = ref([])
 
-// Top 6 categorÃ­as para el grÃ¡fico de barras
+// Top 6 categorías para el gráfico de barras
 const topCategories = computed(() => {
   return categorias.value.slice(0, 6)
 })
 
-// MÃ¡ximo total de vacantes entre las categorÃ­as top (para calcular altura de barras)
+// Máximo total de vacantes entre las categorías top (para calcular altura de barras)
 const maxTotal = computed(() => {
   if (!topCategories.value.length) return 1
   return Math.max(...topCategories.value.map(x => Number(x.total || 0)), 1)
 })
 
-// FunciÃ³n para mostrar alertas
+// Función para mostrar alertas
 const showAlert = (message, type = 'danger') => {
   alertMessage.value = message
   alertType.value = type
-  // Ocultar alerta despuÃ©s de 5 segundos
+  // Ocultar alerta después de 5 segundos
   setTimeout(() => {
     alertMessage.value = ''
   }, 5000)
 }
 
-// Limpiar sesiÃ³n y redirigir al login
+// Limpiar sesión y redirigir al login
 const clearSession = () => {
   localStorage.removeItem('token')
   window.location.href = '/login'
 }
 
-// Calcular altura de barra (mÃ¡ximo 220px, mÃ­nimo 30px)
+// Calcular altura de barra (máximo 220px, mínimo 30px)
 const getBarHeight = (total) => {
   const totalNum = Number(total || 0)
   const height = (totalNum / maxTotal.value) * 220
   return Math.max(height, 30)
 }
 
-// Headers de autenticaciÃ³n
+// Headers de autenticación
 const authHeaders = () => ({
   'Authorization': `Bearer ${getToken()}`,
   'Content-Type': 'application/json'
 })
 
-// Cargar estadÃ­sticas desde el API
+// Cargar estadísticas desde el API
 const cargarEstadisticas = async () => {
   loading.value = true
   try {
@@ -292,7 +292,7 @@ const cargarEstadisticas = async () => {
     }
 
     if (!response.ok) {
-      showAlert(data.mensaje || 'No se pudieron cargar las estadÃ­sticas.')
+      showAlert(data.mensaje || 'No se pudieron cargar las estadísticas.')
       return
     }
 
@@ -303,19 +303,19 @@ const cargarEstadisticas = async () => {
     empresas.value = data.empresasConMasVacantes || []
     
   } catch (error) {
-    console.error('Error al cargar estadÃ­sticas:', error)
-    showAlert('Error de conexiÃ³n con el servidor.')
+    console.error('Error al cargar estadísticas:', error)
+    showAlert('Error de conexión con el servidor.')
   } finally {
     loading.value = false
   }
 }
 
-// Verificar autenticaciÃ³n antes de montar el componente
+// Verificar autenticación antes de montar el componente
 onBeforeMount(() => {
   try {
     requireAuth(['admin'])
   } catch (error) {
-    console.error('Error de autenticaciÃ³n:', error)
+    console.error('Error de autenticación:', error)
     clearSession()
   }
 })
