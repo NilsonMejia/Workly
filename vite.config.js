@@ -2,11 +2,13 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
 export default defineConfig({
-  root: "frontend",
   plugins: [vue()],
   build: {
-    outDir: "dist",
-    emptyOutDir: true
+    outDir: "frontend/dist",
+    emptyOutDir: true,
+    rollupOptions: {
+      input: "index.html"
+    }
   },
   server: {
     port: 5173,

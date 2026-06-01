@@ -37,10 +37,17 @@ const frontendDir = path.join(__dirname, "../frontend");
 const frontendDistDir = path.join(frontendDir, "dist");
 const frontendViewsDir = path.join(frontendDir, "views");
 const frontendAssetsDir = path.join(frontendDir, "assets");
+const isProduction = process.env.NODE_ENV === "production";
 
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+
+if (!isProduction) {
+  app.get("/", (req, res) => {
+    res.redirect("http://localhost:5173/");
+  });
+}
 
 app.use(express.static(frontendDistDir));
 app.use(express.static(frontendDir));
